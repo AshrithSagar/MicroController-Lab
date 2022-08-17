@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 01:23:04 PAGE     1
+A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 02:19:09 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -10,21 +10,75 @@ LOC  OBJ            LINE     SOURCE
 
                        1     ; Multiply two 16-bit hex numbers and store the product.
                        2     
-                       3     ; ASSUME THE NUMBERS ARE STORED IN R0, R1, R2, R3
-                       4     
-0000                   5     ORG 0000H                               ; ORIGINATE
-0000 0102              6     AJMP START                              ; JUMP TO THE LABEL START
-                       7     
-0002                   8     START:
-0002 E8                9             MOV A, R0                       ; LSB 1
-0003 F5F0             10             MOV 0F0H, A             ; COPY IN B
-0005 EA               11             MOV A, R2                       ; LSB 2
-0006 A4               12             MUL AB                          ; LSB 1 TIMES LSB 2
-                      13             ; WILL STORE THE PRODUCT USING THE STACK POINTER
-0007 C0E0             14             PUSH 0E0H
-                      15             END
-                                             
-A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 01:23:04 PAGE     2
+                       3     ; ASSUME THE NUMBERS ARE STORED IN EXTERNAL LOCATION 1000H TO 1003H
+                       4     ; WILL STORE THE PRODUCT IN R4, R5, R6, R7
+                       5     
+0000                   6     ORG 0000H                               ; ORIGINATE
+0000 0102              7     AJMP START                              ; JUMP TO THE LABEL START
+                       8     
+0002                   9     START:
+0002 C3               10             CLR C                           ; CLEAR CARRY
+0003 7B00             11             MOV R3, #00H            ; CLEAR R3
+0005 7C00             12             MOV R4, #00H            ; CLEAR R4
+0007 7D00             13             MOV R5, #00H            ; CLEAR R5
+0009 7E00             14             MOV R6, #00H            ; CLEAR R6
+000B 7F00             15             MOV R7, #00H            ; CLEAR R7
+                      16     
+000D 901000           17             MOV DPTR, #1000H        ; LSB_1
+0010 E0               18             MOVX A, @DPTR           ; GET EXTERNAL DATA
+0011 F5F0             19             MOV 0F0H, A             ; COPY IN B
+0013 901002           20             MOV DPTR, #1002H        ; LSB_2
+0016 E0               21             MOVX A, @DPTR           ; GET EXTERNAL DATA
+0017 A4               22             MUL AB                          ; LSB_1 TIMES LSB_2
+0018 FC               23             MOV R4, A                       ; LSB OF CURRENT PRODUCT
+0019 E5F0             24             MOV A, B                        ; COPY TO A
+001B FD               25             MOV R5, A                       ; MSB OF CURRENT PRODUCT
+                      26     
+001C 901001           27             MOV DPTR, #1001H        ; MSB_1
+001F E0               28             MOVX A, @DPTR           ; GET EXTERNAL DATA
+0020 F5F0             29             MOV 0F0H, A             ; COPY IN B
+0022 901002           30             MOV DPTR, #1002H        ; LSB_2
+0025 E0               31             MOVX A, @DPTR           ; GET EXTERNAL DATA
+0026 A4               32             MUL AB                          ; MSB_1 TIMES LSB_2
+0027 2D               33             ADD A, R5                       ; LSB OF CURRENT PRODUCT
+0028 FD               34             MOV R5, A                       ; STORE THE PRODUCT
+0029 E5F0             35             MOV A, B                        ; COPT TO A
+002B 3E               36             ADDC A, R6                      ; MSB OF CURRENT PRODUCT. R6 IS 00H
+002C FE               37             MOV R6, A                       ; STORE THE PRODUCT
+                      38     
+002D 901000           39             MOV DPTR, #1000H        ; LSB_1
+0030 E0               40             MOVX A, @DPTR           ; GET EXTERNAL DATA
+0031 F5F0             41             MOV 0F0H, A             ; COPY IN B
+0033 901003           42             MOV DPTR, #1003H        ; MSB_2
+0036 E0               43             MOVX A, @DPTR           ; GET EXTERNAL DATA
+0037 A4               44             MUL AB                          ; LSB_1 TIMES MSB_2
+0038 2D               45             ADD A, R5                       ; LSB OF CURRENT PRODUCT
+0039 FD               46             MOV R5, A                       ; STORE THE PRODUCT
+003A E5F0             47             MOV A, B                        ; COPY TO A
+003C 3E               48             ADDC A, R6                      ; MSB OF CURRENT PRODUCT
+003D FE               49             MOV R6, A                       ; STORE THE PRODUCT
+                      50     
+003E 5001             51             JNC NOCARR
+0040 0B               52             INC R3                          ; INCREMENT IF CARRY
+                      53     
+0041                  54     NOCARR: 
+0041 901001           55             MOV DPTR, #1001H        ; MSB_1
+0044 E0               56             MOVX A, @DPTR           ; GET EXTERNAL DATA
+0045 F5F0             57             MOV 0F0H, A             ; COPY IN B
+A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 02:19:09 PAGE     2
+
+0047 901003           58             MOV DPTR, #1003H        ; MSB_2
+004A E0               59             MOVX A, @DPTR           ; GET EXTERNAL DATA
+004B A4               60             MUL AB                          ; MSB_1 TIMES MSB_2
+004C 2E               61             ADD A, R6                       ; LSB OF CURRENT PRODUCT
+004D FE               62             MOV R6, A                       ; STORE THE PRODUCT
+004E E5F0             63             MOV A, B                        ; COPY TO A
+0050 3F               64             ADDC A, R7                      ; MSB OF CURRENT PRODUCT. R7 IS 00H
+0051 2B               65             ADD A, R3                       ; ADD CARRY FROM PREVIOUS STEP, IN CASE
+0052 FF               66             MOV R7, A                       ; STORE THE PRODUCT
+                      67     
+                      68             END
+A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 02:19:09 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -32,6 +86,8 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
+B. . . . . . . . .  D ADDR   00F0H   A   
+NOCARR . . . . . .  C ADDR   0041H   A   
 START. . . . . . .  C ADDR   0002H   A   
 
 
