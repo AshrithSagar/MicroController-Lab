@@ -1,0 +1,49 @@
+A51 MACRO ASSEMBLER  E1_5                                                                 08/11/2022 09:09:06 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\E1_5.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E1_5.ASM SET(SMALL) DEBUG PRINT(.\Listings\E1_5.lst) OBJECT(.\Objects\E
+                      1_5.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000 7899              1     MOV R0, #99H    ; JUST MOVE AROUND
+
+0002 7985              2     MOV R1, #85H    ; JUST MOVE AROUND
+
+0004 7A3F              3     MOV R2, #3FH    ; JUST MOVE AROUND
+
+0006 7F63              4     MOV R7, #63H    ; JUST MOVE AROUND
+
+0008 7D12              5     MOV R5, #12H    ; JUST MOVE AROUND
+
+000A 7E25              6     MOV R6, #25H    ; JUST MOVE AROUND
+
+000C 7912              7     MOV R1, #12H    ; JUST MOVE AROUND
+
+000E 7CF3              8     MOV R4, #0F3H   ; JUST MOVE AROUND. PREFIX A 0 WHEN HEXADECIMAL STARTS WITH AN ALPHANUMERIC
+                             .
+
+0010 C006              9     PUSH 6                  ; PUSH R6 TO THE NEXT POSITION, WHICH IS POSITION 8. SP IS INCREMEN
+                             TED
+
+0012 C001             10     PUSH 1                  ; PUSH R1 TO THE NEXT POSITION, WHICH IS POSITION 9. SP IS INCREMEN
+                             TED
+
+                      11     END
+
+A51 MACRO ASSEMBLER  E1_5                                                                 08/11/2022 09:09:06 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

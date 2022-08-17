@@ -1,0 +1,67 @@
+A51 MACRO ASSEMBLER  E2_E4                                                                08/11/2022 10:50:14 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\E2_E4.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E2_E4.ASM SET(SMALL) DEBUG PRINT(.\Listings\E2_E4.lst) OBJECT(.\Objects
+                      \E2_E4.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H                                       ; ORIGINATE
+
+0000 0102              2     AJMP START                                      ; JUMP TO THE LABEL START
+
+                       3     
+
+0002 902001            4     START:  MOV DPTR, #2001H
+
+0005 E0                5                     MOVX A, @DPTR
+
+0006 F5F0              6                     MOV B, A
+
+                       7                     
+
+0008 902000            8                     MOV DPTR, #2000H
+
+000B E0                9                     MOVX A, @DPTR
+
+000C 84               10                     DIV AB
+
+                      11                     
+
+000D 90200A           12                     MOV DPTR, #200AH
+
+0010 F0               13                     MOVX @DPTR, A
+
+                      14                     
+
+0011 A3               15                     INC DPTR
+
+0012 E5F0             16                     MOV A, 0F0H
+
+0014 F0               17                     MOVX @DPTR, A
+
+                      18     
+
+0015 80FE             19     HERE:   SJMP HERE
+
+                      20                     END
+
+A51 MACRO ASSEMBLER  E2_E4                                                                08/11/2022 10:50:14 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0015H   A   
+START. . . . . . .  C ADDR   0002H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

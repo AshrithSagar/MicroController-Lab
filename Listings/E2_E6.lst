@@ -1,0 +1,56 @@
+A51 MACRO ASSEMBLER  E2_E6                                                                08/11/2022 11:39:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\E2_E6.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E2_E6.ASM SET(SMALL) DEBUG PRINT(.\Listings\E2_E6.lst) OBJECT(.\Objects
+                      \E2_E6.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H                               ; ORIGINATE
+
+0000 0102              2     AJMP START                              ; JUMP TO THE LABEL START
+
+                       3     
+
+0002 78FF              4     START:  MOV R0, #0FFH   ; DELAY VALUE
+
+0004 7455              5                     MOV A, #55H             ; DATA TO THE COMPLEMENTED
+
+                       6     
+
+0006 F590              7     UP:             MOV P1, A               ; STORE THE ACCUMULATOR
+
+                       8     
+
+0008 00                9     DLY:    NOP                             ; NO OPERATION
+
+0009 D8FD             10                     DJNZ R0, DLY    ; DELAY FOR THE DELAY VALUE BY LOOPING
+
+000B F4               11                     CPL A                   ; COMPLEMENT THE ACCUMULATOR
+
+                      12                     
+
+000C 80F8             13                     SJMP UP
+
+                      14                     END
+
+A51 MACRO ASSEMBLER  E2_E6                                                                08/11/2022 11:39:08 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DLY. . . . . . . .  C ADDR   0008H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+START. . . . . . .  C ADDR   0002H   A   
+UP . . . . . . . .  C ADDR   0006H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

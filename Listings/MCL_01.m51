@@ -1,0 +1,52 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/17/2022  10:04:35  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\E2_X1.obj TO .\Objects\MCL_01 PRINT (.\Listings\MCL_01.m51)
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\E2_X1.obj (E2_X1)
+
+
+LINK MAP OF MODULE:  .\Objects\MCL_01 (E2_X1)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0010H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\MCL_01 (E2_X1)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        E2_X1
+  C:0008H         SYMBOL        CNVRT
+  C:0002H         SYMBOL        START
+  C:000CH         SYMBOL        STORE
+  C:0000H         LINE#         2
+  C:0002H         LINE#         4
+  C:0003H         LINE#         5
+  C:0004H         LINE#         7
+  C:0006H         LINE#         8
+  C:0008H         LINE#         10
+  C:0009H         LINE#         11
+  C:000BH         LINE#         12
+  C:000CH         LINE#         14
+  C:000FH         LINE#         15
+  -------         ENDMOD        E2_X1
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0010H BYTE ( 0%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=16
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,36 @@
+A51 MACRO ASSEMBLER  E1_4                                                                 08/04/2022 10:53:34 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.5.0
+OBJECT MODULE PLACED IN .\Objects\E1_4.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E1_4.ASM SET(SMALL) DEBUG PRINT(.\Listings\E1_4.lst) OBJECT(.\Objects\E
+                      1_4.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000 7899              1     MOV R0, #99H    ; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+0002 7985              2     MOV R1, #85H    ; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+0004 7A3F              3     MOV R2, #3FH    ; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+0006 7F63              4     MOV R7, #63H    ; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+0008 7D12              5     MOV R5, #12H    ; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+                       6     END
+
+A51 MACRO ASSEMBLER  E1_4                                                                 08/04/2022 10:53:34 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

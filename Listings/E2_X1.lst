@@ -1,0 +1,43 @@
+A51 MACRO ASSEMBLER  E2_X1                                                                08/17/2022 10:04:34 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E2_X1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E2_X1.ASM SET(SMALL) DEBUG PRINT(.\Listings\E2_X1.lst) OBJECT(.\Objects
+                      \E2_X1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H                               ; ORIGINATE
+0000 0102              2     AJMP START                              ; JUMP TO THE LABEL START
+                       3     
+0002 E9                4     START:  MOV A, R1
+0003 9A                5                     SUBB A, R2              ; PERFORMS (R1-R2)
+                       6                     
+0004 5006              7                     JNC STORE               ; JUMP ON NO CARRY TO THE LABEL STORE
+0006 4000              8                     JC CNVRT                ; JUMP ON CARRY TO THE LABEL CNVRT
+                       9     
+0008 F8               10     CNVRT:  MOV R0, A
+0009 7400             11                     MOV A, #00H
+000B 98               12                     SUBB A, R0
+                      13     
+000C 902000           14     STORE:  MOV DPTR, #2000H
+000F F0               15                     MOVX @DPTR, A
+                      16                     END
+A51 MACRO ASSEMBLER  E2_X1                                                                08/17/2022 10:04:34 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CNVRT. . . . . . .  C ADDR   0008H   A   
+START. . . . . . .  C ADDR   0002H   A   
+STORE. . . . . . .  C ADDR   000CH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
