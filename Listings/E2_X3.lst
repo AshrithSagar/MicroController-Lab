@@ -1,0 +1,41 @@
+A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 01:23:04 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E2_X3.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E2_X3.ASM SET(SMALL) DEBUG PRINT(.\Listings\E2_X3.lst) OBJECT(.\Objects
+                      \E2_X3.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Multiply two 16-bit hex numbers and store the product.
+                       2     
+                       3     ; ASSUME THE NUMBERS ARE STORED IN R0, R1, R2, R3
+                       4     
+0000                   5     ORG 0000H                               ; ORIGINATE
+0000 0102              6     AJMP START                              ; JUMP TO THE LABEL START
+                       7     
+0002                   8     START:
+0002 E8                9             MOV A, R0                       ; LSB 1
+0003 F5F0             10             MOV 0F0H, A             ; COPY IN B
+0005 EA               11             MOV A, R2                       ; LSB 2
+0006 A4               12             MUL AB                          ; LSB 1 TIMES LSB 2
+                      13             ; WILL STORE THE PRODUCT USING THE STACK POINTER
+0007 C0E0             14             PUSH 0E0H
+                      15             END
+                                             
+A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 01:23:04 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+START. . . . . . .  C ADDR   0002H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
