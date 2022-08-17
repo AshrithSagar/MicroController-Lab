@@ -1,15 +1,22 @@
 ; Add two 32-bit numbers available in memory locations starting 
 ; from 3050h and store the result from memory location 3080h.
 
+; 32-BIT IS 8-BYTES LONG
+
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 
 START:
-	MOV DPTR, #3050H
-	MOVX A, @DPTR
+	MOV DPTR, #3050H 	; STARTING LOCATION.
+	MOV R2, #08H 		; COUNT OF THE BYTES.
 
-	MOV R0, #00H
+	MOV R0, #00H 		; SUM FOR THE ACCUMULATOR.
+
+	MOV R1, #30H 		; STARTING LOCATION OF THE RESULT.
+	
+UP:
 	ADDC R0, A
+	DJNZ R2, UP
 
 	INC DPTR
 	MOVX A, @DPTR
