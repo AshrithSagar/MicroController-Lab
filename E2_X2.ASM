@@ -1,3 +1,6 @@
+; Add two 32-bit numbers available in memory locations starting 
+; from 3050h and store the result from memory location 3080h.
+
 ORG 3050H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 
