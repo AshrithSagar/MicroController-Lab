@@ -1,5 +1,5 @@
-; FIND THE SUM OF TEN 16-BIT HEXADECIMAL NUMBERS AVAILABLE IN MEMORY 
-; STARTING FROM LOCATION XX10H. STORE THE RESULT IN XX50H ONWARDS
+; Find the sum of ten 16 –bit hexadecimal numbers available in memory 
+; starting from location XX10h. store the result in XX50h onwards.
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
