@@ -377,9 +377,9 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>E2_X3.ASM</FileName>
+              <FileName>E3_X2.ASM</FileName>
               <FileType>2</FileType>
-              <FilePath>.\E2_X3.ASM</FilePath>
+              <FilePath>.\E3_X2.ASM</FilePath>
             </File>
           </Files>
         </Group>
