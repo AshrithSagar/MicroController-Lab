@@ -1,8 +1,41 @@
-; Find the number of occurrences of data ‘2Ah’ in a memory array. The last element of the 
-; array is ‘3Ah’. The array begins at XX30h. Store the result in memory location XX80h.
+; Find the number of occurrences of data ‘2Ah’ in a memory array.
+; The last element of the array is ‘3Ah’. The array begins at XX30h.
+; Store the result in memory location XX80h.
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 
 START:
-END
+	MOV DPTR, #1030H 	; THE START LOCATION OF THE ARRAY
+	MOV R0, #2AH 		; THE VALUE TO BE COMPARED FOR EQUALITY
+	CLR C 				; CLEAR THE CARRY
+	CLR R1 				; COUNT REGISTER
+
+REPEAT:
+	MOV A, @DPTR 		; GET THE DATA
+	SUBB A, R0 			; PERFORM A SUBTRACTION TO CHECK FOR EQUALITY
+	INC DPTR 			; INCREMENT TO THE NEXT ARRAY POSITION
+
+	; IF THE DIFFERENCE IS NOT ZERO
+	JNZ CHECK
+
+	; IF THE DIFFERENCE IS ZERO, UPDATE COUNT
+	INC R1
+
+CHECK:
+	; CHECK WHETHER TO STOP
+	SUBB A, #10H 		; SUBTRACT 10H TO CHECK FOR STOP CONDITION
+	
+
+	; REPEAT THE PROCESS
+	SJMP REPEAT
+
+STORE:
+	; STORE THE FINAL COUNT IN THE DESIRED LOCATION
+	MOV A, R1
+	MOV DPTR, #1050H
+	MOV @DPTR, A
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
