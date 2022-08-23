@@ -1,15 +1,15 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/23/2022  17:36:58  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/24/2022  02:03:38  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\E3_X2.obj TO .\Objects\MCL_01 PRINT (.\Listings\MCL_01.m51)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\E3_X4.obj TO .\Objects\MCL_01 PRINT (.\Listings\MCL_01.m51)
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\E3_X2.obj (E3_X2)
+  .\Objects\E3_X4.obj (E3_X4)
 
 
-LINK MAP OF MODULE:  .\Objects\MCL_01 (E3_X2)
+LINK MAP OF MODULE:  .\Objects\MCL_01 (E3_X4)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -19,43 +19,32 @@ LINK MAP OF MODULE:  .\Objects\MCL_01 (E3_X2)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     001DH     ABSOLUTE     
+            CODE    0000H     000FH     ABSOLUTE     
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\MCL_01 (E3_X2)
+SYMBOL TABLE OF MODULE:  .\Objects\MCL_01 (E3_X4)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        E3_X2
-  C:0010H         SYMBOL        CHECK
-  C:001BH         SYMBOL        HERE
-  C:000AH         SYMBOL        REPEAT
+  -------         MODULE        E3_X4
+  C:000DH         SYMBOL        HERE
   C:0002H         SYMBOL        START
-  C:0016H         SYMBOL        STORE
-  C:0000H         LINE#         6
-  C:0002H         LINE#         9
-  C:0005H         LINE#         10
+  C:0000H         LINE#         4
+  C:0002H         LINE#         7
+  C:0004H         LINE#         8
+  C:0006H         LINE#         9
   C:0007H         LINE#         11
   C:0008H         LINE#         12
-  C:000AH         LINE#         15
-  C:000BH         LINE#         16
-  C:000CH         LINE#         17
-  C:000DH         LINE#         20
-  C:000FH         LINE#         23
-  C:0010H         LINE#         27
-  C:0012H         LINE#         28
-  C:0014H         LINE#         31
-  C:0016H         LINE#         35
-  C:0017H         LINE#         36
-  C:001AH         LINE#         37
-  C:001BH         LINE#         40
-  -------         ENDMOD        E3_X2
+  C:000AH         LINE#         14
+  C:000CH         LINE#         16
+  C:000DH         LINE#         19
+  -------         ENDMOD        E3_X4
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 001DH BYTE ( 1%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 000FH BYTE ( 0%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=29
+Program Size: data=8.0 xdata=0 code=15
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

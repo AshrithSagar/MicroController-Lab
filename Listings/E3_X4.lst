@@ -1,0 +1,46 @@
+A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 02:03:36 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E3_X4.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E3_X4.ASM SET(SMALL) DEBUG PRINT(.\Listings\E3_X4.lst) OBJECT(.\Objects
+                      \E3_X4.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Convert a 2-digit hexadecimal number into BCD number.
+                       2     
+0000                   3     ORG 0000H                               ; ORIGINATE
+0000 0102              4     AJMP START                              ; JUMP TO THE LABEL START
+                       5     
+0002                   6     START:
+0002 74AB              7             MOV A, #0ABH            ; INPUT 2-DIGIT HEXADECIMAL NUMBER
+0004 2400              8             ADD A, #00H             ; ADD 00H TO BE ABLE TO USE DA A
+0006 D4                9             DA A                            ; DECIMALLY ADJUST ACCUMULATOR
+                      10             
+0007 F8               11             MOV R0, A                       ; LOWER BCD RESULT REGISTER
+0008 7900             12             MOV R1, #00H            ; HIGHER BCD BYTE; CLR R1 DOESN'T WORK;
+                      13     
+000A 5001             14             JNC HERE                        ; EXIT IF HIGHER BYTE IS 00H
+                      15             
+000C 09               16             INC R1                          ; SET HIGHER BCD BYTE
+                      17     
+000D                  18     HERE:
+000D 80FE             19             SJMP HERE                       ; LOGICAL END
+                      20             END
+A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 02:03:36 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+HERE . . . . . . .  C ADDR   000DH   A   
+START. . . . . . .  C ADDR   0002H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
