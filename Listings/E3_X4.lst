@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 02:03:36 PAGE     1
+A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 02:16:54 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -14,21 +14,23 @@ LOC  OBJ            LINE     SOURCE
 0000 0102              4     AJMP START                              ; JUMP TO THE LABEL START
                        5     
 0002                   6     START:
-0002 74AB              7             MOV A, #0ABH            ; INPUT 2-DIGIT HEXADECIMAL NUMBER
-0004 2400              8             ADD A, #00H             ; ADD 00H TO BE ABLE TO USE DA A
-0006 D4                9             DA A                            ; DECIMALLY ADJUST ACCUMULATOR
-                      10             
-0007 F8               11             MOV R0, A                       ; LOWER BCD RESULT REGISTER
-0008 7900             12             MOV R1, #00H            ; HIGHER BCD BYTE; CLR R1 DOESN'T WORK;
-                      13     
-000A 5001             14             JNC HERE                        ; EXIT IF HIGHER BYTE IS 00H
-                      15             
-000C 09               16             INC R1                          ; SET HIGHER BCD BYTE
+0002 78AB              7             MOV R0, #0ABH           ; INPUT 2-DIGIT HEXADECIMAL NUMBER, IN DECIMAL RANGE
+0004 E8                8             MOV A, R0                       ; COPY TO THE ACCUMULATOR
+                       9             
+0005 540F             10             ANL A, #0FH                     ; MASK THE UPPER NIBBLE. RETURNS LOWER NIBBLE
+0007 F9               11             MOV R1, A                       ; STORE LOWER NIBBLE IN (R1)
+                      12                     
+0008 E8               13             MOV A, R0                       ; COPY TO THE ACCUMULATOR AGAIN SINCE INPUT IS DEST
+                             ROYED
+0009 54F0             14             ANL A, #0F0H            ; MASK THE LOWER NIBBLE. RETURNS UPPER NIBBLE
+000B C4               15             SWAP A                          ; SWAP THE CURRENT LOWER AND UPPER NIBBLE IN ACCUMU
+                             LATOR
+000C FA               16             MOV R2, A                       ; STORE UPPER NIBBLE IN (R2)
                       17     
 000D                  18     HERE:
 000D 80FE             19             SJMP HERE                       ; LOGICAL END
                       20             END
-A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 02:03:36 PAGE     2
+A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 02:16:54 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
