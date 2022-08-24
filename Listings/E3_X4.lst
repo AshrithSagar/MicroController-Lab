@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 02:16:54 PAGE     1
+A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 19:14:26 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -10,27 +10,29 @@ LOC  OBJ            LINE     SOURCE
 
                        1     ; Convert a 2-digit hexadecimal number into BCD number.
                        2     
-0000                   3     ORG 0000H                               ; ORIGINATE
-0000 0102              4     AJMP START                              ; JUMP TO THE LABEL START
-                       5     
-0002                   6     START:
-0002 78AB              7             MOV R0, #0ABH           ; INPUT 2-DIGIT HEXADECIMAL NUMBER, IN DECIMAL RANGE
-0004 E8                8             MOV A, R0                       ; COPY TO THE ACCUMULATOR
-                       9             
-0005 540F             10             ANL A, #0FH                     ; MASK THE UPPER NIBBLE. RETURNS LOWER NIBBLE
-0007 F9               11             MOV R1, A                       ; STORE LOWER NIBBLE IN (R1)
-                      12                     
-0008 E8               13             MOV A, R0                       ; COPY TO THE ACCUMULATOR AGAIN SINCE INPUT IS DEST
+                       3     ; LIMITATIONS: ACCEPTS INPUT 2-DIGIT HEXADECIMAL IN DECIMAL RANGE
+                       4     
+0000                   5     ORG 0000H                               ; ORIGINATE
+0000 0102              6     AJMP START                              ; JUMP TO THE LABEL START
+                       7     
+0002                   8     START:
+0002 7892              9             MOV R0, #92H            ; INPUT 2-DIGIT HEXADECIMAL NUMBER, IN DECIMAL RANGE
+0004 E8               10             MOV A, R0                       ; COPY TO THE ACCUMULATOR
+                      11     
+0005 540F             12             ANL A, #0FH                     ; MASK THE UPPER NIBBLE. RETURNS LOWER NIBBLE
+0007 F9               13             MOV R1, A                       ; STORE LOWER NIBBLE IN (R1)
+                      14     
+0008 E8               15             MOV A, R0                       ; COPY TO THE ACCUMULATOR AGAIN SINCE INPUT IS DEST
                              ROYED
-0009 54F0             14             ANL A, #0F0H            ; MASK THE LOWER NIBBLE. RETURNS UPPER NIBBLE
-000B C4               15             SWAP A                          ; SWAP THE CURRENT LOWER AND UPPER NIBBLE IN ACCUMU
+0009 54F0             16             ANL A, #0F0H            ; MASK THE LOWER NIBBLE. RETURNS UPPER NIBBLE
+000B C4               17             SWAP A                          ; SWAP THE CURRENT LOWER AND UPPER NIBBLE IN ACCUMU
                              LATOR
-000C FA               16             MOV R2, A                       ; STORE UPPER NIBBLE IN (R2)
-                      17     
-000D                  18     HERE:
-000D 80FE             19             SJMP HERE                       ; LOGICAL END
-                      20             END
-A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 02:16:54 PAGE     2
+000C FA               18             MOV R2, A                       ; STORE UPPER NIBBLE IN (R2)
+                      19     
+000D                  20     HERE:
+000D 80FE             21             SJMP HERE                       ; LOGICAL END
+                      22             END
+A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 19:14:26 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------

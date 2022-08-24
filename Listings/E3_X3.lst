@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E3_X3                                                                08/24/2022 02:48:24 PAGE     1
+A51 MACRO ASSEMBLER  E3_X3                                                                08/24/2022 19:15:47 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -8,7 +8,7 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E3_X3.ASM SET(SMALL) DEBUG PRIN
 
 LOC  OBJ            LINE     SOURCE
 
-                       1     ; Transfer ten elements of an array starting at location XX40h 
+                       1     ; Transfer ten elements of an array starting at location XX40h
                        2     ; in external data memory to a location XX45 in the same memory
                        3     
 0000                   4     ORG 0000H                               ; ORIGINATE
@@ -20,9 +20,9 @@ LOC  OBJ            LINE     SOURCE
 0007 7905             10             MOV R1, #05H            ; NUMBER OF ELEMENTS, DECIMAL 5, I.E. (XX49 - XX45 + 1)
                       11     
 0009                  12     REPEAT:
-0009 E9               13             MOV A, R1               ; GET DISPLACEMENT
+0009 E9               13             MOV A, R1                       ; GET DISPLACEMENT
 000A FA               14             MOV R2, A                       ; COPY TO (R2)
-                      15             
+                      15     
 000B E0               16             MOVX A, @DPTR           ; GET THE DATA TO ACCUMULATOR
                       17     
                       18     ; INCREMENT DPTR BY (R1)
@@ -32,7 +32,7 @@ LOC  OBJ            LINE     SOURCE
                       22     
 000F F0               23             MOVX @DPTR, A           ; COPY DATA TO DESTINATION
                       24     
-0010 E9               25             MOV A, R1               ; GET DISPLACEMENT AGAIN SINCE R2 IS DESTROYED
+0010 E9               25             MOV A, R1                       ; GET DISPLACEMENT AGAIN SINCE R2 IS DESTROYED
 0011 FA               26             MOV R2, A                       ; COPY TO (R2)
 0012 0A               27             INC R2                          ; SO AS TO POINT TO PREVIOUS LOCATION IN ORIGINAL A
                              RRAY
@@ -43,7 +43,7 @@ LOC  OBJ            LINE     SOURCE
 0014 E582             32             MOV A, DPL                      ; GET DPTR LOW
 0016 9401             33             SUBB A, #01H            ; DECREMENT DPL
 0018 F582             34             MOV DPL, A                      ; RESTORE DPL
-                      35             
+                      35     
 001A E583             36             MOV A, DPH                      ; GET DPTR HIGH
 001C 9400             37             SUBB A, #00H            ; SUBTRACT CARRY [IF EXISTS] FROM (DPH)
 001E F583             38             MOV DPH, A                      ; RESTORE DPH
@@ -55,7 +55,7 @@ LOC  OBJ            LINE     SOURCE
 0024                  44     HERE:
 0024 80FE             45             SJMP HERE                       ; LOGICAL END
                       46             END
-A51 MACRO ASSEMBLER  E3_X3                                                                08/24/2022 02:48:24 PAGE     2
+A51 MACRO ASSEMBLER  E3_X3                                                                08/24/2022 19:15:47 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
