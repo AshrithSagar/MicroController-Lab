@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E3_X2                                                                08/23/2022 17:36:54 PAGE     1
+A51 MACRO ASSEMBLER  E3_X2                                                                08/24/2022 19:11:00 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -19,7 +19,7 @@ LOC  OBJ            LINE     SOURCE
 0002 901030            9             MOV DPTR, #1030H        ; THE START LOCATION OF THE ARRAY
 0005 782A             10             MOV R0, #2AH            ; THE VALUE TO BE COMPARED FOR EQUALITY
 0007 C3               11             CLR C                           ; CLEAR THE CARRY
-0008 7900             12             MOV R1, #00H            ; COUNT REGISTER; CLR R1 DOESN'T WORK;
+0008 7900             12             MOV R1, #00H            ; COUNT REGISTER; CLR (R1) DOESN'T WORK;
                       13     
 000A                  14     REPEAT:
 000A E0               15             MOVX A, @DPTR           ; GET THE DATA
@@ -35,21 +35,20 @@ LOC  OBJ            LINE     SOURCE
 0010                  25     CHECK:
                       26             ; CHECK WHETHER TO STOP
 0010 9410             27             SUBB A, #10H            ; SUBTRACT 10H TO CHECK FOR STOP CONDITION
-0012 6002             28             JZ STORE
-                      29     
-                      30             ; REPEAT THE PROCESS IF NOT REACHED THE STOP CONDITION
-0014 70F4             31             JNZ REPEAT
-                      32     
-0016                  33     STORE:
-                      34             ; STORE THE FINAL COUNT IN THE DESIRED LOCATION
-0016 E9               35             MOV A, R1
-0017 901050           36             MOV DPTR, #1050H
-001A F0               37             MOVX @DPTR, A
-                      38     
-001B                  39     HERE:
-001B 80FE             40             SJMP HERE                       ; LOGICAL END
-                      41             END
-A51 MACRO ASSEMBLER  E3_X2                                                                08/23/2022 17:36:54 PAGE     2
+                      28     
+                      29             ; REPEAT THE PROCESS IF NOT REACHED THE STOP CONDITION
+0012 70F6             30             JNZ REPEAT
+                      31     
+0014                  32     STORE:
+                      33             ; STOP AND STORE THE FINAL COUNT IN THE DESIRED LOCATION
+0014 E9               34             MOV A, R1
+0015 901050           35             MOV DPTR, #1050H
+0018 F0               36             MOVX @DPTR, A
+                      37     
+0019                  38     HERE:
+0019 80FE             39             SJMP HERE                       ; LOGICAL END
+                      40             END
+A51 MACRO ASSEMBLER  E3_X2                                                                08/24/2022 19:11:00 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -58,10 +57,10 @@ SYMBOL TABLE LISTING
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 CHECK. . . . . . .  C ADDR   0010H   A   
-HERE . . . . . . .  C ADDR   001BH   A   
+HERE . . . . . . .  C ADDR   0019H   A   
 REPEAT . . . . . .  C ADDR   000AH   A   
 START. . . . . . .  C ADDR   0002H   A   
-STORE. . . . . . .  C ADDR   0016H   A   
+STORE. . . . . . .  C ADDR   0014H   A   
 
 
 REGISTER BANK(S) USED: 0 

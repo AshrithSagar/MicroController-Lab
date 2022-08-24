@@ -1,0 +1,79 @@
+A51 MACRO ASSEMBLER  E3_X1                                                                08/24/2022 19:05:54 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E3_X1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E3_X1.ASM SET(SMALL) DEBUG PRINT(.\Listings\E3_X1.lst) OBJECT(.\Objects
+                      \E3_X1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Find the sum of ten 16 –bit hexadecimal numbers available in memory
+                       2     ; starting from location XX10h. store the result in XX50h onwards.
+                       3     
+0000                   4     ORG 0000H                               ; ORIGINATE
+0000 0102              5     AJMP START                              ; JUMP TO THE LABEL START
+                       6     
+0002                   7     START:
+0002 901010            8             MOV DPTR, #1010H        ; STARTING LOCATION OF THE MEMORY
+0005 7800              9             MOV R0, #00H            ; LOWER SUM REGISTER; CLR (R0) DOESN'T WORK;
+0007 7900             10             MOV R1, #00H            ; HIGHER SUM REGISTER; CLR (R1) DOESN'T WORK;
+0009 7A00             11             MOV R2, #00H            ; CARRY REGISTER; CLR (R2) DOESN'T WORK;
+000B 7B0A             12             MOV R3, #10             ; NUMBER OF ELEMENTS, DECIMAL 10
+                      13     
+000D                  14     ITER:
+000D E0               15             MOVX A, @DPTR           ; GET THE LOWER BYTE OF THE DATA
+000E F5F0             16             MOV 0F0H, A             ; DUPLICATE IT TO REG (B)
+0010 E8               17             MOV A, R0                       ; GET THE CURRENT SUM, LOWER BYTE.
+0011 25F0             18             ADD A, B                        ; ADD THE LOWER BYTE TO THE SUM, WITHOUT CARRY.
+0013 F8               19             MOV R0, A                       ; SAVE THE LOWER BYTE OF SUM IN (R0)
+                      20     
+0014 A3               21             INC DPTR                        ; GO TO NEXT LOCATION
+0015 E0               22             MOVX A, @DPTR           ; GET THE HIGHER BYTE OF THE DATA
+0016 F5F0             23             MOV 0F0H, A             ; DUPLICATE IT TO REG (B)
+0018 E9               24             MOV A, R1                       ; GET THE CURRENT SUM, HIGHER BYTE.
+0019 35F0             25             ADDC A, B                       ; ADD THE HIGHER BYTE, ALONG WITH THE CARRY.
+001B F9               26             MOV R1, A                       ; SAVE THE HIGHER BYTE OF SUM IN (R1)
+                      27     
+001C EA               28             MOV A, R2                       ; GET THE CURRENT SUM, CARRY BYTE.
+001D 3400             29             ADDC A, #00H            ; INCREMENT CARRY REGISTER WITH THE CARRY.
+                      30     
+001F A3               31             INC DPTR                        ; GO TO NEXT LOCATION
+0020 DBEB             32             DJNZ R3, ITER           ; REPEAT TILL END OF ARRAY
+                      33     
+0022                  34     STORE:
+                      35             ; STORE THE FINAL SUM IN THE DESIRED LOCATION
+0022 901050           36             MOV DPTR, #1050H        ; LOWER BYTE OF SUM
+0025 E8               37             MOV A, R0
+0026 F0               38             MOVX @DPTR, A
+                      39             
+0027 A3               40             INC DPTR                        ; HIGHER BYTE OF SUM
+0028 E9               41             MOV A, R1
+0029 F0               42             MOVX @DPTR, A
+                      43             
+002A A3               44             INC DPTR                        ; CARRY BYTE OF SUM
+002B EA               45             MOV A, R2
+002C F0               46             MOVX @DPTR, A
+                      47     
+002D                  48     HERE:
+002D 80FE             49             SJMP HERE                       ; LOGICAL END
+                      50             END
+A51 MACRO ASSEMBLER  E3_X1                                                                08/24/2022 19:05:54 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   002DH   A   
+ITER . . . . . . .  C ADDR   000DH   A   
+START. . . . . . .  C ADDR   0002H   A   
+STORE. . . . . . .  C ADDR   0022H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
