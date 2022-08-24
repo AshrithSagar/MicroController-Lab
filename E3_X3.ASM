@@ -1,4 +1,4 @@
-; Transfer ten elements of an array starting at location XX40h 
+; Transfer ten elements of an array starting at location XX40h
 ; in external data memory to a location XX45 in the same memory
 
 ORG 0000H				; ORIGINATE
@@ -12,7 +12,7 @@ START:
 REPEAT:
 	MOV A, R1  			; GET DISPLACEMENT
 	MOV R2, A 			; COPY TO (R2)
-	
+
 	MOVX A, @DPTR 		; GET THE DATA TO ACCUMULATOR
 
 ; INCREMENT DPTR BY (R1)
@@ -32,7 +32,7 @@ DECREMENT:
 	MOV A, DPL 			; GET DPTR LOW
 	SUBB A, #01H 		; DECREMENT DPL
 	MOV DPL, A 			; RESTORE DPL
-	
+
 	MOV A, DPH 			; GET DPTR HIGH
 	SUBB A, #00H 		; SUBTRACT CARRY [IF EXISTS] FROM (DPH)
 	MOV DPH, A 			; RESTORE DPH
