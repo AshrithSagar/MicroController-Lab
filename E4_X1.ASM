@@ -1,8 +1,10 @@
+; Implement an 8 bit ring counter.
+
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 
 START:
-	
+	MOV 
 	
 HERE:
 	SJMP HERE			; LOGICAL END
