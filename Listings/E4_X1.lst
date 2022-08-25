@@ -1,0 +1,46 @@
+A51 MACRO ASSEMBLER  E4_X1                                                                08/25/2022 15:43:30 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E4_X1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E4_X1.ASM SET(SMALL) DEBUG PRINT(.\Listings\E4_X1.lst) OBJECT(.\Objects
+                      \E4_X1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Implement an 8 bit ring counter.
+                       2     
+0000                   3     ORG 0000H                               ; ORIGINATE
+0000 0102              4     AJMP START                              ; JUMP TO THE LABEL START
+                       5     
+0002                   6     START:
+0002 7401              7             MOV A, #01H             ; INITIALISE
+0004 C3                8             CLR C                           ; CLEAR CARRY
+                       9     
+0005                  10     ITER:
+0005 33               11             RLC A                           ; LEFT SHIFT ACCUMULATOR
+                      12             
+0006 78FF             13             MOV R0, #0FFH           ; AWAIT (0FFH) MACHINE CYCLES
+0008                  14             DELAY:
+0008 00               15                     NOP
+0009 D8FD             16             DJNZ R0, DELAY
+                      17     
+000B 80F8             18             SJMP ITER                       ; REPEAT IN A LOOP
+                      19             END
+A51 MACRO ASSEMBLER  E4_X1                                                                08/25/2022 15:43:30 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0008H   A   
+ITER . . . . . . .  C ADDR   0005H   A   
+START. . . . . . .  C ADDR   0002H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
