@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E4_X1                                                                08/25/2022 15:43:30 PAGE     1
+A51 MACRO ASSEMBLER  E4_X1                                                                08/25/2022 15:48:29 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -19,15 +19,16 @@ LOC  OBJ            LINE     SOURCE
                        9     
 0005                  10     ITER:
 0005 33               11             RLC A                           ; LEFT SHIFT ACCUMULATOR
-                      12             
-0006 78FF             13             MOV R0, #0FFH           ; AWAIT (0FFH) MACHINE CYCLES
-0008                  14             DELAY:
-0008 00               15                     NOP
-0009 D8FD             16             DJNZ R0, DELAY
-                      17     
-000B 80F8             18             SJMP ITER                       ; REPEAT IN A LOOP
-                      19             END
-A51 MACRO ASSEMBLER  E4_X1                                                                08/25/2022 15:43:30 PAGE     2
+0006 F5A0             12             MOV P2, A                       ; SHOW IN PORT-2
+                      13             
+0008 7801             14             MOV R0, #01H            ; AWAIT (0FFH) MACHINE CYCLES
+000A                  15             DELAY:
+000A 00               16                     NOP
+000B D8FD             17             DJNZ R0, DELAY
+                      18     
+000D 80F6             19             SJMP ITER                       ; REPEAT IN A LOOP
+                      20             END
+A51 MACRO ASSEMBLER  E4_X1                                                                08/25/2022 15:48:29 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -35,8 +36,9 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   0008H   A   
+DELAY. . . . . . .  C ADDR   000AH   A   
 ITER . . . . . . .  C ADDR   0005H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
 START. . . . . . .  C ADDR   0002H   A   
 
 
