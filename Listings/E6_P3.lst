@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:20:15 PAGE     1
+A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:51:41 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -14,11 +14,11 @@ LOC  OBJ            LINE     SOURCE
 0000 0102              4     AJMP START                              ; JUMP TO THE LABEL START
                        5     
 0002                   6     START:
-0002 7401              7             MOV A, #01H             ; INITIALISE
+0002 7400              7             MOV A, #00H             ; INITIALISE
                        8             
 0004                   9     ITER:
-0004 23               10             RL A                            ; RIGHT SHIFT ACCUMULATOR
-0005 04               11             INC A                           ; INCREMENT ACCUMULATOR
+0004 04               10             INC A                           ; INCREMENT ACCUMULATOR
+0005 23               11             RL A                            ; RIGHT SHIFT ACCUMULATOR
 0006 F5A0             12             MOV P2, A                       ; SHOW IN PORT-2
                       13     
 0008 110C             14             ACALL DELAY             ; AWAIT
@@ -40,7 +40,7 @@ LOC  OBJ            LINE     SOURCE
                       30             
 001A 22               31             RET                             ; RETURN BACK TO THE MAIN LOOP
                       32             END
-A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:20:15 PAGE     2
+A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:51:41 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
