@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E4_X1                                                                08/28/2022 14:39:56 PAGE     1
+A51 MACRO ASSEMBLER  E4_X1                                                                08/28/2022 14:50:07 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -40,7 +40,7 @@ LOC  OBJ            LINE     SOURCE
                       30             
 001A 22               31             RET                             ; RETURN BACK TO THE MAIN LOOP
                       32             END
-A51 MACRO ASSEMBLER  E4_X1                                                                08/28/2022 14:39:56 PAGE     2
+A51 MACRO ASSEMBLER  E4_X1                                                                08/28/2022 14:50:07 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------

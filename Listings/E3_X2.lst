@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E3_X2                                                                08/24/2022 22:43:04 PAGE     1
+A51 MACRO ASSEMBLER  E3_X2                                                                08/28/2022 15:34:05 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -42,13 +42,13 @@ LOC  OBJ            LINE     SOURCE
 0014                  32     STORE:
                       33             ; STOP AND STORE THE FINAL COUNT IN THE DESIRED LOCATION
 0014 E9               34             MOV A, R1
-0015 901050           35             MOV DPTR, #1050H
+0015 901080           35             MOV DPTR, #1080H
 0018 F0               36             MOVX @DPTR, A
                       37     
 0019                  38     HERE:
 0019 80FE             39             SJMP HERE                       ; LOGICAL END
                       40             END
-A51 MACRO ASSEMBLER  E3_X2                                                                08/24/2022 22:43:04 PAGE     2
+A51 MACRO ASSEMBLER  E3_X2                                                                08/28/2022 15:34:05 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------

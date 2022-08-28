@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 02:19:09 PAGE     1
+A51 MACRO ASSEMBLER  E2_X3                                                                08/28/2022 14:55:29 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 0041 901001           55             MOV DPTR, #1001H        ; MSB_1
 0044 E0               56             MOVX A, @DPTR           ; GET EXTERNAL DATA
 0045 F5F0             57             MOV 0F0H, A             ; COPY IN B
-A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 02:19:09 PAGE     2
+A51 MACRO ASSEMBLER  E2_X3                                                                08/28/2022 14:55:29 PAGE     2
 
 0047 901003           58             MOV DPTR, #1003H        ; MSB_2
 004A E0               59             MOVX A, @DPTR           ; GET EXTERNAL DATA
@@ -78,7 +78,7 @@ LOC  OBJ            LINE     SOURCE
 0052 FF               66             MOV R7, A                       ; STORE THE PRODUCT
                       67     
                       68             END
-A51 MACRO ASSEMBLER  E2_X3                                                                08/18/2022 02:19:09 PAGE     3
+A51 MACRO ASSEMBLER  E2_X3                                                                08/28/2022 14:55:29 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
