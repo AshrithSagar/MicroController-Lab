@@ -1,0 +1,62 @@
+A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:19:16 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E6_P3.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E6_P3.ASM SET(SMALL) DEBUG PRINT(.\Listings\E6_P3.lst) OBJECT(.\Objects
+                      \E6_P3.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Realize an 8-bit Johnson counter.
+                       2     
+0000                   3     ORG 0000H                               ; ORIGINATE
+0000 0102              4     AJMP START                              ; JUMP TO THE LABEL START
+                       5     
+0002                   6     START:
+0002 7401              7             MOV A, #01H             ; INITIALISE
+                       8             
+0004                   9     ITER:
+0004 23               10             RL A                            ; RIGHT SHIFT ACCUMULATOR
+0005 F5A0             11             MOV P2, A                       ; SHOW IN PORT-2
+                      12     
+0007 110B             13             ACALL DELAY             ; AWAIT
+0009 80F9             14             SJMP ITER                       ; REPEAT IN A LOOP
+                      15     
+000B                  16     DELAY:
+                      17             ; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+000B 7B0F             18             MOV R3, #0FH
+000D                  19             UP1:
+000D 7CFF             20                     MOV R4, #0FFH
+000F                  21                     UP2:
+000F 7DFF             22                             MOV R5, #0FFH
+0011                  23                             UP3:
+0011 00               24                                     NOP
+0012 00               25                                     NOP                     
+0013 DDFC             26                             DJNZ R5, UP3
+0015 DCF8             27                     DJNZ R4, UP2
+0017 DBF4             28             DJNZ R3, UP1
+                      29             
+0019 22               30             RET                             ; RETURN BACK TO THE MAIN LOOP
+                      31             END
+A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:19:16 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   000BH   A   
+ITER . . . . . . .  C ADDR   0004H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+START. . . . . . .  C ADDR   0002H   A   
+UP1. . . . . . . .  C ADDR   000DH   A   
+UP2. . . . . . . .  C ADDR   000FH   A   
+UP3. . . . . . . .  C ADDR   0011H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

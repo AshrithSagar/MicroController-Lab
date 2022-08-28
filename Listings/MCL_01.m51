@@ -1,15 +1,15 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/28/2022  16:16:57  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/28/2022  18:19:16  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\E3_X4.obj TO .\Objects\MCL_01 PRINT (.\Listings\MCL_01.m51)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\E6_P3.obj TO .\Objects\MCL_01 PRINT (.\Listings\MCL_01.m51)
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\E3_X4.obj (E3_X4)
+  .\Objects\E6_P3.obj (E6_P3)
 
 
-LINK MAP OF MODULE:  .\Objects\MCL_01 (E3_X4)
+LINK MAP OF MODULE:  .\Objects\MCL_01 (E6_P3)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -23,33 +23,35 @@ LINK MAP OF MODULE:  .\Objects\MCL_01 (E3_X4)
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\MCL_01 (E3_X4)
+SYMBOL TABLE OF MODULE:  .\Objects\MCL_01 (E6_P3)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        E3_X4
-  D:00F0H         SYMBOL        B
-  C:0018H         SYMBOL        HERE
+  -------         MODULE        E6_P3
+  C:000BH         SYMBOL        DELAY
+  C:0004H         SYMBOL        ITER
+  D:00A0H         SYMBOL        P2
   C:0002H         SYMBOL        START
-  C:0000H         LINE#         6
-  C:0002H         LINE#         9
-  C:0004H         LINE#         11
-  C:0007H         LINE#         12
-  C:0008H         LINE#         13
-  C:0009H         LINE#         15
-  C:000AH         LINE#         16
-  C:000CH         LINE#         17
-  C:000DH         LINE#         19
-  C:0010H         LINE#         20
-  C:0011H         LINE#         21
-  C:0012H         LINE#         23
-  C:0013H         LINE#         24
-  C:0015H         LINE#         25
-  C:0016H         LINE#         26
-  C:0017H         LINE#         27
-  C:0018H         LINE#         30
-  -------         ENDMOD        E3_X4
+  C:000DH         SYMBOL        UP1
+  C:000FH         SYMBOL        UP2
+  C:0011H         SYMBOL        UP3
+  C:0000H         LINE#         4
+  C:0002H         LINE#         7
+  C:0004H         LINE#         10
+  C:0005H         LINE#         11
+  C:0007H         LINE#         13
+  C:0009H         LINE#         14
+  C:000BH         LINE#         18
+  C:000DH         LINE#         20
+  C:000FH         LINE#         22
+  C:0011H         LINE#         24
+  C:0012H         LINE#         25
+  C:0013H         LINE#         26
+  C:0015H         LINE#         27
+  C:0017H         LINE#         28
+  C:0019H         LINE#         30
+  -------         ENDMOD        E6_P3
 
 ******************************************************************************
 * RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 001AH BYTE ( 1%) *
