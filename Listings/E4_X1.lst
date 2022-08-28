@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E4_X1                                                                08/25/2022 15:48:29 PAGE     1
+A51 MACRO ASSEMBLER  E4_X1                                                                08/28/2022 14:39:56 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -15,20 +15,32 @@ LOC  OBJ            LINE     SOURCE
                        5     
 0002                   6     START:
 0002 7401              7             MOV A, #01H             ; INITIALISE
-0004 C3                8             CLR C                           ; CLEAR CARRY
-                       9     
-0005                  10     ITER:
-0005 33               11             RLC A                           ; LEFT SHIFT ACCUMULATOR
-0006 F5A0             12             MOV P2, A                       ; SHOW IN PORT-2
-                      13             
-0008 7801             14             MOV R0, #01H            ; AWAIT (0FFH) MACHINE CYCLES
-000A                  15             DELAY:
-000A 00               16                     NOP
-000B D8FD             17             DJNZ R0, DELAY
-                      18     
-000D 80F6             19             SJMP ITER                       ; REPEAT IN A LOOP
-                      20             END
-A51 MACRO ASSEMBLER  E4_X1                                                                08/25/2022 15:48:29 PAGE     2
+                       8     
+0004                   9     ITER:
+0004 23               10             RL A                            ; LEFT SHIFT ACCUMULATOR
+0005 F5A0             11             MOV P2, A                       ; SHOW IN PORT-2
+                      12     
+0007 12000C           13             LCALL DELAY             ; AWAIT A DELAY
+                      14     
+000A 80F8             15             SJMP ITER                       ; REPEAT IN A LOOP
+                      16     
+000C                  17     DELAY:
+                      18             ; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+000C 7B0F             19             MOV R3, #0FH
+000E                  20             UP1:
+000E 7CFF             21                     MOV R4, #0FFH
+0010                  22                     UP2:
+0010 7DFF             23                             MOV R5, #0FFH
+0012                  24                             UP3:
+0012 00               25                                     NOP
+0013 00               26                                     NOP                     
+0014 DDFC             27                             DJNZ R5, UP3
+0016 DCF8             28                     DJNZ R4, UP2
+0018 DBF4             29             DJNZ R3, UP1
+                      30             
+001A 22               31             RET                             ; RETURN BACK TO THE MAIN LOOP
+                      32             END
+A51 MACRO ASSEMBLER  E4_X1                                                                08/28/2022 14:39:56 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -36,10 +48,13 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   000AH   A   
-ITER . . . . . . .  C ADDR   0005H   A   
+DELAY. . . . . . .  C ADDR   000CH   A   
+ITER . . . . . . .  C ADDR   0004H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
 START. . . . . . .  C ADDR   0002H   A   
+UP1. . . . . . . .  C ADDR   000EH   A   
+UP2. . . . . . . .  C ADDR   0010H   A   
+UP3. . . . . . . .  C ADDR   0012H   A   
 
 
 REGISTER BANK(S) USED: 0 
