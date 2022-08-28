@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 19:14:26 PAGE     1
+A51 MACRO ASSEMBLER  E3_X4                                                                08/28/2022 16:16:55 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -10,29 +10,36 @@ LOC  OBJ            LINE     SOURCE
 
                        1     ; Convert a 2-digit hexadecimal number into BCD number.
                        2     
-                       3     ; LIMITATIONS: ACCEPTS INPUT 2-DIGIT HEXADECIMAL IN DECIMAL RANGE
+                       3     ; STORE RESULT IN R6, R7;
                        4     
 0000                   5     ORG 0000H                               ; ORIGINATE
 0000 0102              6     AJMP START                              ; JUMP TO THE LABEL START
                        7     
 0002                   8     START:
-0002 7892              9             MOV R0, #92H            ; INPUT 2-DIGIT HEXADECIMAL NUMBER, IN DECIMAL RANGE
-0004 E8               10             MOV A, R0                       ; COPY TO THE ACCUMULATOR
-                      11     
-0005 540F             12             ANL A, #0FH                     ; MASK THE UPPER NIBBLE. RETURNS LOWER NIBBLE
-0007 F9               13             MOV R1, A                       ; STORE LOWER NIBBLE IN (R1)
+0002 78FA              9             MOV R0, #0FAH           ; INPUT 2-DIGIT HEXADECIMAL NUMBER
+                      10             
+0004 75F00A           11             MOV 0F0H, #10           ; DIVISION BY DECIMAL 10
+0007 E8               12             MOV A, R0                       ; PERORM OPERATIONS ON ACCUMULATOR
+0008 84               13             DIV AB                          ; PERFORM DIVISION
                       14     
-0008 E8               15             MOV A, R0                       ; COPY TO THE ACCUMULATOR AGAIN SINCE INPUT IS DEST
-                             ROYED
-0009 54F0             16             ANL A, #0F0H            ; MASK THE LOWER NIBBLE. RETURNS UPPER NIBBLE
-000B C4               17             SWAP A                          ; SWAP THE CURRENT LOWER AND UPPER NIBBLE IN ACCUMU
-                             LATOR
-000C FA               18             MOV R2, A                       ; STORE UPPER NIBBLE IN (R2)
-                      19     
-000D                  20     HERE:
-000D 80FE             21             SJMP HERE                       ; LOGICAL END
-                      22             END
-A51 MACRO ASSEMBLER  E3_X4                                                                08/24/2022 19:14:26 PAGE     2
+0009 F9               15             MOV R1, A                       ; QUOTIENT IS IN A; SAVE IN (R1)
+000A E5F0             16             MOV A, B                        ; REMAINDER IS IN B
+000C FE               17             MOV R6, A                       ; LOWER BYTE; APPEND IN (R6)
+                      18     
+000D 75F00A           19             MOV 0F0H, #10           ; DIVISION BY DECIMAL 10
+0010 E9               20             MOV A, R1                       ; DIVIDE QUOTIENT BY 10
+0011 84               21             DIV AB                          ; PERFORM DIVISION
+                      22     
+0012 FF               23             MOV R7, A                       ; QUOTIENT IS IN A; SAVE DIRECTLY IN (R7)
+0013 E5F0             24             MOV A, B                        ; REMAINDER IS IN B
+0015 C4               25             SWAP A                          ; SWAP THE NIBBLES IN THE ACCUMULATOR
+0016 4E               26             ORL A, R6                       ; LOWER BYTE UPDATED
+0017 FE               27             MOV R6, A                       ; STORE LOWER BYTE
+                      28     
+0018                  29     HERE:
+0018 80FE             30             SJMP HERE                       ; LOGICAL END
+                      31             END
+A51 MACRO ASSEMBLER  E3_X4                                                                08/28/2022 16:16:55 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -40,7 +47,8 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-HERE . . . . . . .  C ADDR   000DH   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0018H   A   
 START. . . . . . .  C ADDR   0002H   A   
 
 
