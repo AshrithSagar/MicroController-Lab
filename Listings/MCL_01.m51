@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/28/2022  18:19:16  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/28/2022  18:20:15  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
@@ -19,7 +19,7 @@ LINK MAP OF MODULE:  .\Objects\MCL_01 (E6_P3)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     001AH     ABSOLUTE     
+            CODE    0000H     001BH     ABSOLUTE     
 
 
 
@@ -29,33 +29,37 @@ SYMBOL TABLE OF MODULE:  .\Objects\MCL_01 (E6_P3)
   ----------------------------------
 
   -------         MODULE        E6_P3
-  C:000BH         SYMBOL        DELAY
+  C:000CH         SYMBOL        DELAY
   C:0004H         SYMBOL        ITER
   D:00A0H         SYMBOL        P2
   C:0002H         SYMBOL        START
-  C:000DH         SYMBOL        UP1
-  C:000FH         SYMBOL        UP2
-  C:0011H         SYMBOL        UP3
+  C:000EH         SYMBOL        UP1
+  C:0010H         SYMBOL        UP2
+  C:0012H         SYMBOL        UP3
   C:0000H         LINE#         4
   C:0002H         LINE#         7
   C:0004H         LINE#         10
   C:0005H         LINE#         11
-  C:0007H         LINE#         13
-  C:0009H         LINE#         14
-  C:000BH         LINE#         18
-  C:000DH         LINE#         20
-  C:000FH         LINE#         22
-  C:0011H         LINE#         24
+  C:0006H         LINE#         12
+  C:0008H         LINE#         14
+  C:000AH         LINE#         15
+  C:000CH         LINE#         19
+  C:000EH         LINE#         21
+  C:0010H         LINE#         23
   C:0012H         LINE#         25
   C:0013H         LINE#         26
-  C:0015H         LINE#         27
-  C:0017H         LINE#         28
-  C:0019H         LINE#         30
+  C:0014H         LINE#         27
+  C:0016H         LINE#         28
+  C:0018H         LINE#         29
+  C:001AH         LINE#         31
   -------         ENDMOD        E6_P3
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 001AH BYTE ( 1%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 001BH BYTE ( 1%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=26
+Program Size: data=8.0 xdata=0 code=27
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/28/2022  18:20:15  PAGE 2
+
+
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

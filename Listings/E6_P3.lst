@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:19:16 PAGE     1
+A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:20:15 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -18,28 +18,29 @@ LOC  OBJ            LINE     SOURCE
                        8             
 0004                   9     ITER:
 0004 23               10             RL A                            ; RIGHT SHIFT ACCUMULATOR
-0005 F5A0             11             MOV P2, A                       ; SHOW IN PORT-2
-                      12     
-0007 110B             13             ACALL DELAY             ; AWAIT
-0009 80F9             14             SJMP ITER                       ; REPEAT IN A LOOP
-                      15     
-000B                  16     DELAY:
-                      17             ; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
-000B 7B0F             18             MOV R3, #0FH
-000D                  19             UP1:
-000D 7CFF             20                     MOV R4, #0FFH
-000F                  21                     UP2:
-000F 7DFF             22                             MOV R5, #0FFH
-0011                  23                             UP3:
-0011 00               24                                     NOP
-0012 00               25                                     NOP                     
-0013 DDFC             26                             DJNZ R5, UP3
-0015 DCF8             27                     DJNZ R4, UP2
-0017 DBF4             28             DJNZ R3, UP1
-                      29             
-0019 22               30             RET                             ; RETURN BACK TO THE MAIN LOOP
-                      31             END
-A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:19:16 PAGE     2
+0005 04               11             INC A                           ; INCREMENT ACCUMULATOR
+0006 F5A0             12             MOV P2, A                       ; SHOW IN PORT-2
+                      13     
+0008 110C             14             ACALL DELAY             ; AWAIT
+000A 80F8             15             SJMP ITER                       ; REPEAT IN A LOOP
+                      16     
+000C                  17     DELAY:
+                      18             ; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+000C 7B0F             19             MOV R3, #0FH
+000E                  20             UP1:
+000E 7CFF             21                     MOV R4, #0FFH
+0010                  22                     UP2:
+0010 7DFF             23                             MOV R5, #0FFH
+0012                  24                             UP3:
+0012 00               25                                     NOP
+0013 00               26                                     NOP                     
+0014 DDFC             27                             DJNZ R5, UP3
+0016 DCF8             28                     DJNZ R4, UP2
+0018 DBF4             29             DJNZ R3, UP1
+                      30             
+001A 22               31             RET                             ; RETURN BACK TO THE MAIN LOOP
+                      32             END
+A51 MACRO ASSEMBLER  E6_P3                                                                08/28/2022 18:20:15 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -47,13 +48,13 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   000BH   A   
+DELAY. . . . . . .  C ADDR   000CH   A   
 ITER . . . . . . .  C ADDR   0004H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
 START. . . . . . .  C ADDR   0002H   A   
-UP1. . . . . . . .  C ADDR   000DH   A   
-UP2. . . . . . . .  C ADDR   000FH   A   
-UP3. . . . . . . .  C ADDR   0011H   A   
+UP1. . . . . . . .  C ADDR   000EH   A   
+UP2. . . . . . . .  C ADDR   0010H   A   
+UP3. . . . . . . .  C ADDR   0012H   A   
 
 
 REGISTER BANK(S) USED: 0 
