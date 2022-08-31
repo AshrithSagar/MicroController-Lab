@@ -1,15 +1,15 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/31/2022  16:20:14  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/31/2022  17:20:21  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\E4_X2.obj TO .\Objects\MCL_01 PRINT (.\Listings\MCL_01.m51)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\E4_X3.obj TO .\Objects\MCL_01 PRINT (.\Listings\MCL_01.m51)
 
 
 INPUT MODULES INCLUDED:
-  .\Objects\E4_X2.obj (E4_X2)
+  .\Objects\E4_X3.obj (E4_X3)
 
 
-LINK MAP OF MODULE:  .\Objects\MCL_01 (E4_X2)
+LINK MAP OF MODULE:  .\Objects\MCL_01 (E4_X3)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -19,43 +19,55 @@ LINK MAP OF MODULE:  .\Objects\MCL_01 (E4_X2)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     001AH     ABSOLUTE     
+            CODE    0000H     0028H     ABSOLUTE     
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\MCL_01 (E4_X2)
+SYMBOL TABLE OF MODULE:  .\Objects\MCL_01 (E4_X3)
 
   VALUE           TYPE          NAME
   ----------------------------------
 
-  -------         MODULE        E4_X2
-  C:0018H         SYMBOL        HERE
+  -------         MODULE        E4_X3
+  C:0019H         SYMBOL        DELAY
+  C:0008H         SYMBOL        L_ITER
+  D:00A0H         SYMBOL        P2
   C:0002H         SYMBOL        START
-  C:0015H         SYMBOL        UP1
-  C:000DH         SYMBOL        UP2
-  C:0000H         LINE#         6
-  C:0002H         LINE#         9
+  C:001BH         SYMBOL        UP1
+  C:001DH         SYMBOL        UP2
+  C:001FH         SYMBOL        UP3
+  C:0004H         SYMBOL        U_ITER
+  C:0000H         LINE#         4
+  C:0002H         LINE#         7
   C:0004H         LINE#         10
   C:0006H         LINE#         11
-  C:0007H         LINE#         13
-  C:0008H         LINE#         16
-  C:000AH         LINE#         19
-  C:000CH         LINE#         22
-  C:000DH         LINE#         25
-  C:000EH         LINE#         26
-  C:000FH         LINE#         27
-  C:0010H         LINE#         31
-  C:0011H         LINE#         32
-  C:0012H         LINE#         33
-  C:0013H         LINE#         35
-  C:0015H         LINE#         38
-  C:0016H         LINE#         39
-  C:0018H         LINE#         42
-  -------         ENDMOD        E4_X2
+  C:0008H         LINE#         13
+  C:0009H         LINE#         14
+  C:000BH         LINE#         16
+  C:000EH         LINE#         17
+  C:000FH         LINE#         19
+  C:0010H         LINE#         20
+  C:0012H         LINE#         22
+  C:0014H         LINE#         23
+  C:0015H         LINE#         25
+  C:0017H         LINE#         26
+  C:0019H         LINE#         30
+  C:001BH         LINE#         32
+  C:001DH         LINE#         34
+  C:001FH         LINE#         36
+  C:0020H         LINE#         37
+  C:0021H         LINE#         38
+  C:0023H         LINE#         39
+  C:0025H         LINE#         40
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/31/2022  17:20:21  PAGE 2
+
+
+  C:0027H         LINE#         42
+  -------         ENDMOD        E4_X3
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 001AH BYTE ( 1%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0028H BYTE ( 1%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=26
+Program Size: data=8.0 xdata=0 code=40
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

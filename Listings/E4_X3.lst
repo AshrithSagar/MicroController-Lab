@@ -1,0 +1,76 @@
+A51 MACRO ASSEMBLER  E4_X3                                                                08/31/2022 17:20:20 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E4_X3.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E4_X3.ASM SET(SMALL) DEBUG PRINT(.\Listings\E4_X3.lst) OBJECT(.\Objects
+                      \E4_X3.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Implement an 8-bit octal up counter.
+                       2     
+0000                   3     ORG 0000H                                               ; ORIGINATE
+0000 0102              4     AJMP START                                              ; JUMP TO THE LABEL START
+                       5     
+0002                   6     START:
+0002 7800              7             MOV R0, #00H                            ; INITIALISE COUNTER
+                       8     
+0004                   9             U_ITER:
+0004 7A08             10             MOV R2, #08H                            ; FOR UPPER NIBBLE; OCTAL BASE
+0006 7908             11                     MOV R1, #08H                    ; FOR LOWER NIBBLE; OCTAL BASE
+0008                  12                     L_ITER:
+0008 E8               13                             MOV A, R0                       ; LOAD THE COUNTER
+0009 F5A0             14                             MOV P2, A                       ; SHOW IN PORT-2
+                      15                             
+000B 120019           16                             LCALL DELAY             ; AWAIT
+000E 04               17                             INC A                           ; INCREMENT THE ACCUMULATOR
+                      18     
+000F F8               19                             MOV R0, A                       ; SAVE THE COUNTER                 
+                                  
+0010 D9F6             20                             DJNZ R1, L_ITER         ; REPEAT FOR LOWER NIBBLE
+                      21     
+0012 2408             22                     ADD A, #08H                     ; GO TO NEXT NUMBER IN OCTAL BASE
+0014 F8               23                     MOV R0, A                               ; SAVE THE COUNTER
+                      24                     
+0015 DAED             25                     DJNZ R2, U_ITER                 ; REPEAT FOR HIGHER NIBBLE
+0017 80E9             26             SJMP START                                      ; REPEAT IN A LOOP
+                      27     
+0019                  28     DELAY:
+                      29             ; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+0019 7B0F             30             MOV R3, #0FH
+001B                  31             UP1:
+001B 7CFF             32                     MOV R4, #0FFH
+001D                  33                     UP2:
+001D 7DFF             34                             MOV R5, #0FFH
+001F                  35                             UP3:
+001F 00               36                                     NOP
+0020 00               37                                     NOP                     
+0021 DDFC             38                             DJNZ R5, UP3
+0023 DCF8             39                     DJNZ R4, UP2
+0025 DBF4             40             DJNZ R3, UP1
+                      41             
+0027 22               42             RET                                             ; RETURN BACK TO THE MAIN LOOP
+                      43             END
+A51 MACRO ASSEMBLER  E4_X3                                                                08/31/2022 17:20:20 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   0019H   A   
+L_ITER . . . . . .  C ADDR   0008H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+START. . . . . . .  C ADDR   0002H   A   
+UP1. . . . . . . .  C ADDR   001BH   A   
+UP2. . . . . . . .  C ADDR   001DH   A   
+UP3. . . . . . . .  C ADDR   001FH   A   
+U_ITER . . . . . .  C ADDR   0004H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
