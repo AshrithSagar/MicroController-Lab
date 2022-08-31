@@ -1,0 +1,56 @@
+A51 MACRO ASSEMBLER  E4_X4                                                                08/31/2022 19:22:00 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E4_X4.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E4_X4.ASM SET(SMALL) DEBUG PRINT(.\Listings\E4_X4.lst) OBJECT(.\Objects
+                      \E4_X4.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Sawtooth wave generator
+                       2     
+0000                   3     ORG 0000H                               ; ORIGINATE
+0000 0102              4     AJMP START                              ; JUMP TO THE LABEL START
+                       5     
+0002                   6     START:
+0002 7800              7             MOV R0, #00H            ; INITIALISE
+                       8             
+0004                   9     ITER:
+0004 E8               10             MOV A, R0                       ; GET CURRENT DATA
+0005 04               11             INC A                           ; INCREMENT THE ACCUMULATOR
+                      12             
+0006 F5A0             13             MOV P2, A                       ; SHOW IN PORT-2
+0008 F8               14             MOV R0, A                       ; SAVE IN (R0)
+                      15             
+0009 12000E           16             LCALL DELAY             ; AWAIT (0FFH) MACHINE CYCLES
+000C 80F6             17             SJMP ITER                       ; REPEAT IN A LOOP
+                      18             
+000E                  19     DELAY:
+                      20             ; AWAIT (0FFH) MACHINE CYCLES
+000E 79FF             21             MOV R1, #0FFH
+0010                  22             UP1:
+0010 00               23                     NOP
+0011 D9FD             24             DJNZ R1, UP1
+                      25             
+0013 22               26             RET
+                      27             END
+A51 MACRO ASSEMBLER  E4_X4                                                                08/31/2022 19:22:00 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY. . . . . . .  C ADDR   000EH   A   
+ITER . . . . . . .  C ADDR   0004H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+START. . . . . . .  C ADDR   0002H   A   
+UP1. . . . . . . .  C ADDR   0010H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

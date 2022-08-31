@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E3_X4                                                                08/28/2022 16:16:55 PAGE     1
+A51 MACRO ASSEMBLER  E3_X4                                                                08/31/2022 19:21:09 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -39,7 +39,7 @@ LOC  OBJ            LINE     SOURCE
 0018                  29     HERE:
 0018 80FE             30             SJMP HERE                       ; LOGICAL END
                       31             END
-A51 MACRO ASSEMBLER  E3_X4                                                                08/28/2022 16:16:55 PAGE     2
+A51 MACRO ASSEMBLER  E3_X4                                                                08/31/2022 19:21:09 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
