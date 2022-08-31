@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E4_X4                                                                08/31/2022 19:22:00 PAGE     1
+A51 MACRO ASSEMBLER  E4_X4                                                                08/31/2022 19:32:38 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -8,34 +8,35 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E4_X4.ASM SET(SMALL) DEBUG PRIN
 
 LOC  OBJ            LINE     SOURCE
 
-                       1     ; Sawtooth wave generator
-                       2     
-0000                   3     ORG 0000H                               ; ORIGINATE
-0000 0102              4     AJMP START                              ; JUMP TO THE LABEL START
-                       5     
-0002                   6     START:
-0002 7800              7             MOV R0, #00H            ; INITIALISE
-                       8             
-0004                   9     ITER:
-0004 E8               10             MOV A, R0                       ; GET CURRENT DATA
-0005 04               11             INC A                           ; INCREMENT THE ACCUMULATOR
-                      12             
-0006 F5A0             13             MOV P2, A                       ; SHOW IN PORT-2
-0008 F8               14             MOV R0, A                       ; SAVE IN (R0)
-                      15             
-0009 12000E           16             LCALL DELAY             ; AWAIT (0FFH) MACHINE CYCLES
-000C 80F6             17             SJMP ITER                       ; REPEAT IN A LOOP
-                      18             
-000E                  19     DELAY:
-                      20             ; AWAIT (0FFH) MACHINE CYCLES
-000E 79FF             21             MOV R1, #0FFH
-0010                  22             UP1:
-0010 00               23                     NOP
-0011 D9FD             24             DJNZ R1, UP1
-                      25             
-0013 22               26             RET
-                      27             END
-A51 MACRO ASSEMBLER  E4_X4                                                                08/31/2022 19:22:00 PAGE     2
+                       1     ; On Port-0 of the MC, generate the signal.
+                       2     ; Sawtooth wave generator
+                       3     
+0000                   4     ORG 0000H                               ; ORIGINATE
+0000 0102              5     AJMP START                              ; JUMP TO THE LABEL START
+                       6     
+0002                   7     START:
+0002 7800              8             MOV R0, #00H            ; INITIALISE
+                       9             
+0004                  10     ITER:
+0004 E8               11             MOV A, R0                       ; GET CURRENT DATA
+0005 04               12             INC A                           ; INCREMENT THE ACCUMULATOR
+                      13             
+0006 F580             14             MOV P0, A                       ; SHOW IN PORT-0
+0008 F8               15             MOV R0, A                       ; SAVE IN (R0)
+                      16             
+0009 12000E           17             LCALL DELAY             ; AWAIT (0FFH) MACHINE CYCLES
+000C 80F6             18             SJMP ITER                       ; REPEAT IN A LOOP
+                      19             
+000E                  20     DELAY:
+                      21             ; AWAIT (0FFH) MACHINE CYCLES
+000E 79FF             22             MOV R1, #0FFH
+0010                  23             UP1:
+0010 00               24                     NOP
+0011 D9FD             25             DJNZ R1, UP1
+                      26             
+0013 22               27             RET                             ; RETURN BACK TO THE MAIN LOOP
+                      28             END
+A51 MACRO ASSEMBLER  E4_X4                                                                08/31/2022 19:32:38 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -45,7 +46,7 @@ N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 DELAY. . . . . . .  C ADDR   000EH   A   
 ITER . . . . . . .  C ADDR   0004H   A   
-P2 . . . . . . . .  D ADDR   00A0H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
 START. . . . . . .  C ADDR   0002H   A   
 UP1. . . . . . . .  C ADDR   0010H   A   
 
