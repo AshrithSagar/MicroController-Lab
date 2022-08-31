@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E4_X3                                                                08/31/2022 18:43:26 PAGE     1
+A51 MACRO ASSEMBLER  E4_X3                                                                08/31/2022 18:49:13 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -10,42 +10,48 @@ LOC  OBJ            LINE     SOURCE
 
                        1     ; Implement an 8-bit octal up counter.
                        2     
-0000                   3     ORG 0000H                                       ; ORIGINATE
-0000 0102              4     AJMP START                                      ; JUMP TO THE LABEL START
+0000                   3     ORG 0000H                                               ; ORIGINATE
+0000 0102              4     AJMP START                                              ; JUMP TO THE LABEL START
                        5     
 0002                   6     START:
-0002 7800              7             MOV R0, #00H                    ; INITIALISE COUNTER
-0004 7908              8             MOV R1, #08H                    ; OCTAL BASE
-                       9     
-0006                  10     ITER:
-0006 E8               11             MOV A, R0                               ; LOAD THE COUNTER
-0007 F5A0             12             MOV P2, A                               ; SHOW IN PORT-2
-0009 120012           13             LCALL DELAY                     ; AWAIT
-                      14     
-000C 04               15             INC A                                   ; INCREMENT THE ACCUMULATOR
-000D F8               16             MOV R0, A                               ; SAVE THE COUNTER                      
-                      17             
-000E D9F6             18             DJNZ R1, ITER                   ; REPEAT UNTIL (R1) IS ZERO
-                      19             
-0010 80F0             20             SJMP START                              ; REPEAT IN A LOOP
-                      21     
-0012                  22     DELAY:
-                      23             ; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
-0012 7B0F             24             MOV R3, #0FH
-0014                  25             UP1:
-0014 7CFF             26                     MOV R4, #0FFH
-0016                  27                     UP2:
-0016 7DFF             28                             MOV R5, #0FFH
-0018                  29                             UP3:
-0018 00               30                                     NOP
-0019 00               31                                     NOP                     
-001A DDFC             32                             DJNZ R5, UP3
-001C DCF8             33                     DJNZ R4, UP2
-001E DBF4             34             DJNZ R3, UP1
-                      35             
-0020 22               36             RET                                     ; RETURN BACK TO THE MAIN LOOP
-                      37             END
-A51 MACRO ASSEMBLER  E4_X3                                                                08/31/2022 18:43:26 PAGE     2
+0002 7800              7             MOV R0, #00H                            ; INITIALISE COUNTER
+                       8     
+0004 7A08              9             MOV R2, #08H                            ; UPPER NIBBLE; OCTAL BASE
+                      10     
+0006                  11             U_ITER:
+0006 7908             12                     MOV R1, #08H                    ; LOWER NIBBLE; OCTAL BASE
+0008                  13                     L_ITER:
+0008 E8               14                             MOV A, R0                       ; LOAD THE COUNTER
+0009 F5A0             15                             MOV P2, A                       ; SHOW IN PORT-2
+000B 120018           16                             LCALL DELAY             ; AWAIT
+                      17     
+000E 04               18                             INC A                           ; INCREMENT THE ACCUMULATOR
+000F F8               19                             MOV R0, A                       ; SAVE THE COUNTER
+                      20     
+0010 D9F6             21                             DJNZ R1, L_ITER         ; REPEAT FOR LOWER NIBBLE
+                      22     
+0012 2408             23                     ADD A, #08H                     ; ADD TO GO TO THE NEXT VALID OCTAL NUMBER
+                      24     
+0014 DAF0             25                     DJNZ R2, U_ITER                 ; REPEAT FOR UPPER NIBBLE
+0016 80EA             26             SJMP START                                      ; REPEAT IN A LOOP
+                      27     
+0018                  28     DELAY:
+                      29             ; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+0018 7B0F             30             MOV R3, #0FH
+001A                  31             UP1:
+001A 7CFF             32                     MOV R4, #0FFH
+001C                  33                     UP2:
+001C 7DFF             34                             MOV R5, #0FFH
+001E                  35                             UP3:
+001E 00               36                                     NOP
+001F 00               37                                     NOP
+0020 DDFC             38                             DJNZ R5, UP3
+0022 DCF8             39                     DJNZ R4, UP2
+0024 DBF4             40             DJNZ R3, UP1
+                      41     
+0026 22               42             RET                                             ; RETURN BACK TO THE MAIN LOOP
+                      43             END
+A51 MACRO ASSEMBLER  E4_X3                                                                08/31/2022 18:49:13 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -53,13 +59,14 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   0012H   A   
-ITER . . . . . . .  C ADDR   0006H   A   
+DELAY. . . . . . .  C ADDR   0018H   A   
+L_ITER . . . . . .  C ADDR   0008H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
 START. . . . . . .  C ADDR   0002H   A   
-UP1. . . . . . . .  C ADDR   0014H   A   
-UP2. . . . . . . .  C ADDR   0016H   A   
-UP3. . . . . . . .  C ADDR   0018H   A   
+UP1. . . . . . . .  C ADDR   001AH   A   
+UP2. . . . . . . .  C ADDR   001CH   A   
+UP3. . . . . . . .  C ADDR   001EH   A   
+U_ITER . . . . . .  C ADDR   0006H   A   
 
 
 REGISTER BANK(S) USED: 0 
