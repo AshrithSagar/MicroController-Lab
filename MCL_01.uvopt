@@ -188,7 +188,7 @@
         <AscS3>0</AscS3>
         <aSer3>0</aSer3>
         <eProf>0</eProf>
-        <aLa>1</aLa>
+        <aLa>0</aLa>
         <aPa1>0</aPa1>
         <AscS4>0</AscS4>
         <aSer4>0</aSer4>
@@ -233,8 +233,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\E6_P3.ASM</PathWithFileName>
-      <FilenameWithoutPath>E6_P3.ASM</FilenameWithoutPath>
+      <PathWithFileName>.\E4_X2.ASM</PathWithFileName>
+      <FilenameWithoutPath>E4_X2.ASM</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
