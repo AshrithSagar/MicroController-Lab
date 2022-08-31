@@ -1,3 +1,4 @@
+; On Port-0 of the MC, generate the signal.
 ; Sawtooth wave generator
 
 ORG 0000H				; ORIGINATE
@@ -10,7 +11,7 @@ ITER:
 	MOV A, R0 			; GET CURRENT DATA
 	INC A 		 		; INCREMENT THE ACCUMULATOR
 	
-	MOV P2, A 			; SHOW IN PORT-2
+	MOV P0, A 			; SHOW IN PORT-0
 	MOV R0, A 			; SAVE IN (R0)
 	
 	LCALL DELAY 		; AWAIT (0FFH) MACHINE CYCLES
@@ -23,5 +24,5 @@ DELAY:
 		NOP
 	DJNZ R1, UP1
 	
-	RET
+	RET 				; RETURN BACK TO THE MAIN LOOP
 	END
