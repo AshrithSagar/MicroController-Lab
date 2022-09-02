@@ -1,0 +1,57 @@
+A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:15:29 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E5_X1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E5_X1.ASM SET(SMALL) DEBUG PRINT(.\Listings\E5_X1.lst) OBJECT(.\Objects
+                      \E5_X1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ;  Convert an ASCII code available in external data memory location 
+                       2     ; into HEX equivalent and display in the Data field of the display.
+                       3     
+0000                   4     ORG 0000H                                       ; ORIGINATE
+0000 0102              5     AJMP START                                      ; JUMP TO THE LABEL START
+                       6     
+0002                   7     START:
+0002 905000            8             MOV DPTR, #5000H                ; DATA LOCATION
+0005 E0                9             MOVX A, @DPTR                   ; GET THE DATA
+                      10     
+0006 C3               11             CLR C                                   ; CLEAR CARRY
+0007 943A             12             SUBB A, #3AH                    ; CHECK FOR NUMBER OR ALPHA-NUMERIC CHARACTER
+                      13                     
+                      14             ; IF NO CARRY => INPUT NUMBER IS < 3AH
+0009 5003             15             JNC DISP
+                      16     
+                      17     ; IF CARRY => INPUT NUMBER IS >= 3AH
+000B                  18     ALPH:
+000B C3               19             CLR C                                   ; CLEAR CARRY AGAIN
+000C 9407             20             SUBB A, #07H                    ; SUBTRACT AN ADDITIONAL (07H)
+                      21     
+000E                  22     DISP:
+000E 7860             23             MOV R0, #60H                    ; LOCATION OF THE DISPLAY FIELD         
+0010 F6               24             MOV @R0, A                              ; UPDATE THE DATA TO THE LOCATION TO BE DIS
+                             PLAYED
+                      25     
+0011                  26     HERE:
+0011 80FE             27             SJMP HERE                               ; LOGICAL END
+                      28             END
+A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:15:29 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ALPH . . . . . . .  C ADDR   000BH   A   
+DISP . . . . . . .  C ADDR   000EH   A   
+HERE . . . . . . .  C ADDR   0011H   A   
+START. . . . . . .  C ADDR   0002H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
