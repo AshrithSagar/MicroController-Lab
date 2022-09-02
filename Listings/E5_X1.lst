@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:31:42 PAGE     1
+A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:37:38 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -24,23 +24,25 @@ LOC  OBJ            LINE     SOURCE
                       14     
 000A 940A             15             SUBB A, #0AH            ; CHECK FOR NUMBER OR ALPHA-NUMERIC CHARACTER
                       16     
-                      17             ; IF NO CARRY ==> INPUT NUMBER IS < 3AH ==> [0-9]
-000C 5003             18             JNC DISP
-                      19     
-                      20     ; IF CARRY ==> INPUT NUMBER IS >= 3AH ==> [A-F]
-000E                  21     ALPH:
-000E C3               22             CLR C                                   ; CLEAR CARRY AGAIN
-000F 9407             23             SUBB A, #07H                    ; SUBTRACT AN ADDITIONAL (07H)
-                      24     
-0011                  25     DISP:
-0011 7860             26             MOV R0, #60H                    ; LOCATION OF THE DISPLAY FIELD
-0013 F6               27             MOV @R0, A                              ; UPDATE THE DATA TO THE LOCATION TO BE DIS
+000C E9               17             MOV A, R1                               ; GET THE STORED COPY
+                      18             
+                      19             ; IF NO CARRY ==> INPUT NUMBER IS < 3AH ==> [0-9]
+000D 4003             20             JC DISP
+                      21     
+                      22     ; IF CARRY ==> INPUT NUMBER IS >= 3AH ==> [A-F]
+000F                  23     ALPH:
+000F C3               24             CLR C                                   ; CLEAR CARRY AGAIN
+0010 9407             25             SUBB A, #07H                    ; SUBTRACT AN ADDITIONAL (07H)
+                      26     
+0012                  27     DISP:
+0012 7860             28             MOV R0, #60H                    ; LOCATION OF THE DISPLAY FIELD
+0014 F6               29             MOV @R0, A                              ; UPDATE THE DATA TO THE LOCATION TO BE DIS
                              PLAYED
-                      28     
-0014                  29     HERE:
-0014 80FE             30             SJMP HERE                               ; LOGICAL END
-                      31             END
-A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:31:42 PAGE     2
+                      30     
+0015                  31     HERE:
+0015 80FE             32             SJMP HERE                               ; LOGICAL END
+                      33             END
+A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:37:38 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -48,9 +50,9 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-ALPH . . . . . . .  C ADDR   000EH   A   
-DISP . . . . . . .  C ADDR   0011H   A   
-HERE . . . . . . .  C ADDR   0014H   A   
+ALPH . . . . . . .  C ADDR   000FH   A   
+DISP . . . . . . .  C ADDR   0012H   A   
+HERE . . . . . . .  C ADDR   0015H   A   
 START. . . . . . .  C ADDR   0002H   A   
 
 
