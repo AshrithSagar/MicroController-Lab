@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:15:29 PAGE     1
+A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:31:42 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -8,7 +8,7 @@ ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E5_X1.ASM SET(SMALL) DEBUG PRIN
 
 LOC  OBJ            LINE     SOURCE
 
-                       1     ;  Convert an ASCII code available in external data memory location 
+                       1     ;  Convert an ASCII code available in external data memory location
                        2     ; into HEX equivalent and display in the Data field of the display.
                        3     
 0000                   4     ORG 0000H                                       ; ORIGINATE
@@ -19,25 +19,28 @@ LOC  OBJ            LINE     SOURCE
 0005 E0                9             MOVX A, @DPTR                   ; GET THE DATA
                       10     
 0006 C3               11             CLR C                                   ; CLEAR CARRY
-0007 943A             12             SUBB A, #3AH                    ; CHECK FOR NUMBER OR ALPHA-NUMERIC CHARACTER
-                      13                     
-                      14             ; IF NO CARRY => INPUT NUMBER IS < 3AH
-0009 5003             15             JNC DISP
+0007 9430             12             SUBB A, #30H                    ; SUBTRACT (30H) INISTIALLY
+0009 F9               13             MOV R1, A                               ; SAVE A COPY IN (R1)
+                      14     
+000A 940A             15             SUBB A, #0AH            ; CHECK FOR NUMBER OR ALPHA-NUMERIC CHARACTER
                       16     
-                      17     ; IF CARRY => INPUT NUMBER IS >= 3AH
-000B                  18     ALPH:
-000B C3               19             CLR C                                   ; CLEAR CARRY AGAIN
-000C 9407             20             SUBB A, #07H                    ; SUBTRACT AN ADDITIONAL (07H)
-                      21     
-000E                  22     DISP:
-000E 7860             23             MOV R0, #60H                    ; LOCATION OF THE DISPLAY FIELD         
-0010 F6               24             MOV @R0, A                              ; UPDATE THE DATA TO THE LOCATION TO BE DIS
+                      17             ; IF NO CARRY ==> INPUT NUMBER IS < 3AH ==> [0-9]
+000C 5003             18             JNC DISP
+                      19     
+                      20     ; IF CARRY ==> INPUT NUMBER IS >= 3AH ==> [A-F]
+000E                  21     ALPH:
+000E C3               22             CLR C                                   ; CLEAR CARRY AGAIN
+000F 9407             23             SUBB A, #07H                    ; SUBTRACT AN ADDITIONAL (07H)
+                      24     
+0011                  25     DISP:
+0011 7860             26             MOV R0, #60H                    ; LOCATION OF THE DISPLAY FIELD
+0013 F6               27             MOV @R0, A                              ; UPDATE THE DATA TO THE LOCATION TO BE DIS
                              PLAYED
-                      25     
-0011                  26     HERE:
-0011 80FE             27             SJMP HERE                               ; LOGICAL END
-                      28             END
-A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:15:29 PAGE     2
+                      28     
+0014                  29     HERE:
+0014 80FE             30             SJMP HERE                               ; LOGICAL END
+                      31             END
+A51 MACRO ASSEMBLER  E5_X1                                                                09/02/2022 16:31:42 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -45,9 +48,9 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-ALPH . . . . . . .  C ADDR   000BH   A   
-DISP . . . . . . .  C ADDR   000EH   A   
-HERE . . . . . . .  C ADDR   0011H   A   
+ALPH . . . . . . .  C ADDR   000EH   A   
+DISP . . . . . . .  C ADDR   0011H   A   
+HERE . . . . . . .  C ADDR   0014H   A   
 START. . . . . . .  C ADDR   0002H   A   
 
 
