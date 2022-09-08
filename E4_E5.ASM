@@ -1,3 +1,6 @@
+; Implement a 16- bit hexadecimal up counter and update 
+; the counts in register R0 and R1  register
+
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 

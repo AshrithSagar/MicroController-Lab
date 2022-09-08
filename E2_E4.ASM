@@ -1,3 +1,7 @@
+; Perform division of two numbers. The numbers are available 
+; in 2000h and 2001h data memory. After division operation, 
+; store the result in 200Ah and 200Bh.
+
 ORG 0000H					; ORIGINATE
 AJMP START					; JUMP TO THE LABEL START
 

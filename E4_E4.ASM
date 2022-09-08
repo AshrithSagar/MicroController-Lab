@@ -1,3 +1,5 @@
+; Implement a 2-digit decimal up counter and display the counts on Port 2 pins.
+
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 

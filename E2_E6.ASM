@@ -1,3 +1,5 @@
+; Perform NOT operation on a data and output the result to port 1.
+
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 

@@ -1,3 +1,6 @@
+; Write program to add two 16-bit numbers 2E5Fh and A3B4h. 
+; Store the sum in R7 and R6.
+
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 

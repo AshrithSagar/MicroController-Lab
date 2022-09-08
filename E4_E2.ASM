@@ -1,3 +1,5 @@
+; Generate a square wave of 66% duty cycle on bit 0 of port 1.
+
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 
