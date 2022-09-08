@@ -140,7 +140,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>x:0x5000</ItemText>
+          <ItemText>x:0x1050</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -233,8 +233,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\E2_P1.ASM</PathWithFileName>
-      <FilenameWithoutPath>E2_P1.ASM</FilenameWithoutPath>
+      <PathWithFileName>.\E4_P2.ASM</PathWithFileName>
+      <FilenameWithoutPath>E4_P2.ASM</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

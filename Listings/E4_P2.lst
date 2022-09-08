@@ -1,0 +1,53 @@
+A51 MACRO ASSEMBLER  E4_P2                                                                09/08/2022 12:01:02 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E4_P2.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E4_P2.ASM SET(SMALL) DEBUG PRINT(.\Listings\E4_P2.lst) OBJECT(.\Objects
+                      \E4_P2.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Set the carry flag to 0 if the number in 
+                       2     ; accumulator is even, else reset the carry flag.
+                       3     
+0000                   4     ORG 0000H                               ; ORIGINATE
+0000 0102              5     AJMP START                              ; JUMP TO THE LABEL START
+                       6     
+0002                   7     START:  
+0002 7406              8             MOV A, #06H             ; INPUT
+                       9             
+0004 75F002           10             MOV B, #02H             ; DIVISION BY 2
+0007 84               11             DIV AB                          ; DIVIDE ACCUMULATOR BY 2
+0008 E5F0             12             MOV A, B                        ; MOVE REMAINDER TO ACCUMULATOR
+                      13             
+000A B40003           14             CJNE A, #00H, ODD       ; CHECK FOR ODD
+                      15     
+                      16             ; NUMBER IS EVEN
+000D C3               17             CLR C                           ; CLEAR CARRY
+000E 8001             18             SJMP HERE                       ; END THE PROGRAM
+                      19     
+0010                  20     ODD:
+0010 D3               21             SETB C                          ; SET CARRY FLAG
+                      22     
+0011                  23     HERE:
+0011 80FE             24             SJMP HERE                       ; LOGICAL END
+                      25             END
+A51 MACRO ASSEMBLER  E4_P2                                                                09/08/2022 12:01:02 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0011H   A   
+ODD. . . . . . . .  C ADDR   0010H   A   
+START. . . . . . .  C ADDR   0002H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
