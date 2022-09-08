@@ -1,4 +1,6 @@
-; Convert a 2-digit BCD number into ASCII code.
+; Program timer 1 to generate the square wave of 1 KHz.
+; Assume crystal frequency is 11.0592 MHz
+
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START

@@ -1,5 +1,4 @@
-; Find the sum of odd and even numbers available in a
-; memory array and store the result in memory locations.
+; Implement a 16 - bit down counter.
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
