@@ -1,4 +1,4 @@
-; Perform multiplication by shift and add method.
+; Convert Gray code into binary number.
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START

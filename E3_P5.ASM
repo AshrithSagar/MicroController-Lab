@@ -1,4 +1,4 @@
-; Perform multiplication by shift and add method.
+; Reverse the elements of an array.
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START

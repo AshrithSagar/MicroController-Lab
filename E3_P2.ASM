@@ -1,4 +1,4 @@
-; Perform multiplication by shift and add method.
+; Convert a 2-digit BCD number into ASCII code.
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
