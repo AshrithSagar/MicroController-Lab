@@ -1,0 +1,64 @@
+A51 MACRO ASSEMBLER  E2_P1                                                                09/08/2022 11:31:36 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\E2_P1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE E2_P1.ASM SET(SMALL) DEBUG PRINT(.\Listings\E2_P1.lst) OBJECT(.\Objects
+                      \E2_P1.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; Find the difference of two 16 bit numbers available in 
+                       2     ; memory location XX50h and XX52h and store the result in XX5Ah.
+                       3     
+0000                   4     ORG 0000H                               ; ORIGINATE
+0000 0102              5     AJMP START                              ; JUMP TO THE LABEL START
+                       6     
+0002                   7     START:  
+0002 901050            8             MOV DPTR, #1050H        ; FIRST NUMBER LOWER BYTE
+0005 E0                9             MOVX A, @DPTR           ; GET LOWER BYTE
+0006 F5F0             10             MOV B, A                        ; MAKE A COPY IN REG (B)
+                      11     
+0008 901052           12             MOV DPTR, #1052H        ; SECOND NUMBER LOWER BYTE
+000B E0               13             MOVX A, @DPTR           ; GET LOWER BYTE
+                      14     
+000C C3               15             CLR C                           ; CLEAR CARRY
+000D 95F0             16             SUBB A, B                       ; LOWER BYTES OF (SECOND NUMBER - FIRST NUMBER)
+                      17     
+000F 90105A           18             MOV DPTR, #105AH        ; RESULT LOWER BYTE
+0012 F0               19             MOVX @DPTR, A           ; STORE LOWER BYTE
+                      20     
+                      21     
+0013 901051           22             MOV DPTR, #1051H        ; FIRST NUMBER HIGHER BYTE
+0016 E0               23             MOVX A, @DPTR           ; GET HIGHER BYTE
+0017 F5F0             24             MOV B, A                        ; MAKE A COPY IN REG (B)
+                      25     
+0019 901053           26             MOV DPTR, #1053H        ; FIRST NUMBER HIGHER BYTE
+001C E0               27             MOVX A, @DPTR           ; GET HIGHER BYTE
+                      28     
+                      29             ; DON'T CLEAR CARRY
+001D 95F0             30             SUBB A, B                       ; HIGHER BYTES OF (SECOND NUMBER - FIRST NUMBER)
+                      31     
+001F 90105B           32             MOV DPTR, #105BH        ; RESULT HIGHER BYTE
+0022 F0               33             MOVX @DPTR, A           ; STORE HIGHER BYTE
+                      34     
+0023                  35     HERE:
+0023 80FE             36             SJMP HERE                       ; LOGICAL END
+                      37             END
+A51 MACRO ASSEMBLER  E2_P1                                                                09/08/2022 11:31:36 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0023H   A   
+START. . . . . . .  C ADDR   0002H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
