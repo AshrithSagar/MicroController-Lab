@@ -1,0 +1,33 @@
+; Realize a 2-digit decimal down counter which counts down from 90 to 30 and 
+; then repeats. Display each count in the data field of the display for 0.5 sec.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV A, #00H 		; INITIALISE
+	
+ITER:
+	INC A 				; INCREMENT ACCUMULATOR
+	RL A 				; RIGHT SHIFT ACCUMULATOR
+	MOV P2, A 			; SHOW IN PORT-2
+
+	ACALL DELAY 		; AWAIT
+	SJMP ITER 			; REPEAT IN A LOOP
+
+DELAY:
+	; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+	MOV R3, #0FH
+	UP1:
+		MOV R4, #0FFH
+		UP2:
+			MOV R5, #0FFH
+			UP3:
+				NOP
+				NOP			
+			DJNZ R5, UP3
+		DJNZ R4, UP2
+	DJNZ R3, UP1
+	
+	RET 				; RETURN BACK TO THE MAIN LOOP
+	END
