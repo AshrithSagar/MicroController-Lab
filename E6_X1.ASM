@@ -1,16 +1,21 @@
 ; Realize a 2-digit decimal down counter which counts down from 90 to 30 and
 ; then repeats. Display each count in the data field of the display for 0.5 sec.
 
-MOV A, #90H 			; INITIALISE
+START:
+	MOV A, #90H 		; INITIALISE
 
 ITER:
-	
-
 	MOV 60H, A 			; COPY DATA TO DISPLAY PLACEHOLDERS
-	LCALL UPDDT 		; DISPLAY PROGRAM
+	; LCALL UPDDT 		; DISPLAY PROGRAM
+	MOV P2, A
 	LCALL DELAY 		; AWAIT 0.5 SECONDS
 
-	DJNZ ITER 			; REPEAT IN A LOOP
+	ADD A, #99H 		; ADD HUNDRED'S COMPLEMENT FORM
+	DA A 				; DECIMALLY ADJUST ACCUMULATOR
+
+	CJNE A, #2FH, ITER 	; REPEAT DECREMENT. TILL (30H - 1)
+
+	SJMP START 			; REPEAT IN A LOOP
 
 DELAY:
 	; AWAIT (08H*0FAH*0FAH) MACHINE CYCLES => 0.5 SECONDS
