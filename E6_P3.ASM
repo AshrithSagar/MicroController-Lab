@@ -1,5 +1,7 @@
 ; Realize an 8-bit Johnson counter.
 
+; (1111 1111) AND (0000 0000) ARE REPEATED TWICE, BUT.
+
 CLR C 					; CLEAR CARRY
 MOV A, #00H 			; INITIALISE
 
