@@ -1,0 +1,59 @@
+======================
+7 Segment display:
+----------------------
+	a
+f 		b
+	g
+e 		c
+	d
+		dp
+
+----------------------
+Convention:
+----------------------
+d c b a 	dp g f e
+
+======================
+Conversion table:
+----------------------
+A 	0111 0111 	=> 77
+b 	1100 0111 	=> C7
+C
+d
+E
+F
+g
+H
+I
+J
+K 	NOT POSSIBLE
+L
+m
+n
+o
+p
+q
+r 	NOT POSSIBLE
+S 	1101 0110 	=> D6; CONTEXT REQUIRED
+t 	1000 0111 	=> 87
+u	DECLARATION REQUIRED
+v 	DECLARATION REQUIRED
+w 	NOT POSSIBLE
+x 	NOT POSSIBLE
+y 	1110 0110 	=> E6
+z 	NOT POSSIBLE
+
+0 	1111 0011 	=> F3
+1 	0110 0000 	=> 60
+2 	1011 0101 	=> A5
+3 	1111 0100 	=> F4
+4 	0110 0110 	=> 66
+5 	1101 0110 	=> D6
+6 	1101 0111 	=> D7
+7 	0111 0000 	=> 70;	0111 0100 	=> 74
+8 	1111 0111 	=> F7
+9 	1111 0110 	=> F6; 	0111 0110 	=> 76
+
+ 	0000 0000 	=> 00; [BLANK]
+- 	0000 0100 	=> 04
+. 	0000 1000 	=> 08
