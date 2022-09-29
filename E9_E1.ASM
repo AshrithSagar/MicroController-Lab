@@ -1,0 +1,65 @@
+; Interface the keypad and read the key-codes (HEX) of all keys.
+
+; Connect the keyboard to J2 of the trainer
+; Set the trainer in to KEYBOARD MODE
+
+BEGIN:
+	MOV DPTR, #E803H
+	MOV A, #90H
+	MOVX @DPTR, A
+	MOV A, #07H
+	DEC 82H
+	MOVX @DPTR, A
+	MOV 82H, #00H
+
+WAIT1:
+	MOVX A, @DPTR
+	JNZ WAIT1
+	LCALL DBOUNCE
+
+WAIT2:
+	MOVX A, @DPTR
+	JZ WAIT2
+	LCALL DBOUNCE
+	MOV R0, #00H
+	MOV R1, #03H
+	MOV R2, #80H
+
+NXT_ROW:
+	MOV DPTR, #E802H
+	MOV A, R2
+	RL A
+	MOV R2, A
+	MOVX @DPTR, A
+	MOV DPL, #00H
+	MOVX A, @DPTR
+	JNZ FOUND
+	MOV A, R0
+	ADD A, #08H
+	MOV R0, A
+	DJNZ R1, NXT_ROW
+	LJMP BEGIN
+
+FOUND:
+	RRC A
+	JC OVER
+	INC R0
+	SJMP FOUND
+
+OVER:
+	MOV 60H, R0
+	MOV F0H, #00H
+	LCALL UPDDT
+	LJMP BEGIN
+
+DBOUNCE:
+	MOV TMOD, #10H ; Timer1 in mode1
+	MOV TH1, #B7H ; count for 20mS delay
+	MOV TL1, #FFH
+	SETB TR1
+
+HERE:
+	JNB TF1, HERE
+	CLR TF1
+	CLR TR1
+	RET
