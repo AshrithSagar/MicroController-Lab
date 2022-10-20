@@ -1,6 +1,5 @@
 ; Perform the logical AND operation of two 8-bit data 
-; available in R0 and R1 and output the result 
-to port2.
+; available in R0 and R1 and output the result to port2.
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
