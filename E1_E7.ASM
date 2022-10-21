@@ -1,4 +1,4 @@
-CLR C ; clear carry
-MOV A, #3FH ; data 3Fh into A
-MOV R3, #23H ; copy 23h into R3
-SUBB A, R3 ; A-R3 = A
+CLR C 			; CLEAR CARRY
+MOV A, #3FH 	; DATA (3FH) INTO ACCUMULATOR
+MOV R3, #23H 	; COPY (23H) INTO R3
+SUBB A, R3 		; (A) - (R3) => (A)

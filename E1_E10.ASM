@@ -1,3 +1,3 @@
-MOV A, #44H ; load data 44h to accumulator
-MOV P1, A ; transfer data from acc to port1
-MOV P2, A ; transfer data to port2
+MOV A, #44H	 	; LOAD DATA (44H) INTO THE ACCUMULATOR
+MOV P1, A 		; TRANSFER DATA FROM ACCUMULATOR TO PORT 1
+MOV P2, A 		; TRANSFER DATA TO PORT 2
