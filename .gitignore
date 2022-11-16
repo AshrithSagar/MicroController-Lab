@@ -1,6 +1,10 @@
-Listings/
-Objects/
+.DS_Store
+
 Report/
 Text format/
-MCL_01*
-.DS_Store
+
+Listings/
+Objects/
+*.uvproj
+*.uvopt
+*.uvgui.*
