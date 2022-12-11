@@ -38,6 +38,98 @@
     
 </ul>
 
+<hr>
+
+
+<h2>E9_E1.ASM</h2>
+<pre><code>; Interface the keypad and read the key-codes (HEX) of all keys.
+; Connect the keyboard to J2 of the trainer
+; Set the trainer in to KEYBOARD MODE
+; Configure Port A as Input and Port C as Output
+
+; 8000H
+BEGIN:
+	MOV DPTR, #E803H 			; ADDRESS OF (J2) CONTROL REG
+	; SET ALL PORTS AS INPUTS; PORT_A IN INPUT MODE
+	MOV A, #90H 				; CONTROL CODE
+	MOVX @DPTR, A 				; SET CONTROL REGISTER WITH THE CODE
+	MOV A, #07H 				; TO SEND HIGH ON ALL ROWS
+	DEC 82H 					; DEC DPTR
+	MOVX @DPTR, A 				; WRITE TO PORT_B
+	MOV 82H, #00H 				; GO TO PORT_A
+
+WAIT1:
+	MOVX A, @DPTR 				; GET PORT_A INPUT TO ACCUMULATOR
+	; CHECK ALL KEYS RELEASED?
+	JNZ WAIT1 					; REPEAT UNTILL NON-ZERO INPUT GIVEN
+	LCALL DBOUNCE 				; AWAIT DEBOUNCE KEYBOARD
+
+WAIT2:
+	MOVX A, @DPTR 				; READ PORT_A FOR COLUMNS
+	JZ WAIT2 					; CHECK ANY KEY PRESSED?
+	LCALL DBOUNCE 				; AWAIT DEBOUNCE KEYBOARD
+	MOV R0, #00H 				; INITIAL KEY CODE
+	MOV R1, #03H 				; THE NUMBER OF ROWS
+	MOV R2, #80H 				; TO SEND HIGH TO THE ROWS; INITIAL VALUE
+
+NXT_ROW:
+	MOV DPTR, #E802H 			; ADDRESS OF PORT_C
+	MOV A, R2 					; GET HIGH CODE TO ACCUMULATOR
+	RL A 						; ROTATE LEFT TO GO TO THE NEXT ROW
+	MOV R2, A 					; SAVE IN (R2)
+	MOVX @DPTR, A 				; WRITE IN PORT_C
+	MOV DPL, #00H 				; GO TO PORT_A
+	MOVX A, @DPTR 				; GET PORT_A INPUT
+	JNZ FOUND 					; 
+	MOV A, R0 					;
+	ADD A, #08H 				;
+	MOV R0, A 					;
+	DJNZ R1, NXT_ROW 			;
+	LJMP BEGIN 					; EXIT AND BEGIN AGAIN
+
+FOUND:
+	RRC A
+	JC OVER
+	INC R0
+	SJMP FOUND
+
+OVER:
+	MOV 60H, R0 				; DISPLAY PLACEHOLDER
+	MOV F0H, #00H 				; NO DOT
+	LCALL UPDDT 				; SHOW IN DISPLAY FIELD
+	LJMP BEGIN 					; REPEAT ENTIRE PROGRAM AGAIN
+
+DBOUNCE:
+	MOV TMOD, #10H 				; TIMER-1 IN MODE_1
+	; DELAY OF 20ms
+	MOV TH1, #B7H
+	MOV TL1, #FFH
+	SETB TR1 					; TIMER-1 SET
+
+HERE:
+	JNB TF1, HERE 				; WAIT UNTIL TIMER-1 OVERFLOWS
+	; RESET TIMER-1
+	CLR TF1
+	CLR TR1
+	RET 						; RETURN BACK TO MAIN LOOP
+</code></pre>
+
+<h2>README.md</h2>
+<pre><code># Calculator Keyboard Interface
+
+## Examples
+
+1. Interface the keypad and read the key-codes (HEX) of all keys.
+
+## Exercises
+
+1. Perform mathematical operations: ADD, MULTIPLY and SUBTRACT.
+
+2. Find the value of (X + Y) x Z - U (e. g. (5+4) x 3-7).
+</code></pre>
+
+
+
 
 </body>
 

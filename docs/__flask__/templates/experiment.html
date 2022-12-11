@@ -16,4 +16,12 @@
     {% endfor %}
 </ul>
 
+<hr>
+
+{% for fileName in data.fileContents.keys() %}
+<h2>{{ fileName }}</h2>
+<pre><code>{{ data.fileContents[fileName] }}</code></pre>
+{% endfor %}
+
+
 {% endblock %}

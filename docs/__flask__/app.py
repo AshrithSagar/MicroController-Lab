@@ -27,9 +27,16 @@ def experiment(experimentNumber):
     folder = os.path.join("../../", 'Experiment-'+str(experimentNumber))
     folderContents = sorted(os.listdir(folder))
 
+    fileContents = {}
+    for fileName in folderContents:
+        filePath = os.path.join(folder, fileName)
+        with open(filePath, 'r') as f:
+            fileContents[fileName] = f.read()
+
     data = {
         "experimentNumber": experimentNumber,
-        "folderContents": folderContents
+        "folderContents": folderContents,
+        "fileContents": fileContents
     }
     return render_template("experiment.html", data=data), 200, {'Content-Type': 'text/html; charset=utf-8'}
 
