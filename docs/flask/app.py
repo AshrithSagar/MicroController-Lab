@@ -1,5 +1,4 @@
-from os import path
-from pathlib import Path
+import os
 
 from flask import Flask, render_template
 from flask_frozen import Freezer
@@ -25,8 +24,16 @@ def index():
 
 @app.route("/experiment-<int:experimentNumber>.html")
 def experiment(experimentNumber):
+    folderData = {}
+    folder = os.path.join("../../", 'Experiment-'+str(experimentNumber))
+    for file in sorted(os.listdir(folder)):
+        filePath = os.path.join(folder, file)
+        with open(filePath, 'r') as f:
+            folderData[file] = f.read()
+
     data = {
         "experimentNumber": experimentNumber,
+        "folderData": folderData
     }
     return render_template("experiment.html", data=data), 200, {'Content-Type': 'text/html; charset=utf-8'}
 
