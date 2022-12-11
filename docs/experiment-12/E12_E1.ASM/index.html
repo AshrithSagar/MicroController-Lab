@@ -17,7 +17,7 @@
 <h1>Experiment-12</h1>
 <h2>E12_E1.ASM</h2>
 
-<code>; Generate a square (Calibration signal) waveform and display it on the oscilloscope.
+<pre><code>; Generate a square (Calibration signal) waveform and display it on the oscilloscope.
 
 ; Assume the interface is connected over J2 of the trainer.
 ; The trainer kit set in Keyboard mode.
@@ -38,7 +38,7 @@ UP:
 	MOVX @R0, A 			; Data to DAC1
 	LCALL DELAY 			; 1 mS Delay
 	SJMP UP 				; Repeat the cycle.
-</code>
+</code></pre>
 
 
 </body>
