@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['FREEZER_BASE_URL'] = 'https://docs/MicroController-Lab/'
 
 # As configured in GitHub Pages Settings
-app.config['FREEZER_DESTINATION'] = ''
+app.config['FREEZER_DESTINATION'] = '../'
 
 app.config['FREEZER_RELATIVE_URLS'] = False  # Default
 app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True
