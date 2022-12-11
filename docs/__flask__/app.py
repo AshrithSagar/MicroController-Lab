@@ -22,7 +22,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/experiment-<int:experimentNumber>/")
+@app.route("/Experiment-<int:experimentNumber>/")
 def experiment(experimentNumber):
     folder = os.path.join("../../", 'Experiment-'+str(experimentNumber))
     folderContents = sorted(os.listdir(folder))
@@ -47,7 +47,7 @@ def experiment():
         yield {'experimentNumber': experimentNumber}
 
 
-@app.route("/experiment-<int:experimentNumber>/<fileName>/")
+@app.route("/Experiment-<int:experimentNumber>/<fileName>/")
 def filePage(experimentNumber, fileName):
     filePath = os.path.join("../../", 'Experiment-' +
                             str(experimentNumber), fileName)
