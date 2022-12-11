@@ -7,9 +7,11 @@
 <h1>MicroController-Lab</h1>
 
 <ul>
+    {% for experiment in [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12] %}
     <li>
-        <p>Experiment-1</p>
+        Experiment-{{ experiment }}
     </li>
+    {% endfor %}
 </ul>
 
 {% endblock %}
