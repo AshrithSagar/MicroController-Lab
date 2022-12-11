@@ -40,7 +40,7 @@ def experiment():
         yield {'experimentNumber': experimentNumber}
 
 
-@app.route("/experiment-<int:experimentNumber>/<fileName>.html")
+@app.route("/experiment-<int:experimentNumber>/<fileName>/")
 def filePage(experimentNumber, fileName):
     filePath = os.path.join("../../", 'Experiment-' +
                             str(experimentNumber), fileName)
