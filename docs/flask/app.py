@@ -14,7 +14,7 @@ app.config['FREEZER_DESTINATION'] = '../'
 
 app.config['FREEZER_RELATIVE_URLS'] = False  # Default
 app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True
-app.config['FREEZER_REMOVE_EXTRA_FILES'] = False
+app.config['FREEZER_DESTINATION_IGNORE'] = ['.nojekyll', 'flask']
 freezer = Freezer(app)
 
 
