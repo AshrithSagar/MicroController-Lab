@@ -13,7 +13,7 @@ app.config['FREEZER_BASE_URL'] = 'https://docs/MicroController-Lab/'
 app.config['FREEZER_DESTINATION'] = '../'
 
 app.config['FREEZER_RELATIVE_URLS'] = False  # Default
-app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = True
+app.config['FREEZER_IGNORE_MIMETYPE_WARNINGS'] = False
 app.config['FREEZER_DESTINATION_IGNORE'] = ['.nojekyll', 'flask']
 freezer = Freezer(app)
 
@@ -23,9 +23,18 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/<path:page>")
-def pages(page, data=None):
-    return render_template(page, data=data)
+@app.route("/experiment-<int:experimentNumber>.html")
+def experiment(experimentNumber):
+    data = {
+        "experimentNumber": experimentNumber,
+    }
+    return render_template("experiment.html", data=data), 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+@freezer.register_generator
+def experiment():
+    for experimentNumber in [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12]:
+        yield {'experimentNumber': experimentNumber}
 
 
 if __name__ == '__main__':
