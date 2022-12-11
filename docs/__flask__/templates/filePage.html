@@ -3,10 +3,13 @@
 {% block title %}{{data.fileName}} | Experiment-{{ data.experimentNumber }} | MicroController-Lab{% endblock %}
 
 {% block content %}
+<div class="container">
 
-<h1>Experiment-{{data.experimentNumber}}</h1>
-<h2>{{ data.fileName }}</h2>
+    <h1>Experiment-{{data.experimentNumber}}</h1>
 
-<pre><code>{{ data.fileData }}</code></pre>
+    <h2>{{ data.fileName }}</h2>
 
+    <pre><code>{{ data.fileData }}</code></pre>
+
+</div>
 {% endblock %}

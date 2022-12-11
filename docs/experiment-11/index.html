@@ -7,6 +7,8 @@
 
     
     <title>Experiment-11 | MicroController-Lab</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
     
 </head>
@@ -19,36 +21,37 @@
     </header>
 
     
+<div class="container">
 
-<h1>Experiment-11</h1>
+    <h1>Experiment-11</h1>
 
-<ul>
+    <ul>
+        
+        <li>
+            <a href="/MicroController-Lab/experiment-11/E11_E1.ASM/">
+                E11_E1.ASM
+            </a>
+        </li>
+        
+        <li>
+            <a href="/MicroController-Lab/experiment-11/E11_X1.ASM/">
+                E11_X1.ASM
+            </a>
+        </li>
+        
+        <li>
+            <a href="/MicroController-Lab/experiment-11/README.md/">
+                README.md
+            </a>
+        </li>
+        
+    </ul>
+
+    <hr>
+
     
-    <li>
-        <a href="/MicroController-Lab/experiment-11/E11_E1.ASM/">
-            E11_E1.ASM
-        </a>
-    </li>
-    
-    <li>
-        <a href="/MicroController-Lab/experiment-11/E11_X1.ASM/">
-            E11_X1.ASM
-        </a>
-    </li>
-    
-    <li>
-        <a href="/MicroController-Lab/experiment-11/README.md/">
-            README.md
-        </a>
-    </li>
-    
-</ul>
-
-<hr>
-
-
-<h2>E11_E1.ASM</h2>
-<pre><code>; Display BIO-LOGIC (as bIO-LOGIC) in the seven segment display interface.
+    <h2>E11_E1.ASM</h2>
+    <pre><code>; Display BIO-LOGIC (as bIO-LOGIC) in the seven segment display interface.
 
 ; Assume the trainer is connected over J2 of the trainer.
 ; The trainer is set to KEYBOARD MODE.
@@ -102,9 +105,9 @@ HERE:
 	DJNZ R3, NXT_GRP
 	SJMP UP1
 </code></pre>
-
-<h2>E11_X1.ASM</h2>
-<pre><code>; Flash FOUR continuously in the display interface.
+    
+    <h2>E11_X1.ASM</h2>
+    <pre><code>; Flash FOUR continuously in the display interface.
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
@@ -116,9 +119,9 @@ HERE:
 	SJMP HERE			; LOGICAL END
 	END
 </code></pre>
-
-<h2>README.md</h2>
-<pre><code># Seven-Segment Display Interface
+    
+    <h2>README.md</h2>
+    <pre><code># Seven-Segment Display Interface
 
 ## Examples
 
@@ -128,10 +131,15 @@ HERE:
 
 1. Flash FOUR continuously in the display interface.
 </code></pre>
+    
+
+</div>
 
 
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

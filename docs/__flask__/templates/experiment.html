@@ -3,25 +3,27 @@
 {% block title %}Experiment-{{ data.experimentNumber }} | MicroController-Lab{% endblock %}
 
 {% block content %}
+<div class="container">
 
-<h1>Experiment-{{data.experimentNumber}}</h1>
+    <h1>Experiment-{{data.experimentNumber}}</h1>
 
-<ul>
-    {% for file in data.folderContents %}
-    <li>
-        <a href="{{ url_for('filePage', experimentNumber=data.experimentNumber, fileName=file) }}">
-            {{ file }}
-        </a>
-    </li>
+    <ul>
+        {% for file in data.folderContents %}
+        <li>
+            <a href="{{ url_for('filePage', experimentNumber=data.experimentNumber, fileName=file) }}">
+                {{ file }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    {% for fileName in data.fileContents.keys() %}
+    <h2>{{ fileName }}</h2>
+    <pre><code>{{ data.fileContents[fileName] }}</code></pre>
     {% endfor %}
-</ul>
 
-<hr>
-
-{% for fileName in data.fileContents.keys() %}
-<h2>{{ fileName }}</h2>
-<pre><code>{{ data.fileContents[fileName] }}</code></pre>
-{% endfor %}
-
+</div>
 
 {% endblock %}
