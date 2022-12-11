@@ -24,8 +24,8 @@ def index():
 
 
 @app.route("/<path:page>")
-def pages(page):
-    return render_template(page)
+def pages(page, data=None):
+    return render_template(page, data=data)
 
 
 if __name__ == '__main__':

@@ -7,9 +7,11 @@
 <h1>MicroController-Lab</h1>
 
 <ul>
-    {% for experiment in [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12] %}
+    {% for experimentNumber in [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12] %}
     <li>
-        Experiment-{{ experiment }}
+        <a href="{{ url_for('pages', page='experiment.html', data=experimentNumber) }}">
+            Experiment-{{experimentNumber}}
+        </a>
     </li>
     {% endfor %}
 </ul>
