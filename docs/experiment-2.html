@@ -17,6 +17,472 @@
 <h1>Experiment-2</h1>
 
 
+<h2>E2_E1.ASM</h2>
+<code>
+    ; Write a program to find sum of 5bytes available in RAM locations 40h to 45h.
+; Store the result in Reg A (low byte) and R7 (high byte).
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #50H		; LOAD THE POINTER
+	MOV R2, #06H		; LOAD THE COUNTER
+	CLR A				; INITIALIZE
+
+REPEAT:
+	ADD A, @R0			; GET THE DATA POINTED BY THE POINTER AND ACCUMULATE
+	JNC NEXT			; JUMP TO LABEL NEXT IF NO CARRY
+	INC R7				; INCREMENT THE CARRY IN R7
+
+NEXT:
+	INC R0				; INCREMENT THE SUM
+	DJNZ R2, REPEAT		; REPEAT TILL THE COUNTER IS 0
+	END
+
+</code>
+
+<h2>E2_E2.ASM</h2>
+<code>
+    ; Write program to add two 16-bit numbers 2E5Fh and A3B4h.
+; Store the sum in R7 and R6.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	CLR C				; CLEAR CARRY
+	MOV A, #5FH			; MOVE DATA TO THE ACCUMULATOR
+	ADD A, #0B4H		; ADD THE LOW BYTES IN ACCUMULATOR
+	MOV R6, A			; STORE THE SUM IN R6
+	MOV A, #2EH			; MOVE DATA TO THE ACCUMULATOR
+	ADDC A, #0A3H		; ADD THE HIGH BYTES IN ACCUMULATOR
+	MOV R7, A			; STORE THE SUM IN R7
+
+HERE:
+	SJMP HERE 			; LOGICAL END
+	END
+
+</code>
+
+<h2>E2_E3.ASM</h2>
+<code>
+    ; Write program to perform multiplication of two numbers.
+; Two 8- bit numbers are available in memory location 1000h
+; and 1001h. Copy the product into 1002h and 1003h.
+
+ORG 0000H					; ORIGINATE
+AJMP START					; JUMP TO THE LABEL START
+
+START:
+	MOV DPTR, #1001H
+	MOVX A, @DPTR			; READ FROM EXTERNAL MEMORY
+	MOV 0F0H, A
+	MOV DPTR, #1000H
+	MOVX A, @DPTR			; READ FROM EXTERNAL MEMORY
+	MUL AB
+	MOV DPTR, #1002H
+	MOVX @DPTR, A			; WRITE FROM EXTERNAL MEMORY
+	INC DPTR
+	MOV A, B
+	MOVX @DPTR, A			; WRITE FROM EXTERNAL MEMORY
+	END
+
+</code>
+
+<h2>E2_E4.ASM</h2>
+<code>
+    ; Perform division of two numbers. The numbers are available
+; in 2000h and 2001h data memory. After division operation,
+; store the result in 200Ah and 200Bh.
+
+ORG 0000H					; ORIGINATE
+AJMP START					; JUMP TO THE LABEL START
+
+START:
+	MOV DPTR, #2001H
+	MOVX A, @DPTR
+	MOV B, A
+
+	MOV DPTR, #2000H
+	MOVX A, @DPTR
+	DIV AB
+
+	MOV DPTR, #200AH
+	MOVX @DPTR, A
+
+	INC DPTR
+	MOV A, 0F0H
+	MOVX @DPTR, A
+
+HERE:
+	SJMP HERE 			; LOGICAL END
+	END
+
+</code>
+
+<h2>E2_E5.ASM</h2>
+<code>
+    ; Perform the logical AND operation of two 8-bit data
+; available in R0 and R1 and output the result to port2.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R1, #23H
+	MOV R0, #0AAH
+	MOV A, R0
+	ANL A, R1
+	MOV P2, A
+
+HERE:
+	SJMP HERE 			; LOGICAL END
+	END
+
+</code>
+
+<h2>E2_E6.ASM</h2>
+<code>
+    ; Perform NOT operation on a data and output the result to port 1.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #0FFH 		; DELAY VALUE
+	MOV A, #55H			; DATA TO THE COMPLEMENTED
+
+UP:
+	MOV P1, A 			; STORE THE ACCUMULATOR
+
+DLY:
+	NOP					; NO OPERATION
+	DJNZ R0, DLY		; DELAY FOR THE DELAY VALUE BY LOOPING
+	CPL A				; COMPLEMENT THE ACCUMULATOR
+
+	SJMP UP
+	END
+
+</code>
+
+<h2>E2_P1.ASM</h2>
+<code>
+    ; Find the difference of two 16 bit numbers available in 
+; memory location XX50h and XX52h and store the result in XX5Ah.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	MOV DPTR, #1050H 	; FIRST NUMBER LOWER BYTE
+	MOVX A, @DPTR 		; GET LOWER BYTE
+	MOV B, A  			; MAKE A COPY IN REG (B)
+
+	MOV DPTR, #1052H 	; SECOND NUMBER LOWER BYTE
+	MOVX A, @DPTR 		; GET LOWER BYTE
+
+	CLR C 				; CLEAR CARRY
+	SUBB A, B 			; LOWER BYTES OF (SECOND NUMBER - FIRST NUMBER)
+
+	MOV DPTR, #105AH 	; RESULT LOWER BYTE
+	MOVX @DPTR, A 		; STORE LOWER BYTE
+
+
+	MOV DPTR, #1051H 	; FIRST NUMBER HIGHER BYTE
+	MOVX A, @DPTR 		; GET HIGHER BYTE
+	MOV B, A  			; MAKE A COPY IN REG (B)
+
+	MOV DPTR, #1053H 	; FIRST NUMBER HIGHER BYTE
+	MOVX A, @DPTR 		; GET HIGHER BYTE
+
+	; DON&#39;T CLEAR CARRY
+	SUBB A, B 			; HIGHER BYTES OF (SECOND NUMBER - FIRST NUMBER)
+
+	MOV DPTR, #105BH 	; RESULT HIGHER BYTE
+	MOVX @DPTR, A 		; STORE HIGHER BYTE
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E2_P2.ASM</h2>
+<code>
+    ; Add two 4-digit BCD numbers available in memory external
+; data memory and store the result in internal RAM location 00h.
+
+; ASSUME THE NUMBERS ARE STORED IN EXTERNAL LOCATION 1000H TO 1003H
+
+ORG 0000H					; ORIGINATE
+AJMP START					; JUMP TO THE LABEL START
+
+START:
+	MOV DPTR, #1000H		; GET DATA LOCATION
+	MOVX A, @DPTR			; GET LOWER BYTE 1 TO ACCUMULATOR
+	MOV 0F0H, A 			; SAVE DATA IN (REG. B)
+	INC DPTR				; GO TO LOWER BYTE 2
+	INC DPTR
+	MOVX A, @DPTR			; GET LOWER BYTE 2 TO ACCUMULATOR
+	ADD A, 0F0H 			; ADD THE DATA
+	DA A 					; DECIMALLY ADJUST ACCUMULATOR
+	MOV 00H, A 				; SAVE RESULT LOWER BYTE TO LOCATION (00H)
+
+	MOV DPTR, #1001H		; GET DATA LOCATION
+	MOVX A, @DPTR			; GET UPPER BYTE 1 TO ACCUMULATOR
+	MOV 0F0H, A 			; SAVE DATA IN (REG. B)
+	INC DPTR				; GO TO UPPER BYTE 2
+	INC DPTR
+	MOVX A, @DPTR			; GET UPPER BYTE 2 TO ACCUMULATOR
+	ADDC A, 0F0H 			; ADD THE DATA
+	DA A 					; DECIMALLY ADJUST ACCUMULATOR
+	MOV 01H, A 				; SAVE RESULT MIDDLE BYTE TO LOCATION (01H)
+
+	CLR A 					; CLEAR ACCUMULATOR
+	ADDC A, #00H 			; RESULT UPPER BYTE
+	MOV 02H, A 				; SAVE RESULT UPPER BYTE TO LOCATION (02H)
+
+HERE:
+	SJMP HERE				; LOGICAL END
+	END
+
+</code>
+
+<h2>E2_P3.ASM</h2>
+<code>
+    ; Multiply two 2-digit BCD numbers.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E2_P4.ASM</h2>
+<code>
+    ; Divide two 2-digit BCD numbers available in memory locations
+; and store the quotient and remainder.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E2_P5.ASM</h2>
+<code>
+    ; Perform multiplication by shift and add method.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E2_X1.ASM</h2>
+<code>
+    ; Find the difference of two 2-digit BCD numbers available 
+; in R1 and R2 and store the result in location 2000h.
+
+ORG 0000H		; ORIGINATE
+AJMP START		; JUMP TO THE LABEL START
+
+START:
+	MOV A, R2
+	CPL A
+	ADDC A, R1
+	DA A
+	
+	JNC STORE	; JUMP ON NO CARRY TO THE LABEL STORE
+
+CONVERT:
+	MOV R0, A
+	MOV A, #00H
+	SUBB A, R0
+
+STORE:
+	MOV DPTR, #2000H
+	MOVX @DPTR, A
+	END
+
+</code>
+
+<h2>E2_X2.ASM</h2>
+<code>
+    ; Add two 32-bit numbers available in memory locations starting 
+; from 3050h and store the result from memory location 3080h.
+
+; 32-BIT IS 8-BYTES LONG
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV DPTR, #3050H 	; STARTING LOCATION.
+	MOV R2, #08H 		; COUNT OF THE BYTES.
+	MOV R0, #00H 		; SUM FOR THE ACCUMULATOR.
+	MOV R1, #30H 		; STARTING LOCATION OF THE RESULT.
+
+	MOV A, R2 			; MAKE A FIXED COPY OF THE NUMBER OF BYTES
+	MOV R3, A 			; MOVE TO R3
+	
+UP:
+	ADDC R0, A
+	DJNZ R2, UP
+
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	MOVX A, @DPTR
+
+STORE:
+	MOV DPTR, #3080H
+	MOV @DPTR, A
+	MOV A, B
+	INC DPTR
+	MOV @DPTR, A
+	
+</code>
+
+<h2>E2_X3.ASM</h2>
+<code>
+    ; Multiply two 16-bit hex numbers and store the product.
+
+; ASSUME THE NUMBERS ARE STORED IN EXTERNAL LOCATION 1000H TO 1003H
+; WILL STORE THE PRODUCT IN R4, R5, R6, R7
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	CLR C 				; CLEAR CARRY
+	MOV R3, #00H 		; CLEAR R3
+	MOV R4, #00H 		; CLEAR R4
+	MOV R5, #00H 		; CLEAR R5
+	MOV R6, #00H 		; CLEAR R6
+	MOV R7, #00H 		; CLEAR R7
+
+	MOV DPTR, #1000H	; LSB_1
+	MOVX A, @DPTR 		; GET EXTERNAL DATA
+	MOV 0F0H, A 		; COPY IN B
+	MOV DPTR, #1002H	; LSB_2
+	MOVX A, @DPTR 		; GET EXTERNAL DATA
+	MUL AB 				; LSB_1 TIMES LSB_2
+	MOV R4, A  			; LSB OF CURRENT PRODUCT
+	MOV A, B 			; COPY TO A
+	MOV R5, A 			; MSB OF CURRENT PRODUCT
+
+	MOV DPTR, #1001H	; MSB_1
+	MOVX A, @DPTR 		; GET EXTERNAL DATA
+	MOV 0F0H, A 		; COPY IN B
+	MOV DPTR, #1002H	; LSB_2
+	MOVX A, @DPTR 		; GET EXTERNAL DATA
+	MUL AB 				; MSB_1 TIMES LSB_2
+	ADD A, R5  			; LSB OF CURRENT PRODUCT
+	MOV R5, A 			; STORE THE PRODUCT
+	MOV A, B 			; COPT TO A
+	ADDC A, R6 			; MSB OF CURRENT PRODUCT. R6 IS 00H
+	MOV R6, A 			; STORE THE PRODUCT
+
+	MOV DPTR, #1000H	; LSB_1
+	MOVX A, @DPTR 		; GET EXTERNAL DATA
+	MOV 0F0H, A 		; COPY IN B
+	MOV DPTR, #1003H	; MSB_2
+	MOVX A, @DPTR 		; GET EXTERNAL DATA
+	MUL AB 				; LSB_1 TIMES MSB_2
+	ADD A, R5  			; LSB OF CURRENT PRODUCT
+	MOV R5, A 			; STORE THE PRODUCT
+	MOV A, B 			; COPY TO A
+	ADDC A, R6 			; MSB OF CURRENT PRODUCT
+	MOV R6, A 			; STORE THE PRODUCT
+
+	JNC NOCARR
+	INC R3 				; INCREMENT IF CARRY
+
+NOCARR:	
+	MOV DPTR, #1001H	; MSB_1
+	MOVX A, @DPTR 		; GET EXTERNAL DATA
+	MOV 0F0H, A 		; COPY IN B
+	MOV DPTR, #1003H	; MSB_2
+	MOVX A, @DPTR 		; GET EXTERNAL DATA
+	MUL AB 				; MSB_1 TIMES MSB_2
+	ADD A, R6  			; LSB OF CURRENT PRODUCT
+	MOV R6, A 			; STORE THE PRODUCT
+	MOV A, B 			; COPY TO A
+	ADDC A, R7 			; MSB OF CURRENT PRODUCT. R7 IS 00H
+	ADD A, R3 			; ADD CARRY FROM PREVIOUS STEP, IN CASE
+	MOV R7, A 			; STORE THE PRODUCT
+
+	END
+
+</code>
+
+<h2>README.md</h2>
+<code>
+    # Arithmetic and Logical operations
+
+## Examples
+
+1. Write a program to find sum of 5 bytes available in RAM locations 40h to 45h. Store the result in Reg A (low byte) and R7 (high byte).
+
+2. Write program to add two 16-bit numbers 2E5Fh and A3B4h. Store the sum in R7 and R6.
+
+3. Write program to perform multiplication of two numbers. Two 8-bit numbers are available in memory location 1000h and 1001h. Copy the product into 1002h and 1003h.
+
+4. Perform division of two numbers. The numbers are available in 2000h and 2001h data memory. After division operation, store the result in 200Ah and 200Bh.
+
+5. Perform the logical AND operation of two 8-bit data available in R0 and R1 and output the result to Port-2.
+
+6. Perform NOT operation on a data and output the result to Port-1.
+
+## Exercises
+
+1. Find the difference of two 2-digit BCD numbers available in R1 and R2 and store the result in location 2000h.
+
+2. Add two 32-bit numbers available in memory locations starting from 3050h and store the result from memory location 3080h.
+
+3. Multiply two 16-bit hex numbers and store the product.
+
+## Practice problems
+
+1. Find the difference of two 16 bit numbers available in memory location XX50h and XX52h and store the result in XX5Ah.
+
+2. Add two 4-digit BCD numbers available in memory external data memory and store the result in internal RAM location 00h.
+
+3. Multiply two 2-digit BCD numbers.
+
+4. Divide two 2-digit BCD numbers available in memory locations and store the quotient and remainder.
+
+5. Perform multiplication by shift and add method.
+
+</code>
+
+
+
 </body>
 
 </html>

@@ -17,6 +17,202 @@
 <h1>Experiment-10</h1>
 
 
+<h2>E10_X1_1.ASM</h2>
+<code>
+    ; 8-BIT HEX UP COUNTER
+
+; 8000H
+START:
+	MOV DPTR, #0E803H 		; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
+	MOV A, #10000000B 		; 74 80 	; PORT A AS OUTPUT, 
+	MOVX @DPTR, A 			; F0 		; WRITE THE CONTROL WORD
+
+	MOV R0, #00H 			; 78 00 	; INITIALISE COUNTER
+
+HEX_EIGHT_COUNTER:
+	MOV A, R0 				; E8 		; RETRIEVE THE SAVED COUNTER
+	ADD A, #01H 			; 24 01 	; INCREMENT COUNTER
+	MOV R0, A 				; F8 		; STORE THE NEW COUNT
+	
+	MOV DPTR, #0E800H 		; 90 E8 00 	; PORT A
+	MOVX @DPTR, A 			; F0 		; WRITE TO PORT-A
+	LCALL DELAY 			; 12 A0 00 	; AWAIT
+	
+	SJMP HEX_EIGHT_COUNTER 	; 80 _F3 	; REPEAT THE COUNTER
+
+; A000H
+DELAY:
+	MOV R3, #04H 			; 7B 04
+	UP1:
+		MOV R4, #0FFH 		; 7C FF
+		UP2:
+			MOV R5, #0FFH 	; 7D FF
+			UP3:
+			DJNZ R5, UP3 	; DD _FE
+		DJNZ R4, UP2 		; DC _FA
+	DJNZ R3, UP1 			; DB _F6
+	RET 					; 22 		; RETURN BACK TO THE MAIN FUNCTION
+
+</code>
+
+<h2>E10_X1_2.ASM</h2>
+<code>
+    ; DECIMAL DOWN COUNTER
+
+; 8000H
+START:
+	MOV DPTR, #0E803H 			; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
+	MOV A, #10000000B 			; 74 80 	; PORT A AS OUTPUT, 
+	MOVX @DPTR, A 				; F0 		; WRITE THE CONTROL WORD
+		
+	MOV R0, #99 				; 78 63 	; INITIALISE COUNTER
+
+DECIMAL_DOWN_COUNTER:
+	MOV A, R0 					; E8 		; RETRIEVE THE SAVED COUNTER
+	ADD A, #0FFH 				; 24 FF 	; INCREMENT COUNTER
+	DA A 						; D4 		; DECIMALLY ADJUST THE ACCUMULATOR
+	MOV R0, A 					; F8 		; STORE THE NEW COUNT
+	
+	MOV DPTR, #0E800H 			; 90 E8 00 	; PORT A
+	MOVX @DPTR, A 				; F0 		; WRITE TO PORT-A
+	LCALL DELAY 				; 12 A0 00 	; AWAIT
+	
+	SJMP DECIMAL_DOWN_COUNTER 	; 80 _F2 	; REPEAT THE COUNTER
+
+; A000H
+DELAY:
+	MOV R3, #04H 				; 7B 04
+	UP1:
+		MOV R4, #0FFH 			; 7C FF
+		UP2:
+			MOV R5, #0FFH 		; 7D FF
+			UP3:
+			DJNZ R5, UP3 		; DD _FE
+		DJNZ R4, UP2 			; DC _FA
+	DJNZ R3, UP1 				; DB _F6
+	RET 						; 22 		; RETURN BACK TO THE MAIN FUNCTION
+
+</code>
+
+<h2>E10_X1_3.ASM</h2>
+<code>
+    ; 8-BIT JOHNSON COUNTER
+
+; 8000H
+START:
+	MOV DPTR, #0E803H 		; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
+	MOV A, #10000000B 		; 74 80 	; PORT A AS OUTPUT, 
+	MOVX @DPTR, A 			; F0 		; WRITE THE CONTROL WORD
+
+	MOV R0, #00H 			; 78 00 	; INITIALISE COUNTER
+	CLR C 					; C3		; CLEAR THE CARRY
+	
+JOHNSON_COUNTER:
+	MOV A, R0 				; E8 		; RETRIEVE THE SAVED COUNTER
+	CPL C					; B3		; COMPLEMENT THE CARRY
+	RLC A 					; 33 		; ROTATE LEFT ACCUMULATOR WITH CARRY
+	MOV R0, A 				; F8 		; STORE THE NEW COUNT
+	
+	MOV DPTR, #0E800H 		; 90 E8 00 	; PORT A
+	MOVX @DPTR, A 			; F0 		; WRITE TO PORT-A
+	LCALL DELAY 			; 12 A0 00 	; AWAIT
+	
+	SJMP JOHNSON_COUNTER 	; 80 _F3 	; REPEAT THE COUNTER
+
+; A000H
+DELAY:
+	MOV R3, #04H 			; 7B 04
+	UP1:
+		MOV R4, #0FFH 		; 7C FF
+		UP2:
+			MOV R5, #0FFH 	; 7D FF
+			UP3:
+			DJNZ R5, UP3 	; DD _FE
+		DJNZ R4, UP2 		; DC _FA
+	DJNZ R3, UP1 			; DB _F6
+	RET 					; 22 		; RETURN BACK TO THE MAIN FUNCTION
+
+</code>
+
+<h2>E10_X2.ASM</h2>
+<code>
+    ; Input a single digit decimal number from the keyboard. 
+; If the number is 1, then light two LED’s, if the number is 2, 
+; then light four LED’s, if the number is 3, then light six LED’s, 
+; if the number is 4, then light eight LED’s. Neglect all other numbers.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E10_X3.ASM</h2>
+<code>
+    ; Input two 2-digit HEX numbers from logic controller interface through
+; port B of 8255 and display their product in the address field of the display.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E10_X4.ASM</h2>
+<code>
+    ; Write an ALP to turn ON alternate LEDs connected to port A for 5 sec.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>README.md</h2>
+<code>
+    # Logic Controller Interface
+
+## Examples
+
+1. Implement Logical AND function using logic controller.
+
+## Exercises
+
+1. Make logic controller to function as 
+  1. An 8-bit HEX up counter 
+
+  2. Decimal down counter and 
+
+  3. 8-bit Johnson counter.
+
+2. Input a single digit decimal number from the keyboard. If the number is 1, then light two LED’s, if the number is 2, then light four LED’s, if the number is 3, then light six LED’s, if the number is 4, then light eight LED’s. Neglect all other numbers.
+
+3. Input two 2-digit HEX numbers from logic controller interface through Port-B of 8255 and display their product in the address field of the display.
+
+4. Write an ALP to turn ON alternate LEDs connected to Port-A for 5 sec.
+
+</code>
+
+
+
 </body>
 
 </html>

@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Experiment-{{data.experimentNumber}} | MicroController-Lab{% endblock %}
+{% block title %}Experiment-{{ data.experimentNumber }} | MicroController-Lab{% endblock %}
 
 {% block content %}
 
 <h1>Experiment-{{data.experimentNumber}}</h1>
+
+{% for file in data.folderData.keys() %}
+<h2>{{ file }}</h2>
+<code>
+    {{ data.folderData[file] }}
+</code>
+{% endfor %}
 
 {% endblock %}

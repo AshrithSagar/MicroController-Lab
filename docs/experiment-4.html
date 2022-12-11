@@ -17,6 +17,481 @@
 <h1>Experiment-4</h1>
 
 
+<h2>E4_E1.ASM</h2>
+<code>
+    ; Create a square wave of 50% duty cycle on bit 0 of port1
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	SETB P1.0 			; INPUT PORT PIN
+	LCALL DELAY 		; CREATE A DELAY OF ONE TIMER CYCLE
+	CLR P1.0			; RESET THE PORT PIN
+	LCALL DELAY 		; CREATE A DELAY AGAIN OF ONE TIMER CYCLE. SAME DELAY =&gt; 50% DUTY CYCLE
+	SJMP START 			; REPEAT THE WAVEFORM
+
+DELAY: 					; DELAY USING TIMER-0
+	SETB TR0 			; TURN ON THE RESET FLAG OF TIMER-0
+
+BACK:
+	JNB TF0, BACK 		; REPEAT UNTIL (TF0) IS SET
+
+	; RESET THE TIMER
+	CLR TR0
+	CLR TF0
+
+	RET 				; CONTINUE AFTER THE DELAY
+	END
+
+</code>
+
+<h2>E4_E2.ASM</h2>
+<code>
+    ; Generate a square wave of 66% duty cycle on bit 0 of port 1.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	SETB P1.0 			; INPUT PORT PIN
+	LCALL DELAY 		; CREATE A DELAY OF ONE TIMER CYCLE
+	LCALL DELAY 		; CREATE A DELAY AGAIN OF ONE TIMER CYCLE.
+	CLR P1.0			; RESET THE PORT PIN
+	LCALL DELAY 		; CREATE A DELAY AGAIN OF ONE TIMER CYCLE. T_ON IS TWICE OF T_OFF =&gt; 66% DUTY CYCLE
+	SJMP START 			; REPEAT THE WAVEFORM
+	
+DELAY: 					; DELAY USING TIMER-0
+	SETB TR0 			; TURN ON THE RESET FLAG OF TIMER-0
+
+BACK:
+	JNB TF0, BACK 		; REPEAT UNTIL (TF0) IS SET
+	
+	; RESET THE TIMER
+	CLR TR0
+	CLR TF0
+	
+	RET 				; CONTINUE AFTER THE DELAY
+	
+	END
+
+</code>
+
+<h2>E4_E3.ASM</h2>
+<code>
+    ; Assuming that clock pulses fed into pin T1, write a program 
+; for counter 1 in mode2 to count the pulses and display the 
+; state of the TL1 count on P2.
+
+ORG 0000H					; ORIGINATE
+AJMP START					; JUMP TO THE LABEL START
+
+START:
+	MOV TMOD, #01100000B 	; SET COUNTER IN MODE-2: AUTO RELOAD MODE
+	MOV TH1, #00 			; RESET TH1
+	SETB P3.5 				; ENABLE T1 AS INPUT, FOR THE COUNTER
+
+AGAIN:
+	SETB TR1 				; START THE TIMER-1
+
+BACK:
+	MOV A, TL1
+	MOV P2, A 				; UPDATE (P2) EVERTIME WITH (TL1)
+	JNB TF1, BACK 			; WAIT UNTIL TIMER OVERFLOWS
+	
+	; RESET TIMER-1
+	CLR TR1
+	CLR TF1
+	
+	SJMP AGAIN 				; REPEAT IN A LOOP
+	END
+
+</code>
+
+<h2>E4_E4.ASM</h2>
+<code>
+    ; Implement a 2-digit decimal up counter and display the counts on Port 2 pins.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV A, #00 			; INITIALISE WITH ZERO
+		
+AGAIN:
+	MOV P2, A 			; UPDATE PORT-2 WITH THE CURRENT COUNT
+	ACALL DELAY 		; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+	ADD A, #01 			; INCREMENT BY ONE
+	DA A 				; REQUIRED FOR DECIMAL ADDITION
+	SJMP AGAIN 			; REPEAT IN A LOOP
+	
+DELAY:
+	; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+	MOV R3, #0FH
+	UP1:
+		MOV R4, #0FFH
+		UP2:
+			MOV R5, #0FFH
+			UP3:
+				NOP
+				NOP			
+			DJNZ R5, UP3
+		DJNZ R4, UP2
+	DJNZ R3, UP1
+	
+	RET 				; RETURN BACK TO THE MAIN LOOP
+	END
+
+</code>
+
+<h2>E4_E5.ASM</h2>
+<code>
+    ; Implement a 16- bit hexadecimal up counter and update 
+; the counts in register R0 and R1  register
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	; INTIALISE THE REGISTERS
+	MOV R0, #00
+	MOV R1, #00
+
+UP:
+	MOV A, R0			; LOAD LOWER BYTE
+	ADD A, #01H			; INCREMENT THE LOWER BYTE
+	MOV R0, A 			; STORE IN (R0)
+	MOV P2, A 			; SHOW LOWER BYTE IN PORT-2
+	
+	MOV A, R1			; LOAD HIGHER BYTE
+	ADDC A, #00H 		; ADD CARRY TO THE HIGHER BYTE
+	MOV P3, A 			; SHOW HIGHER BYTE IN PORT-3
+	MOV R1, A 			; STORE IN (R1)
+	
+	; AWAIT TWO DELAYS: (0FH*0FFH*0FFH*02H*02H) MACHINE CYCLES
+	LCALL DELAY
+	LCALL DELAY
+	
+	SJMP UP 			; REPEAT IN A LOOP
+
+DELAY:
+	; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+	MOV R3, #0FH
+	UP1:
+		MOV R4, #0FFH
+		UP2:
+			MOV R5, #0FFH
+			UP3:
+				NOP
+				NOP			
+			DJNZ R5, UP3
+		DJNZ R4, UP2
+	DJNZ R3, UP1
+	
+	RET 				; RETURN BACK TO THE MAIN LOOP
+	END
+
+</code>
+
+<h2>E4_P1.ASM</h2>
+<code>
+    ; Implement a 16 - bit down counter.
+; [INCOMPLETE]
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R6, #0FFH	 	; LOWER BYTE REGISTER
+	MOV R7, #0FFH 		; UPPER BYTE REGISTER
+
+ITER:
+	MOV A, R6			; GET CURRENT LOWER BYTE
+	CLR C				; CLEAR CARRY
+	SUBB A, #01H		; DECREMENT
+	MOV R6, A 			; SAVE BACK
+
+	MOV A, R7			; GET CURRENT UPPER BYTE
+	CLR C				; CLEAR CARRY
+	SUBB A, #01H		; DECREMENT
+	MOV R6, A 			; SAVE BACK
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E4_P2.ASM</h2>
+<code>
+    ; Set the carry flag to 0 if the number in 
+; accumulator is even, else reset the carry flag.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	MOV A, #06H 		; INPUT
+	
+	MOV B, #02H 		; DIVISION BY 2
+	DIV AB 				; DIVIDE ACCUMULATOR BY 2
+	
+	CJNE B, #00H, ODD 	; CHECK FOR ODD BY REMAINDER
+
+	; NUMBER IS EVEN
+	CLR C 				; CLEAR CARRY
+	SJMP HERE 			; END THE PROGRAM
+
+ODD:
+	SETB C 				; SET CARRY FLAG
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E4_P3.ASM</h2>
+<code>
+    ; Implement a 4 digit decimal down counter and display the counts on ports.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E4_P4.ASM</h2>
+<code>
+    ; Program timer 1 to generate the square wave of 1 KHz.
+; Assume crystal frequency is 11.0592 MHz
+
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:	
+	
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E4_X1.ASM</h2>
+<code>
+    ; Implement an 8 bit ring counter.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV A, #01H 		; INITIALISE
+
+ITER:
+	RL A 				; LEFT SHIFT ACCUMULATOR, WITHOUT CARRY
+	MOV P2, A 			; SHOW IN PORT-2
+
+	LCALL DELAY 		; AWAIT A DELAY
+
+	SJMP ITER 	 		; REPEAT IN A LOOP
+
+DELAY:
+	; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+	MOV R3, #0FH
+	UP1:
+		MOV R4, #0FFH
+		UP2:
+			MOV R5, #0FFH
+			UP3:
+				NOP
+				NOP			
+			DJNZ R5, UP3
+		DJNZ R4, UP2
+	DJNZ R3, UP1
+	
+	RET 				; RETURN BACK TO THE MAIN LOOP
+	END
+
+</code>
+
+<h2>E4_X2.ASM</h2>
+<code>
+    ; Assuming R1:R0 registers as an 16 bit register rotate the 
+; content of this register left such that bit-7 of R0 becomes 
+; bit 0 of R1 and bit-7 of R1 becomes bit-0 of R0.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #0FFH 		; INPUT LOWER BYTE
+	MOV R1, #00H 		; INPUT HIGHER BYTE
+	CLR C 				; CLEAR CARRY
+
+	MOV A, R1 			; GET HIGHER BYTE IN ACCUMULATOR
+	
+	; MASK AND GET THE FIRST BIT OF THE HIGHER BYTE, AND STORE IN ACCUMULATOR
+	ANL A, #80H 		; (80H) IS (10000000B)
+
+	; IF ACCUMULATOR IS ZERO =&gt; BIT-7 OF HIGHER BYTE IS 0
+	JZ UP1
+
+	; IF ACCUMULATOR IS NON-ZERO =&gt; BIT-7 OF HIGHER BYTE IS 1
+	SETB C 				; SET THE CARRY BIT
+
+UP2:
+	MOV A, R0 			; GET LOWER BYTE IN ACCUMULATOR
+	RLC A 				; ROTATE LEFT ACCUMULATOR, WHICH HAS THE LOWER BYTE
+	MOV R2, A 			; STORE LOWER BYTE IN (R2)
+	
+	; THE CARRY BIT IS NOW THE BIT-7 OF THE LOWER BYTE
+
+	MOV A, R1 			; GET HIGHER BYTE IN THE ACCUMULATOR AGAIN
+	RLC A 				; ROTATE LEFT ACCUMULATOR, WHICH HAS THE HIGHER BYTE
+	MOV R3, A 			; STORE HIGHER BYTE IN (R3)
+
+	SJMP HERE 			; END
+
+UP1:
+	CLR C 				; CLEAR CARRY
+	SJMP UP2 			; RETURN TO THE FLOW
+	
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+
+</code>
+
+<h2>E4_X3.ASM</h2>
+<code>
+    ; Implement an 8-bit octal up counter.
+
+ORG 0000H		 				; ORIGINATE
+AJMP START						; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #00H 				; INITIALISE COUNTER
+
+	MOV R2, #08H 				; UPPER NIBBLE; (OCTAL BASE - 1)
+	U_ITER:
+		MOV R1, #08H 			; LOWER NIBBLE; (OCTAL BASE - 1)
+		L_ITER:
+			MOV A, R0 			; LOAD THE COUNTER
+			MOV P2, A 			; SHOW IN PORT-2
+			LCALL DELAY 		; AWAIT
+
+			INC A 				; INCREMENT THE ACCUMULATOR
+			MOV R0, A 			; SAVE THE COUNTER
+
+			DJNZ R1, L_ITER 	; REPEAT FOR LOWER NIBBLE
+
+		ADD A, #08H 			; ADD TO GO TO THE NEXT VALID OCTAL NUMBER
+		MOV R0, A 				; SAVE THE COUNTER
+
+		DJNZ R2, U_ITER 		; REPEAT FOR UPPER NIBBLE
+	SJMP START 					; REPEAT IN A LOOP
+
+DELAY:
+	; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+	MOV R3, #0FH
+	UP1:
+		MOV R4, #0FFH
+		UP2:
+			MOV R5, #0FFH
+			UP3:
+				NOP
+				NOP
+			DJNZ R5, UP3
+		DJNZ R4, UP2
+	DJNZ R3, UP1
+
+	RET 						; RETURN BACK TO THE MAIN LOOP
+	END
+
+</code>
+
+<h2>E4_X4.ASM</h2>
+<code>
+    ; On Port-0 of the MC, generate the signal.
+; Sawtooth wave generator
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #00H 		; INITIALISE
+	
+ITER:
+	MOV A, R0 			; GET CURRENT DATA
+	INC A 		 		; INCREMENT THE ACCUMULATOR
+	
+	MOV P0, A 			; SHOW IN PORT-0
+	MOV R0, A 			; SAVE IN (R0)
+	
+	LCALL DELAY 		; AWAIT (0FFH) MACHINE CYCLES
+	SJMP ITER 			; REPEAT IN A LOOP
+	
+DELAY:
+	; AWAIT (0FFH) MACHINE CYCLES
+	MOV R1, #0FFH
+	UP1:
+		NOP
+	DJNZ R1, UP1
+	
+	RET 				; RETURN BACK TO THE MAIN LOOP
+	END
+
+</code>
+
+<h2>README.md</h2>
+<code>
+    # Bit manipulation, Programming using I/O Ports and Counter programs.
+
+## Examples
+
+1. Write a program to create a square wave of 50% duty cycle on bit 0 of Port-1.
+
+2. Write a program to create a square wave of 66% duty cycle on bit 0 of Port-1.
+
+3. Assuming that clock pulses fed into pin T1, write a program for counter 1 in mode2 to count the pulses and display the state of the TL1 count on P2.
+
+4. Implement a 2-digit decimal up counter and display the counts on Port-2 pins.
+
+5. Implement a 16- bit hexadecimal up counter and update the counts in register R0 and R1 register.
+
+## Exercises
+
+1. Implement an 8 bit ring counter.
+
+2. Assuming R1:R0 registers as an 16 bit register rotate the content of this register left such that bit-7 of R0 becomes bit 0 of R1 and bit-7 of R1 becomes bit-0 of R0.
+
+3. Implement an 8-bit octal up counter.
+
+4. Program Timer-1 to be an event counter in Mode-2 and display the decimal count on P0,P1 and P2 continuously. Set the initial count to 99.
+
+## Practice problems
+
+1. Implement a 16-bit down counter.
+
+2. Set the carry flag to 0 if the number in accumulator is even, else reset the carry flag.
+
+3. Implement a 4 digit decimal down counter and display the counts on ports.
+
+4. Program timer 1 to generate the square wave of 1 KHz. Assume crystal frequency is
+11.0592 MHz
+
+</code>
+
+
+
 </body>
 
 </html>
