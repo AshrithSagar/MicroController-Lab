@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E12_E3.ASM | Experiment-12 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-12</h1>
+<h2>E12_E3.ASM</h2>
+
+<code>; Generate a triangular waveform.
+
+START:
+	MOV P2, #E8H
+	MOV R0, #03H
+	MOV A, #80H
+	MOVX @R0, A
+
+WAVE:
+	CLRA
+	MOV R0, A
+
+UP_LMB:
+	MOVX @R0, A
+	INC A
+	CJNE A, #FFH, UP_LMB
+
+DWN_LMB:
+	MOVX @R0, A
+	DEC A
+	CJNE A, #00H, DWN_LMB
+	SJMP WAVE
+</code>
+
+
+</body>
+
+</html>

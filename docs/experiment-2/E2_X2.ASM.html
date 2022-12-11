@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E2_X2.ASM | Experiment-2 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-2</h1>
+<h2>E2_X2.ASM</h2>
+
+<code>; Add two 32-bit numbers available in memory locations starting 
+; from 3050h and store the result from memory location 3080h.
+
+; 32-BIT IS 8-BYTES LONG
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV DPTR, #3050H 	; STARTING LOCATION.
+	MOV R2, #08H 		; COUNT OF THE BYTES.
+	MOV R0, #00H 		; SUM FOR THE ACCUMULATOR.
+	MOV R1, #30H 		; STARTING LOCATION OF THE RESULT.
+
+	MOV A, R2 			; MAKE A FIXED COPY OF THE NUMBER OF BYTES
+	MOV R3, A 			; MOVE TO R3
+	
+UP:
+	ADDC R0, A
+	DJNZ R2, UP
+
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	INC DPTR
+	MOVX A, @DPTR
+
+STORE:
+	MOV DPTR, #3080H
+	MOV @DPTR, A
+	MOV A, B
+	INC DPTR
+	MOV @DPTR, A
+	</code>
+
+
+</body>
+
+</html>

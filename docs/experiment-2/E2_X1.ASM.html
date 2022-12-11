@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E2_X1.ASM | Experiment-2 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-2</h1>
+<h2>E2_X1.ASM</h2>
+
+<code>; Find the difference of two 2-digit BCD numbers available 
+; in R1 and R2 and store the result in location 2000h.
+
+ORG 0000H		; ORIGINATE
+AJMP START		; JUMP TO THE LABEL START
+
+START:
+	MOV A, R2
+	CPL A
+	ADDC A, R1
+	DA A
+	
+	JNC STORE	; JUMP ON NO CARRY TO THE LABEL STORE
+
+CONVERT:
+	MOV R0, A
+	MOV A, #00H
+	SUBB A, R0
+
+STORE:
+	MOV DPTR, #2000H
+	MOVX @DPTR, A
+	END
+</code>
+
+
+</body>
+
+</html>

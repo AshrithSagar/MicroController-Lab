@@ -22,18 +22,14 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/experiment-<int:experimentNumber>.html")
+@app.route("/experiment-<int:experimentNumber>/")
 def experiment(experimentNumber):
-    folderData = {}
     folder = os.path.join("../../", 'Experiment-'+str(experimentNumber))
-    for file in sorted(os.listdir(folder)):
-        filePath = os.path.join(folder, file)
-        with open(filePath, 'r') as f:
-            folderData[file] = f.readlines()
+    folderContents = sorted(os.listdir(folder))
 
     data = {
         "experimentNumber": experimentNumber,
-        "folderData": folderData
+        "folderContents": folderContents
     }
     return render_template("experiment.html", data=data), 200, {'Content-Type': 'text/html; charset=utf-8'}
 
@@ -42,6 +38,30 @@ def experiment(experimentNumber):
 def experiment():
     for experimentNumber in [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12]:
         yield {'experimentNumber': experimentNumber}
+
+
+@app.route("/experiment-<int:experimentNumber>/<fileName>.html")
+def filePage(experimentNumber, fileName):
+    filePath = os.path.join("../../", 'Experiment-' +
+                            str(experimentNumber), fileName)
+    with open(filePath, 'r') as f:
+        fileData = f.read()
+
+    data = {
+        "experimentNumber": experimentNumber,
+        "fileName": fileName,
+        "fileData": fileData
+    }
+    return render_template("filePage.html", data=data), 200, {'Content-Type': 'text/html; charset=utf-8'}
+
+
+@freezer.register_generator
+def filePage():
+    for experimentNumber in [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12]:
+        folder = os.path.join("../../", 'Experiment-'+str(experimentNumber))
+        folderContents = sorted(os.listdir(folder))
+        for fileName in folderContents:
+            yield {'experimentNumber': experimentNumber, 'fileName': fileName}
 
 
 if __name__ == '__main__':

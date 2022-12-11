@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E7_X3.ASM | Experiment-7 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-7</h1>
+<h2>E7_X3.ASM</h2>
+
+<code>; Write an assembly language program to flash “SPICE” only
+; 10 times (display SPICE for 2 sec and blank for 1 sec).
+
+; 8050H:
+; 37 60 93 97 00 00 D6
+
+; 8000H:
+MOV R0, #0AH 				; 78 0A 	; REPEAT COUNT
+ITER:
+	CLR PSW.5 				; C2 D5 	; LOAD FROM CODE MEMORY
+	MOV DPTR, #8050H 		; 90 80 50 	; STARTING LOCATION OF THE LOOK-UP TABLE
+	LCALL OUTPUT 			; 12 02 55 	; OUTPUT UTILITY ROUTINE
+	; DELAY FOR 2 SECONDS
+	LCALL DELAY 			; 12 _A0 00
+	LCALL DELAY 			; 12 _A0 00
+
+	LCALL CLEAR 			; 12 01 70 	; CLEAR UTILITY ROUTINE
+	LCALL DELAY 			; 12 _A0 00 ; DELAY FOR 1 SECOND
+
+	DJNZ R0, ITER 			; D8 _EA	; REPEAT IN A LOOP
+
+	LCALL 0000H 			; 12 00 00 	; STOP EXECUTION
+
+; A000H:
+DELAY:
+	; AWAIT (10H*0FAH*0FAH) MACHINE CYCLES =&gt; 1 SECOND
+	MOV R3, #10H 			; 7B 10
+	UP1:
+		MOV R4, #0FAH 		; 7C FA
+		UP2:
+			MOV R5, #0FAH 	; 7D FA
+		DJNZ R4, UP2 		; DC _FC
+	DJNZ R3, UP1 			; DB _F8
+	RET 					; 22 		; RETURN BACK TO THE MAIN LOOP
+
+CLEAR:
+	RET
+OUTPUT:
+	RET
+</code>
+
+
+</body>
+
+</html>

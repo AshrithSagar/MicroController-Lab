@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E3_X3.ASM | Experiment-3 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-3</h1>
+<h2>E3_X3.ASM</h2>
+
+<code>; Transfer ten elements of an array starting at location XX40h
+; in external data memory to a location XX45 in the same memory
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV DPTR, #1049H 	; GO TO LAST ELEMENT OF THE ARRAY
+	MOV R0, #10 		; NUMBER OF ELEMENTS, DECIMAL 10
+	MOV R1, #05H  		; NUMBER OF ELEMENTS, DECIMAL 5, I.E. (XX49 - XX45 + 1)
+
+REPEAT:
+	MOV A, R1  			; GET DISPLACEMENT
+	MOV R2, A 			; COPY TO (R2)
+
+	MOVX A, @DPTR 		; GET THE DATA TO ACCUMULATOR
+
+; INCREMENT DPTR BY (R1)
+INCREMENT:
+	INC DPTR
+	DJNZ R2, INCREMENT
+
+	MOVX @DPTR, A 		; COPY DATA TO DESTINATION
+
+	MOV A, R1  			; GET DISPLACEMENT AGAIN SINCE R2 IS DESTROYED
+	MOV R2, A 			; COPY TO (R2)
+	INC R2 				; SO AS TO POINT TO PREVIOUS LOCATION IN ORIGINAL ARRAY
+
+; DECREMENT DPTR BY (R1)+1; DEC DPTR IS NOT AVAILABLE
+DECREMENT:
+	CLR C 				; CLEAR CARRY
+	MOV A, DPL 			; GET DPTR LOW
+	SUBB A, #01H 		; DECREMENT DPL
+	MOV DPL, A 			; RESTORE DPL
+
+	MOV A, DPH 			; GET DPTR HIGH
+	SUBB A, #00H 		; SUBTRACT CARRY [IF EXISTS] FROM (DPH)
+	MOV DPH, A 			; RESTORE DPH
+
+	DJNZ R2, DECREMENT 	; REPEAT UNTIL (R2) IS ZERO
+
+	DJNZ R0, REPEAT 	; LOOP UNTIL ARRAY LENGTH IS COVERED
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+</code>
+
+
+</body>
+
+</html>

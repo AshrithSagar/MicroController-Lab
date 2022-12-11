@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E3_X4.ASM | Experiment-3 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-3</h1>
+<h2>E3_X4.ASM</h2>
+
+<code>; Convert a 2-digit hexadecimal number into BCD number.
+
+; STORE RESULT IN R6, R7;
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #0FAH 		; INPUT 2-DIGIT HEXADECIMAL NUMBER
+	
+	MOV 0F0H, #10 		; DIVISION BY DECIMAL 10
+	MOV A, R0 			; PERORM OPERATIONS ON ACCUMULATOR
+	DIV AB 				; PERFORM DIVISION
+
+	MOV R1, A 			; QUOTIENT IS IN A; SAVE IN (R1)
+	MOV A, B 			; REMAINDER IS IN B
+	MOV R6, A 			; LOWER BYTE; APPEND IN (R6)
+
+	MOV 0F0H, #10 		; DIVISION BY DECIMAL 10
+	MOV A, R1 			; DIVIDE QUOTIENT BY 10
+	DIV AB 				; PERFORM DIVISION
+
+	MOV R7, A 			; QUOTIENT IS IN A; SAVE DIRECTLY IN (R7)
+	MOV A, B 			; REMAINDER IS IN B
+	SWAP A 	 			; SWAP THE NIBBLES IN THE ACCUMULATOR
+	ORL A, R6 			; LOWER BYTE UPDATED
+	MOV R6, A 			; STORE LOWER BYTE
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+</code>
+
+
+</body>
+
+</html>

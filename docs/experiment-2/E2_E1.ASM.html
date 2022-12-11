@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E2_E1.ASM | Experiment-2 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-2</h1>
+<h2>E2_E1.ASM</h2>
+
+<code>; Write a program to find sum of 5bytes available in RAM locations 40h to 45h.
+; Store the result in Reg A (low byte) and R7 (high byte).
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #50H		; LOAD THE POINTER
+	MOV R2, #06H		; LOAD THE COUNTER
+	CLR A				; INITIALIZE
+
+REPEAT:
+	ADD A, @R0			; GET THE DATA POINTED BY THE POINTER AND ACCUMULATE
+	JNC NEXT			; JUMP TO LABEL NEXT IF NO CARRY
+	INC R7				; INCREMENT THE CARRY IN R7
+
+NEXT:
+	INC R0				; INCREMENT THE SUM
+	DJNZ R2, REPEAT		; REPEAT TILL THE COUNTER IS 0
+	END
+</code>
+
+
+</body>
+
+</html>

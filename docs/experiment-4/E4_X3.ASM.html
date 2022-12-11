@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E4_X3.ASM | Experiment-4 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-4</h1>
+<h2>E4_X3.ASM</h2>
+
+<code>; Implement an 8-bit octal up counter.
+
+ORG 0000H		 				; ORIGINATE
+AJMP START						; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #00H 				; INITIALISE COUNTER
+
+	MOV R2, #08H 				; UPPER NIBBLE; (OCTAL BASE - 1)
+	U_ITER:
+		MOV R1, #08H 			; LOWER NIBBLE; (OCTAL BASE - 1)
+		L_ITER:
+			MOV A, R0 			; LOAD THE COUNTER
+			MOV P2, A 			; SHOW IN PORT-2
+			LCALL DELAY 		; AWAIT
+
+			INC A 				; INCREMENT THE ACCUMULATOR
+			MOV R0, A 			; SAVE THE COUNTER
+
+			DJNZ R1, L_ITER 	; REPEAT FOR LOWER NIBBLE
+
+		ADD A, #08H 			; ADD TO GO TO THE NEXT VALID OCTAL NUMBER
+		MOV R0, A 				; SAVE THE COUNTER
+
+		DJNZ R2, U_ITER 		; REPEAT FOR UPPER NIBBLE
+	SJMP START 					; REPEAT IN A LOOP
+
+DELAY:
+	; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+	MOV R3, #0FH
+	UP1:
+		MOV R4, #0FFH
+		UP2:
+			MOV R5, #0FFH
+			UP3:
+				NOP
+				NOP
+			DJNZ R5, UP3
+		DJNZ R4, UP2
+	DJNZ R3, UP1
+
+	RET 						; RETURN BACK TO THE MAIN LOOP
+	END
+</code>
+
+
+</body>
+
+</html>

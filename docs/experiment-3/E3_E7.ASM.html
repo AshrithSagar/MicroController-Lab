@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E3_E7.ASM | Experiment-3 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-3</h1>
+<h2>E3_E7.ASM</h2>
+
+<code>; CONVERT SINGLE DIGIT DATA AVAILABLE IN XX50H INTO ASCII AND STORE IN THE NEXT LOCATION.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	; LOAD FROM DATA LOCATION
+	MOV DPTR, #1050H
+	MOVX A, @DPTR
+
+	CLR C				; CLEAR CARRY
+	MOV B, A			; DUPLICATE DATA TO B
+	SUBB A, #0AH		; CHECK WHETHER INPUT DATA IS &gt;9
+	MOV A, B			; RESTORE A WITH THE ORIGINAL DATA. NON-DESTRUCTIVE SUBTRACTION
+	
+	; CARRY =&gt; [0-9]
+	JC DOWN
+	
+	; NO CARRY =&gt; [A-F]
+	ADD A, #07H			; ADD ADDITIONAL 07H OFFSET
+
+DOWN:
+	ADD A, #30H			; ADD 30H BY DEFAULT
+	
+	; STORE IN NEXT LOCATION
+	INC DPTR
+	MOVX @DPTR, A
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+</code>
+
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E2_E2.ASM | Experiment-2 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-2</h1>
+<h2>E2_E2.ASM</h2>
+
+<code>; Write program to add two 16-bit numbers 2E5Fh and A3B4h.
+; Store the sum in R7 and R6.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	CLR C				; CLEAR CARRY
+	MOV A, #5FH			; MOVE DATA TO THE ACCUMULATOR
+	ADD A, #0B4H		; ADD THE LOW BYTES IN ACCUMULATOR
+	MOV R6, A			; STORE THE SUM IN R6
+	MOV A, #2EH			; MOVE DATA TO THE ACCUMULATOR
+	ADDC A, #0A3H		; ADD THE HIGH BYTES IN ACCUMULATOR
+	MOV R7, A			; STORE THE SUM IN R7
+
+HERE:
+	SJMP HERE 			; LOGICAL END
+	END
+</code>
+
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E2_E6.ASM | Experiment-2 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-2</h1>
+<h2>E2_E6.ASM</h2>
+
+<code>; Perform NOT operation on a data and output the result to port 1.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #0FFH 		; DELAY VALUE
+	MOV A, #55H			; DATA TO THE COMPLEMENTED
+
+UP:
+	MOV P1, A 			; STORE THE ACCUMULATOR
+
+DLY:
+	NOP					; NO OPERATION
+	DJNZ R0, DLY		; DELAY FOR THE DELAY VALUE BY LOOPING
+	CPL A				; COMPLEMENT THE ACCUMULATOR
+
+	SJMP UP
+	END
+</code>
+
+
+</body>
+
+</html>

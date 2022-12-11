@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E4_E5.ASM | Experiment-4 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-4</h1>
+<h2>E4_E5.ASM</h2>
+
+<code>; Implement a 16- bit hexadecimal up counter and update 
+; the counts in register R0 and R1  register
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	; INTIALISE THE REGISTERS
+	MOV R0, #00
+	MOV R1, #00
+
+UP:
+	MOV A, R0			; LOAD LOWER BYTE
+	ADD A, #01H			; INCREMENT THE LOWER BYTE
+	MOV R0, A 			; STORE IN (R0)
+	MOV P2, A 			; SHOW LOWER BYTE IN PORT-2
+	
+	MOV A, R1			; LOAD HIGHER BYTE
+	ADDC A, #00H 		; ADD CARRY TO THE HIGHER BYTE
+	MOV P3, A 			; SHOW HIGHER BYTE IN PORT-3
+	MOV R1, A 			; STORE IN (R1)
+	
+	; AWAIT TWO DELAYS: (0FH*0FFH*0FFH*02H*02H) MACHINE CYCLES
+	LCALL DELAY
+	LCALL DELAY
+	
+	SJMP UP 			; REPEAT IN A LOOP
+
+DELAY:
+	; AWAIT (0FH*0FFH*0FFH*02H) MACHINE CYCLES
+	MOV R3, #0FH
+	UP1:
+		MOV R4, #0FFH
+		UP2:
+			MOV R5, #0FFH
+			UP3:
+				NOP
+				NOP			
+			DJNZ R5, UP3
+		DJNZ R4, UP2
+	DJNZ R3, UP1
+	
+	RET 				; RETURN BACK TO THE MAIN LOOP
+	END
+</code>
+
+
+</body>
+
+</html>

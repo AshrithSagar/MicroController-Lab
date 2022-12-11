@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E4_X4.ASM | Experiment-4 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-4</h1>
+<h2>E4_X4.ASM</h2>
+
+<code>; On Port-0 of the MC, generate the signal.
+; Sawtooth wave generator
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #00H 		; INITIALISE
+	
+ITER:
+	MOV A, R0 			; GET CURRENT DATA
+	INC A 		 		; INCREMENT THE ACCUMULATOR
+	
+	MOV P0, A 			; SHOW IN PORT-0
+	MOV R0, A 			; SAVE IN (R0)
+	
+	LCALL DELAY 		; AWAIT (0FFH) MACHINE CYCLES
+	SJMP ITER 			; REPEAT IN A LOOP
+	
+DELAY:
+	; AWAIT (0FFH) MACHINE CYCLES
+	MOV R1, #0FFH
+	UP1:
+		NOP
+	DJNZ R1, UP1
+	
+	RET 				; RETURN BACK TO THE MAIN LOOP
+	END
+</code>
+
+
+</body>
+
+</html>

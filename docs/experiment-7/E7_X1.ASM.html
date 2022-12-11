@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E7_X1.ASM | Experiment-7 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-7</h1>
+<h2>E7_X1.ASM</h2>
+
+<code>; Input two 2-digit HEX numbers from the keyboard. Display each
+; number in the data field and when NEXT key is pressed display
+; their product in the address field of the display.
+
+; BIG ENDIAN CONVENTION FOR INPUTS,
+; OUTPUT IN LITTLE ENDIAN
+
+START:
+	MOV R7, #02H 			; 7F 02 	; NUMBER OF INPUTS
+
+INPUT:
+	LCALL RDKBD 			; 12 02 A2 	; READ FIRST NIBBLE
+	SWAP A 					; C4 		; SWAP FOR PACKING
+	MOV B, A 				; F5 F0 	; SAVE IN REG (B)
+	LCALL RDKBD 			; 12 02 A2 	; READ SECOND NIBBLE
+	ORL A, B 				; 45 F0 	; PACK THE NUMBER
+	PUSH ACC 				; C0 E0 	; SAVE A COPY OF THE INPUT IN STACK
+	MOV 60H, A 				; F5 60 	; DISPLAY PLACEHOLDER
+	MOV B, #00H 			; 75 F0 00 	; NO DOT IN DISPLAY; F0 00, NOT 00 F0
+	LCALL UPDDT	 			; 12 01 9B 	; DISPLAY IN DATA FIELD
+
+	DJNZ R7, INPUT 			; DF _E9	; TAKE TWO INPUTS
+
+	LCALL RDKBD 			; 12 02 A2 	; READ FOR NEXT KEYPRESS
+	CJNE A, #14H, START 	; B4 14 _E1 ; REPEAT PROGRAM, IF NOT PRESSED NEXT KEY
+
+	POP ACC					; D0 E0 	; GET SECOND NUMBER
+	MOV B, A				; F5 F0 	; LOAD IN REG (B)
+	POP ACC 				; D0 E0 	; GET FIRST NUMBER
+	MUL AB 					; A4 		; MULTIPLY THE INPUTS
+
+	MOV 60H, A 				; F5 60 	; FOR DISPLAYING LOWER NIBBLE OF PRODUCT
+	MOV 61H, B				; 85 F0 61 	; FOR DISPLAYING UPPER NIBBLE OF PRODUCT
+	MOV B, #00H 			; 75 F0 00 	; NO DOT IN DISPLAY
+	LCALL CLEAR 			; 12 01 70 	; CLEAR UTILITY ROUTINE
+	LCALL UPDAD				; 12 02 0B 	; DISPLAY IN ADDRESS FIELD
+
+	LJMP START 				; 12 80 00 	; REPEAT THE PROGRAM
+
+RDKBD:
+	RET
+UPDDT:
+	RET
+UPDAD:
+	RET
+</code>
+
+
+</body>
+
+</html>

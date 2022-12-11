@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E6_P3.ASM | Experiment-6 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-6</h1>
+<h2>E6_P3.ASM</h2>
+
+<code>; Realize an 8-bit Johnson counter.
+
+; LIMITATIONS: (1111 1111) AND (0000 0000) ARE REPEATED TWICE.
+
+CLR C 					; CLEAR CARRY
+MOV A, #00H 			; INITIALISE
+
+ITER:
+	MOV 60H, A 			; COPY DATA TO DISPLAY PLACEHOLDERS
+	PUSH A 				; SAVE ACCUMULATOR
+	LCALL UPDDT 		; DISPLAY PROGRAM
+	LCALL DELAY 		; AWAIT
+	POP A 				; RETRIEVE ACCUMULATOR
+
+	CPL C 				; COMPLEMENT CARRY BIT
+	RLC A 				; RIGHT SHIFT ACCUMULATOR
+
+	SJMP ITER 			; REPEAT IN A LOOP
+
+DELAY:
+	; AWAIT (04H*0FFH*0FFH) MACHINE CYCLES =&gt; ~0.26 SECONDS
+	MOV R3, #04H
+	UP1:
+		MOV R4, #0FFH
+		UP2:
+			MOV R5, #0FFH
+		DJNZ R4, UP2
+	DJNZ R3, UP1
+
+	RET 				; RETURN BACK TO THE MAIN LOOP
+	END
+</code>
+
+
+</body>
+
+</html>

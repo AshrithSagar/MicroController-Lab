@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E3_E5.ASM | Experiment-3 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-3</h1>
+<h2>E3_E5.ASM</h2>
+
+<code>; CONVERT 8-BIT HEXADECIMAL TO DECIMAL
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV A, #0ABH		; INPUT DATA
+	MOV 0F0H, #10		; DECIMAL 10 STORED IN B
+	DIV AB				; DIV INPUT BY DECIMAL 10
+	MOV R7, 0F0H		; REMINDER STORED IN (R7). THIS IS THE LOWER DECIMAL DIGIT
+	MOV B, #10			; DECIMAL 10 STORED IN B AGAIN
+	DIV AB				; DIV [QUOTIENT] BY DECIMAL 10. (A) CONTAINED THE QUOTIENT FROM PREVIOUS STEP
+	MOV R6, 0F0H		; REMINDER STORED IN (R6). THIS IS THE MIDDLE DIGIT
+	MOV R5, A			; QUOTIENT STORED IN (R5). THIS IS THE UPPER DIGIT
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+</code>
+
+
+</body>
+
+</html>

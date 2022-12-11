@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E4_X2.ASM | Experiment-4 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-4</h1>
+<h2>E4_X2.ASM</h2>
+
+<code>; Assuming R1:R0 registers as an 16 bit register rotate the 
+; content of this register left such that bit-7 of R0 becomes 
+; bit 0 of R1 and bit-7 of R1 becomes bit-0 of R0.
+
+ORG 0000H				; ORIGINATE
+AJMP START				; JUMP TO THE LABEL START
+
+START:
+	MOV R0, #0FFH 		; INPUT LOWER BYTE
+	MOV R1, #00H 		; INPUT HIGHER BYTE
+	CLR C 				; CLEAR CARRY
+
+	MOV A, R1 			; GET HIGHER BYTE IN ACCUMULATOR
+	
+	; MASK AND GET THE FIRST BIT OF THE HIGHER BYTE, AND STORE IN ACCUMULATOR
+	ANL A, #80H 		; (80H) IS (10000000B)
+
+	; IF ACCUMULATOR IS ZERO =&gt; BIT-7 OF HIGHER BYTE IS 0
+	JZ UP1
+
+	; IF ACCUMULATOR IS NON-ZERO =&gt; BIT-7 OF HIGHER BYTE IS 1
+	SETB C 				; SET THE CARRY BIT
+
+UP2:
+	MOV A, R0 			; GET LOWER BYTE IN ACCUMULATOR
+	RLC A 				; ROTATE LEFT ACCUMULATOR, WHICH HAS THE LOWER BYTE
+	MOV R2, A 			; STORE LOWER BYTE IN (R2)
+	
+	; THE CARRY BIT IS NOW THE BIT-7 OF THE LOWER BYTE
+
+	MOV A, R1 			; GET HIGHER BYTE IN THE ACCUMULATOR AGAIN
+	RLC A 				; ROTATE LEFT ACCUMULATOR, WHICH HAS THE HIGHER BYTE
+	MOV R3, A 			; STORE HIGHER BYTE IN (R3)
+
+	SJMP HERE 			; END
+
+UP1:
+	CLR C 				; CLEAR CARRY
+	SJMP UP2 			; RETURN TO THE FLOW
+	
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+</code>
+
+
+</body>
+
+</html>

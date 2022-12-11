@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E2_P2.ASM | Experiment-2 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-2</h1>
+<h2>E2_P2.ASM</h2>
+
+<code>; Add two 4-digit BCD numbers available in memory external
+; data memory and store the result in internal RAM location 00h.
+
+; ASSUME THE NUMBERS ARE STORED IN EXTERNAL LOCATION 1000H TO 1003H
+
+ORG 0000H					; ORIGINATE
+AJMP START					; JUMP TO THE LABEL START
+
+START:
+	MOV DPTR, #1000H		; GET DATA LOCATION
+	MOVX A, @DPTR			; GET LOWER BYTE 1 TO ACCUMULATOR
+	MOV 0F0H, A 			; SAVE DATA IN (REG. B)
+	INC DPTR				; GO TO LOWER BYTE 2
+	INC DPTR
+	MOVX A, @DPTR			; GET LOWER BYTE 2 TO ACCUMULATOR
+	ADD A, 0F0H 			; ADD THE DATA
+	DA A 					; DECIMALLY ADJUST ACCUMULATOR
+	MOV 00H, A 				; SAVE RESULT LOWER BYTE TO LOCATION (00H)
+
+	MOV DPTR, #1001H		; GET DATA LOCATION
+	MOVX A, @DPTR			; GET UPPER BYTE 1 TO ACCUMULATOR
+	MOV 0F0H, A 			; SAVE DATA IN (REG. B)
+	INC DPTR				; GO TO UPPER BYTE 2
+	INC DPTR
+	MOVX A, @DPTR			; GET UPPER BYTE 2 TO ACCUMULATOR
+	ADDC A, 0F0H 			; ADD THE DATA
+	DA A 					; DECIMALLY ADJUST ACCUMULATOR
+	MOV 01H, A 				; SAVE RESULT MIDDLE BYTE TO LOCATION (01H)
+
+	CLR A 					; CLEAR ACCUMULATOR
+	ADDC A, #00H 			; RESULT UPPER BYTE
+	MOV 02H, A 				; SAVE RESULT UPPER BYTE TO LOCATION (02H)
+
+HERE:
+	SJMP HERE				; LOGICAL END
+	END
+</code>
+
+
+</body>
+
+</html>

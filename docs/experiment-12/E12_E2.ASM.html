@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>E12_E2.ASM | Experiment-12 | MicroController-Lab</title>
+    <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
+    
+</head>
+
+<body>
+    
+
+<h1>Experiment-12</h1>
+<h2>E12_E2.ASM</h2>
+
+<code>; Generate a saw tooth waveform.
+
+START:
+	MOV P2, #E8H
+	MOV R0, #03H
+	MOV A, #80H
+	MOVX @R0, A
+	CLR A
+	MOV R0, A
+
+UP:
+	MOVX @R0, A
+	INC A
+	SJMP UP
+</code>
+
+
+</body>
+
+</html>

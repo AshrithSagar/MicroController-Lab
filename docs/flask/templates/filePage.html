@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}{{data.fileName}} | Experiment-{{ data.experimentNumber }} | MicroController-Lab{% endblock %}
+
+{% block content %}
+
+<h1>Experiment-{{data.experimentNumber}}</h1>
+<h2>{{ data.fileName }}</h2>
+
+<code>{{ data.fileData }}</code>
+
+{% endblock %}

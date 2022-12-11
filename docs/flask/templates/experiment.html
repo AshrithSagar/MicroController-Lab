@@ -6,14 +6,14 @@
 
 <h1>Experiment-{{data.experimentNumber}}</h1>
 
-{% for file in data.folderData.keys() %}
-<h2>{{ file }}</h2>
-<code>
-    {% for line in data.folderData[file] %}
-    {{ line }}
-    <br>
+<ul>
+    {% for file in data.folderContents %}
+    <li>
+        <a href="{{ url_for('filePage', experimentNumber=data.experimentNumber, fileName=file) }}">
+            {{ file }}
+        </a>
+    </li>
     {% endfor %}
-</code>
-{% endfor %}
+</ul>
 
 {% endblock %}
