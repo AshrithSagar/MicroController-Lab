@@ -19,594 +19,2100 @@
 
 <h2>E3_E1.ASM</h2>
 <code>
+    
     ; SUM OF TWO-DIGIT BCD NUMBERS IN XX40 TO XX49.
-; STORE RESULT IN R0, R1 AND IN XX50H, XX51H.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; STORE RESULT IN R0, R1 AND IN XX50H, XX51H.
 
-START:
-	MOV R1, #00H		; CARRY REGISTER
-	MOV R3, #10			; LENGTH OF ARRAY WITH DECIMAL 10
-	MOV R0, #00H		; INITIALISE THE SUM
-	MOV DPTR, #1040H 	; DATA LOCATION STARTING ADDRESS
+    <br>
+    
+    
 
-UP:
-	MOVX A, @DPTR		; GET DATA
-	ADD A, R0			; APPEND TO THE SUM
-	DA A				; DECIMALLY ADJUST ACCUMULATOR SINCE DEALING WITH BCD DATA
-	MOV R0, A			; UPDATE SUM REGISTER
-	JNC DOWN
-	
-	; IF CARRY EXECUTE BELOW
-	MOV A, #00H
-	ADDC A, R1
-	DA A				; ACCUMULATE CARRY DECIMALLY
-	MOV R1, A			; UPDATE CARRY REGISTER
-	
-DOWN:
-	INC DPTR			; GET THE NEXT DATA ADDRESS
-	DJNZ R3, UP			; REPEAT (R3) TIMES
-	
-	MOV A, R0			; GET THE FINAL SUM
-	MOV DPTR, #1050H
-	MOVX @DPTR, A		; COPY INTO MEMORY
-	INC DPTR
-	MOV A, R1			; GET THE FINAL CARRY
-	MOVX @DPTR, A		; APPEND THE CARRY
-	
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
+
+    <br>
+    
+    
+
+    <br>
+    
+    START:
+
+    <br>
+    
+    	MOV R1, #00H		; CARRY REGISTER
+
+    <br>
+    
+    	MOV R3, #10			; LENGTH OF ARRAY WITH DECIMAL 10
+
+    <br>
+    
+    	MOV R0, #00H		; INITIALISE THE SUM
+
+    <br>
+    
+    	MOV DPTR, #1040H 	; DATA LOCATION STARTING ADDRESS
+
+    <br>
+    
+    
+
+    <br>
+    
+    UP:
+
+    <br>
+    
+    	MOVX A, @DPTR		; GET DATA
+
+    <br>
+    
+    	ADD A, R0			; APPEND TO THE SUM
+
+    <br>
+    
+    	DA A				; DECIMALLY ADJUST ACCUMULATOR SINCE DEALING WITH BCD DATA
+
+    <br>
+    
+    	MOV R0, A			; UPDATE SUM REGISTER
+
+    <br>
+    
+    	JNC DOWN
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; IF CARRY EXECUTE BELOW
+
+    <br>
+    
+    	MOV A, #00H
+
+    <br>
+    
+    	ADDC A, R1
+
+    <br>
+    
+    	DA A				; ACCUMULATE CARRY DECIMALLY
+
+    <br>
+    
+    	MOV R1, A			; UPDATE CARRY REGISTER
+
+    <br>
+    
+    	
+
+    <br>
+    
+    DOWN:
+
+    <br>
+    
+    	INC DPTR			; GET THE NEXT DATA ADDRESS
+
+    <br>
+    
+    	DJNZ R3, UP			; REPEAT (R3) TIMES
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	MOV A, R0			; GET THE FINAL SUM
+
+    <br>
+    
+    	MOV DPTR, #1050H
+
+    <br>
+    
+    	MOVX @DPTR, A		; COPY INTO MEMORY
+
+    <br>
+    
+    	INC DPTR
+
+    <br>
+    
+    	MOV A, R1			; GET THE FINAL CARRY
+
+    <br>
+    
+    	MOVX @DPTR, A		; APPEND THE CARRY
+
+    <br>
+    
+    	
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_E2.ASM</h2>
 <code>
+    
     ; FIND LARGEST NUMBER IN A MEMORY ARRAY. ARRAY BEGNIS AT 40H, WITH LENGTH STORED AT 30H
-; STORE THE RESULT IN XX60H
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; STORE THE RESULT IN XX60H
 
-START:
-	MOV R0, #30H		; LENGTH OF THE ARRAY
-	MOV A, @R0
-	MOV R7, A			; STORE LENGTH IN (R7)
-	DEC R7				; [N-1] COMPARISIONS REQUIRED
-	MOV R1, #40H		; STARTING LOCATION OF THE DATA
-	MOV A, @R1			; GET DATA CONTENT
+    <br>
+    
+    
 
-UP:
-	INC R1				; MOVE TO NEXT POINTER
-	CLR C				; CLEAR CARRY
-	MOV B, A			; DUPLICATE IN B
-	SUBB A, @R1			; SUBTRACT WITH THE NEXT POINTERS DATA
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-	JNC DOWN1			; NO CARRY =&gt; A IS GREATER THAN NEXT POINTERS DATA
-	MOV A, @R1			; UPDATE THE CURRENT LARGEST IN (R0)
-	SJMP DOWN			; SKIP (DOWN1)
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
-DOWN1:
-	MOV A, B			; CARRY =&gt; NEXT POINTERS DATA IS GREATER THAN A
+    <br>
+    
+    
 
-DOWN:
-	DJNZ R7, UP			; REPEAT (R7) TIMES
-	MOV DPTR, #0060H	
-	MOVX @DPTR, A		; STORE THE FINAL RESULT
+    <br>
+    
+    START:
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    	MOV R0, #30H		; LENGTH OF THE ARRAY
 
+    <br>
+    
+    	MOV A, @R0
+
+    <br>
+    
+    	MOV R7, A			; STORE LENGTH IN (R7)
+
+    <br>
+    
+    	DEC R7				; [N-1] COMPARISIONS REQUIRED
+
+    <br>
+    
+    	MOV R1, #40H		; STARTING LOCATION OF THE DATA
+
+    <br>
+    
+    	MOV A, @R1			; GET DATA CONTENT
+
+    <br>
+    
+    
+
+    <br>
+    
+    UP:
+
+    <br>
+    
+    	INC R1				; MOVE TO NEXT POINTER
+
+    <br>
+    
+    	CLR C				; CLEAR CARRY
+
+    <br>
+    
+    	MOV B, A			; DUPLICATE IN B
+
+    <br>
+    
+    	SUBB A, @R1			; SUBTRACT WITH THE NEXT POINTERS DATA
+
+    <br>
+    
+    
+
+    <br>
+    
+    	JNC DOWN1			; NO CARRY =&gt; A IS GREATER THAN NEXT POINTERS DATA
+
+    <br>
+    
+    	MOV A, @R1			; UPDATE THE CURRENT LARGEST IN (R0)
+
+    <br>
+    
+    	SJMP DOWN			; SKIP (DOWN1)
+
+    <br>
+    
+    
+
+    <br>
+    
+    DOWN1:
+
+    <br>
+    
+    	MOV A, B			; CARRY =&gt; NEXT POINTERS DATA IS GREATER THAN A
+
+    <br>
+    
+    
+
+    <br>
+    
+    DOWN:
+
+    <br>
+    
+    	DJNZ R7, UP			; REPEAT (R7) TIMES
+
+    <br>
+    
+    	MOV DPTR, #0060H	
+
+    <br>
+    
+    	MOVX @DPTR, A		; STORE THE FINAL RESULT
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_E3.ASM</h2>
 <code>
+    
     ; TRANSFER MEMORY CONTENTS STARTING FROM 50H TO 59H IN THE SAME SEQUENCE, TO LOCATION STARTING FROM 70H
 
-ORG 0000H					; ORIGINATE
-AJMP START					; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:
-	MOV R2, #0AH			; LENGTH OF THE ARRAYS TO BE DUPLICATED. I.E. DECIMAL 10.
-	MOV R0, #50H			; ADDRESS OF SOURCE
-	MOV R1, #70H			; ADDRESS OF DESTINATION
+    <br>
+    
+    ORG 0000H					; ORIGINATE
 
-UP:
-	MOV A, @R0				; GET SOURCE CONTENT
-	MOV @R1, A				; MOVE TO DESTINATION
-	; INCREMENT BOTH SOURCE AND DESTINATION DATA POINTERS
-	INC R0					
-	INC R1
-	DJNZ R2, UP				; REPEAT (R2) TIMES. I.E. TILL THE LENGTH OF THE ARRAY
+    <br>
+    
+    AJMP START					; JUMP TO THE LABEL START
 
-HERE:
-	SJMP HERE				; LOGICAL END
-	END
+    <br>
+    
+    
 
+    <br>
+    
+    START:
+
+    <br>
+    
+    	MOV R2, #0AH			; LENGTH OF THE ARRAYS TO BE DUPLICATED. I.E. DECIMAL 10.
+
+    <br>
+    
+    	MOV R0, #50H			; ADDRESS OF SOURCE
+
+    <br>
+    
+    	MOV R1, #70H			; ADDRESS OF DESTINATION
+
+    <br>
+    
+    
+
+    <br>
+    
+    UP:
+
+    <br>
+    
+    	MOV A, @R0				; GET SOURCE CONTENT
+
+    <br>
+    
+    	MOV @R1, A				; MOVE TO DESTINATION
+
+    <br>
+    
+    	; INCREMENT BOTH SOURCE AND DESTINATION DATA POINTERS
+
+    <br>
+    
+    	INC R0					
+
+    <br>
+    
+    	INC R1
+
+    <br>
+    
+    	DJNZ R2, UP				; REPEAT (R2) TIMES. I.E. TILL THE LENGTH OF THE ARRAY
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE				; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_E4.ASM</h2>
 <code>
+    
     ; ARRANGE ELEMENTS OF MEMORY ARRAY IN ASCENDING ORDER
-; [BUBBLE SORT]
 
-ORG 0000H					; ORIGINATE
-AJMP START					; JUMP TO THE LABEL START
+    <br>
+    
+    ; [BUBBLE SORT]
 
-START:
-	MOV A, #12				; LENGTH OF ARRAY. CAN ENTER IN DECIMAL AS WELL.
-	DEC A					; [N-1] PASSES IN BUBBLE SORT
-	MOV 30H, A				; COPY LENGTH AT ADDRESS (30H). TO BE USED AS A FIXED DATA.
-	
-NXT_PSS:
-	; RELOAD (R7) AND (R6) WITH THE LENGTH OF THE ARRAY
-	MOV R7, 30H				; NOT REQUIRED?
-	MOV R6, 30H
-	
-	MOV R0, #50H			; STARTING LOCATION OF THE ARRAY IN (R0). BUBBLING FROM LOWEST [FIXED] TO HIGHEST INDEX [VARYING].
+    <br>
+    
+    
 
-NXT_CMP:
-	MOV A, @R0				; GET DATA FROM THE ARRAY
-	MOV R3, A				; DUPLICATE THE DATA TO (R3)
-	INC R0					; INCREMENT TO THE NEXT LOCATION IN THE ARRAY
-	MOV 0F0H, @R0			; DUPLICATE NEXT CONTENTS TO REG. B
-	CLR C					; CLEAR THE CARRY. SO THAT A ISN&#39;T DECREMENTED WITH THE BORROW.
-	SUBB A, B				; COMPARE A AND B
-	
-	; CARRY =&gt; B IS GREATER THAN A. NO SWAP REQUIRED.
-	JC DOWN
-	
-	; NO CARRY =&gt; A IS GREATER THAN B. SWAP REQUIRED.
-	MOV A, R3				; (R3) HAD THE COPY OF THE ORIGINAL DATA BACKED UP, AT (R0)
-	MOV @R0, A				; BUBBLE IT UP. (R0) POINTS TO THE NEXT INDEX.
-	DEC R0					; DECREMENT POINTER TO TEMPORARILY USE FOR THE SWAP
-	MOV @R0, 0F0H			; THE ORIGINAL CONTENTS OF THE LOWER NUMBER WERE IN (B)
-	INC R0					; INCREMENT FOR NEXT PASS
-	
-DOWN:
-	DJNZ R6, NXT_CMP		; DO (R6) COMPARISIONS IN EACH PASS
-	DJNZ 30H, NXT_PSS		; (@30H) CONTAINS THE PASS COUNTER
-	
-HERE:
-	SJMP HERE				; LOGICAL END
-	END
+    <br>
+    
+    ORG 0000H					; ORIGINATE
 
+    <br>
+    
+    AJMP START					; JUMP TO THE LABEL START
+
+    <br>
+    
+    
+
+    <br>
+    
+    START:
+
+    <br>
+    
+    	MOV A, #12				; LENGTH OF ARRAY. CAN ENTER IN DECIMAL AS WELL.
+
+    <br>
+    
+    	DEC A					; [N-1] PASSES IN BUBBLE SORT
+
+    <br>
+    
+    	MOV 30H, A				; COPY LENGTH AT ADDRESS (30H). TO BE USED AS A FIXED DATA.
+
+    <br>
+    
+    	
+
+    <br>
+    
+    NXT_PSS:
+
+    <br>
+    
+    	; RELOAD (R7) AND (R6) WITH THE LENGTH OF THE ARRAY
+
+    <br>
+    
+    	MOV R7, 30H				; NOT REQUIRED?
+
+    <br>
+    
+    	MOV R6, 30H
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	MOV R0, #50H			; STARTING LOCATION OF THE ARRAY IN (R0). BUBBLING FROM LOWEST [FIXED] TO HIGHEST INDEX [VARYING].
+
+    <br>
+    
+    
+
+    <br>
+    
+    NXT_CMP:
+
+    <br>
+    
+    	MOV A, @R0				; GET DATA FROM THE ARRAY
+
+    <br>
+    
+    	MOV R3, A				; DUPLICATE THE DATA TO (R3)
+
+    <br>
+    
+    	INC R0					; INCREMENT TO THE NEXT LOCATION IN THE ARRAY
+
+    <br>
+    
+    	MOV 0F0H, @R0			; DUPLICATE NEXT CONTENTS TO REG. B
+
+    <br>
+    
+    	CLR C					; CLEAR THE CARRY. SO THAT A ISN&#39;T DECREMENTED WITH THE BORROW.
+
+    <br>
+    
+    	SUBB A, B				; COMPARE A AND B
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; CARRY =&gt; B IS GREATER THAN A. NO SWAP REQUIRED.
+
+    <br>
+    
+    	JC DOWN
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; NO CARRY =&gt; A IS GREATER THAN B. SWAP REQUIRED.
+
+    <br>
+    
+    	MOV A, R3				; (R3) HAD THE COPY OF THE ORIGINAL DATA BACKED UP, AT (R0)
+
+    <br>
+    
+    	MOV @R0, A				; BUBBLE IT UP. (R0) POINTS TO THE NEXT INDEX.
+
+    <br>
+    
+    	DEC R0					; DECREMENT POINTER TO TEMPORARILY USE FOR THE SWAP
+
+    <br>
+    
+    	MOV @R0, 0F0H			; THE ORIGINAL CONTENTS OF THE LOWER NUMBER WERE IN (B)
+
+    <br>
+    
+    	INC R0					; INCREMENT FOR NEXT PASS
+
+    <br>
+    
+    	
+
+    <br>
+    
+    DOWN:
+
+    <br>
+    
+    	DJNZ R6, NXT_CMP		; DO (R6) COMPARISIONS IN EACH PASS
+
+    <br>
+    
+    	DJNZ 30H, NXT_PSS		; (@30H) CONTAINS THE PASS COUNTER
+
+    <br>
+    
+    	
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE				; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_E5.ASM</h2>
 <code>
+    
     ; CONVERT 8-BIT HEXADECIMAL TO DECIMAL
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:
-	MOV A, #0ABH		; INPUT DATA
-	MOV 0F0H, #10		; DECIMAL 10 STORED IN B
-	DIV AB				; DIV INPUT BY DECIMAL 10
-	MOV R7, 0F0H		; REMINDER STORED IN (R7). THIS IS THE LOWER DECIMAL DIGIT
-	MOV B, #10			; DECIMAL 10 STORED IN B AGAIN
-	DIV AB				; DIV [QUOTIENT] BY DECIMAL 10. (A) CONTAINED THE QUOTIENT FROM PREVIOUS STEP
-	MOV R6, 0F0H		; REMINDER STORED IN (R6). THIS IS THE MIDDLE DIGIT
-	MOV R5, A			; QUOTIENT STORED IN (R5). THIS IS THE UPPER DIGIT
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
+    <br>
+    
+    
+
+    <br>
+    
+    START:
+
+    <br>
+    
+    	MOV A, #0ABH		; INPUT DATA
+
+    <br>
+    
+    	MOV 0F0H, #10		; DECIMAL 10 STORED IN B
+
+    <br>
+    
+    	DIV AB				; DIV INPUT BY DECIMAL 10
+
+    <br>
+    
+    	MOV R7, 0F0H		; REMINDER STORED IN (R7). THIS IS THE LOWER DECIMAL DIGIT
+
+    <br>
+    
+    	MOV B, #10			; DECIMAL 10 STORED IN B AGAIN
+
+    <br>
+    
+    	DIV AB				; DIV [QUOTIENT] BY DECIMAL 10. (A) CONTAINED THE QUOTIENT FROM PREVIOUS STEP
+
+    <br>
+    
+    	MOV R6, 0F0H		; REMINDER STORED IN (R6). THIS IS THE MIDDLE DIGIT
+
+    <br>
+    
+    	MOV R5, A			; QUOTIENT STORED IN (R5). THIS IS THE UPPER DIGIT
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_E6.ASM</h2>
 <code>
+    
     ; CONVERT 2-DIGIT BCD IN LOCATION XX50 INTO HEXADECIMAL AND STORE THE HEXADECIMAL EQUIVALENT IN NEXT MEMORY LOCATION.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:
-	MOV DPTR, #1050H	; LOAD DATA LOCATION
-	MOVX A, @DPTR		; GET INPUT DATA. 2-DIGIT BCD IS ONE BYTE LONG
-	ANL A, #0FH			; MASK THE UPPER NIBBLE. RETURNS LOWER NIBBLE
-	MOV R0, A			; SAVE THE LOWER NIBBLE IN (R0)
-	MOVX A, @DPTR		; RESTORE INPUT DATA
-	ANL A, #0F0H		; MASK THE LOWER NIBBLE. RETURNS UPPER NIBBLE
-	CLR C				; CLEAR CARRY
-	
-	; ROTATE RIGHT WITH CARRY 4 TIMES. EFFECTIVELY SWAPS LOWER AND UPPER NIBBLES, BUT WITH AN ADDITIONAL CARRY [NOT REQUIRED?]
-	RRC A
-	RRC A
-	RRC A
-	RRC A
-	; LOWER NIBBLE OF CURRENT (A) IS THE PREVIOUS UPPER NIBBLE
-	
-	RLC A				; ROTATE LEFT WITH CARRY, ONCE. MULTIPLIES BY 2
-	MOV 0F0H, A			; SAVE IN B
-	
-	; ROTATE LEFT WITH CARRY TWO MORE TIMES. MULTIPLIES BY 8 EFFECTIVELY, IN THE END
-	RLC A
-	RLC A
-	
-	ADD A, B			; [x2] + [x8] =&gt; [x10] DECIMAL
-	ADD A, R0			; ADD THE LOWER NIBBLE, ~HEXADECIMALLY. [WHY?]
-	
-	; STORE IN NEXT LOCATION
-	INC DPTR
-	MOVX @DPTR, A
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
+    <br>
+    
+    
+
+    <br>
+    
+    START:
+
+    <br>
+    
+    	MOV DPTR, #1050H	; LOAD DATA LOCATION
+
+    <br>
+    
+    	MOVX A, @DPTR		; GET INPUT DATA. 2-DIGIT BCD IS ONE BYTE LONG
+
+    <br>
+    
+    	ANL A, #0FH			; MASK THE UPPER NIBBLE. RETURNS LOWER NIBBLE
+
+    <br>
+    
+    	MOV R0, A			; SAVE THE LOWER NIBBLE IN (R0)
+
+    <br>
+    
+    	MOVX A, @DPTR		; RESTORE INPUT DATA
+
+    <br>
+    
+    	ANL A, #0F0H		; MASK THE LOWER NIBBLE. RETURNS UPPER NIBBLE
+
+    <br>
+    
+    	CLR C				; CLEAR CARRY
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; ROTATE RIGHT WITH CARRY 4 TIMES. EFFECTIVELY SWAPS LOWER AND UPPER NIBBLES, BUT WITH AN ADDITIONAL CARRY [NOT REQUIRED?]
+
+    <br>
+    
+    	RRC A
+
+    <br>
+    
+    	RRC A
+
+    <br>
+    
+    	RRC A
+
+    <br>
+    
+    	RRC A
+
+    <br>
+    
+    	; LOWER NIBBLE OF CURRENT (A) IS THE PREVIOUS UPPER NIBBLE
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	RLC A				; ROTATE LEFT WITH CARRY, ONCE. MULTIPLIES BY 2
+
+    <br>
+    
+    	MOV 0F0H, A			; SAVE IN B
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; ROTATE LEFT WITH CARRY TWO MORE TIMES. MULTIPLIES BY 8 EFFECTIVELY, IN THE END
+
+    <br>
+    
+    	RLC A
+
+    <br>
+    
+    	RLC A
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	ADD A, B			; [x2] + [x8] =&gt; [x10] DECIMAL
+
+    <br>
+    
+    	ADD A, R0			; ADD THE LOWER NIBBLE, ~HEXADECIMALLY. [WHY?]
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; STORE IN NEXT LOCATION
+
+    <br>
+    
+    	INC DPTR
+
+    <br>
+    
+    	MOVX @DPTR, A
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_E7.ASM</h2>
 <code>
+    
     ; CONVERT SINGLE DIGIT DATA AVAILABLE IN XX50H INTO ASCII AND STORE IN THE NEXT LOCATION.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:
-	; LOAD FROM DATA LOCATION
-	MOV DPTR, #1050H
-	MOVX A, @DPTR
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-	CLR C				; CLEAR CARRY
-	MOV B, A			; DUPLICATE DATA TO B
-	SUBB A, #0AH		; CHECK WHETHER INPUT DATA IS &gt;9
-	MOV A, B			; RESTORE A WITH THE ORIGINAL DATA. NON-DESTRUCTIVE SUBTRACTION
-	
-	; CARRY =&gt; [0-9]
-	JC DOWN
-	
-	; NO CARRY =&gt; [A-F]
-	ADD A, #07H			; ADD ADDITIONAL 07H OFFSET
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
-DOWN:
-	ADD A, #30H			; ADD 30H BY DEFAULT
-	
-	; STORE IN NEXT LOCATION
-	INC DPTR
-	MOVX @DPTR, A
+    <br>
+    
+    
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    START:
 
+    <br>
+    
+    	; LOAD FROM DATA LOCATION
+
+    <br>
+    
+    	MOV DPTR, #1050H
+
+    <br>
+    
+    	MOVX A, @DPTR
+
+    <br>
+    
+    
+
+    <br>
+    
+    	CLR C				; CLEAR CARRY
+
+    <br>
+    
+    	MOV B, A			; DUPLICATE DATA TO B
+
+    <br>
+    
+    	SUBB A, #0AH		; CHECK WHETHER INPUT DATA IS &gt;9
+
+    <br>
+    
+    	MOV A, B			; RESTORE A WITH THE ORIGINAL DATA. NON-DESTRUCTIVE SUBTRACTION
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; CARRY =&gt; [0-9]
+
+    <br>
+    
+    	JC DOWN
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; NO CARRY =&gt; [A-F]
+
+    <br>
+    
+    	ADD A, #07H			; ADD ADDITIONAL 07H OFFSET
+
+    <br>
+    
+    
+
+    <br>
+    
+    DOWN:
+
+    <br>
+    
+    	ADD A, #30H			; ADD 30H BY DEFAULT
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; STORE IN NEXT LOCATION
+
+    <br>
+    
+    	INC DPTR
+
+    <br>
+    
+    	MOVX @DPTR, A
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_P1.ASM</h2>
 <code>
+    
     ; Find the sum of odd and even numbers available in a
-; memory array and store the result in memory locations.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; memory array and store the result in memory locations.
 
-START:	
-	
+    <br>
+    
+    
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
+
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_P2.ASM</h2>
 <code>
+    
     ; Convert a 2-digit BCD number into ASCII code.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:	
-	
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_P3.ASM</h2>
 <code>
+    
     ; Convert binary number into Gray code.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:	
-	
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_P4.ASM</h2>
 <code>
+    
     ; Convert Gray code into binary number.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:	
-	
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_P5.ASM</h2>
 <code>
+    
     ; Reverse the elements of an array.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:	
-	
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_P6.ASM</h2>
 <code>
+    
     ; Read a single digit hexadecimal number from the memory location
-; and generate 7-segment code for the number read and send the 
-; code to port1. Assume common-anode seven-segment display.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; and generate 7-segment code for the number read and send the 
 
-START:	
-	
+    <br>
+    
+    ; code to port1. Assume common-anode seven-segment display.
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    
 
+    <br>
+    
+    ORG 0000H				; ORIGINATE
+
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
+
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_X1.ASM</h2>
 <code>
+    
     ; Find the sum of ten 16 –bit hexadecimal numbers available in memory
-; starting from location XX10h. store the result in XX50h onwards.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; starting from location XX10h. store the result in XX50h onwards.
 
-START:
-	MOV DPTR, #1010H	; STARTING LOCATION OF THE MEMORY
-	MOV R0, #00H 		; LOWER SUM REGISTER; CLR (R0) DOESN&#39;T WORK;
-	MOV R1, #00H 		; HIGHER SUM REGISTER; CLR (R1) DOESN&#39;T WORK;
-	MOV R2, #00H 		; CARRY REGISTER; CLR (R2) DOESN&#39;T WORK;
-	MOV R3, #10 		; NUMBER OF ELEMENTS, DECIMAL 10
+    <br>
+    
+    
 
-ITER:
-	MOVX A, @DPTR 		; GET THE LOWER BYTE OF THE DATA
-	MOV 0F0H, A 		; DUPLICATE IT TO REG (B)
-	MOV A, R0 			; GET THE CURRENT SUM, LOWER BYTE.
-	ADD A, B 			; ADD THE LOWER BYTE TO THE SUM, WITHOUT CARRY.
-	MOV R0, A 			; SAVE THE LOWER BYTE OF SUM IN (R0)
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-	INC DPTR 			; GO TO NEXT LOCATION
-	MOVX A, @DPTR 		; GET THE HIGHER BYTE OF THE DATA
-	MOV 0F0H, A 		; DUPLICATE IT TO REG (B)
-	MOV A, R1 			; GET THE CURRENT SUM, HIGHER BYTE.
-	ADDC A, B 			; ADD THE HIGHER BYTE, ALONG WITH THE CARRY.
-	MOV R1, A 			; SAVE THE HIGHER BYTE OF SUM IN (R1)
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
-	MOV A, R2 			; GET THE CURRENT SUM, CARRY BYTE.
-	ADDC A, #00H 		; INCREMENT CARRY REGISTER WITH THE CARRY.
+    <br>
+    
+    
 
-	INC DPTR 			; GO TO NEXT LOCATION
-	DJNZ R3, ITER 		; REPEAT TILL END OF ARRAY
+    <br>
+    
+    START:
 
-STORE:
-	; STORE THE FINAL SUM IN THE DESIRED LOCATION
-	MOV DPTR, #1050H 	; LOWER BYTE OF SUM
-	MOV A, R0
-	MOVX @DPTR, A
-	
-	INC DPTR 			; HIGHER BYTE OF SUM
-	MOV A, R1
-	MOVX @DPTR, A
-	
-	INC DPTR 			; CARRY BYTE OF SUM
-	MOV A, R2
-	MOVX @DPTR, A
+    <br>
+    
+    	MOV DPTR, #1010H	; STARTING LOCATION OF THE MEMORY
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    	MOV R0, #00H 		; LOWER SUM REGISTER; CLR (R0) DOESN&#39;T WORK;
 
+    <br>
+    
+    	MOV R1, #00H 		; HIGHER SUM REGISTER; CLR (R1) DOESN&#39;T WORK;
+
+    <br>
+    
+    	MOV R2, #00H 		; CARRY REGISTER; CLR (R2) DOESN&#39;T WORK;
+
+    <br>
+    
+    	MOV R3, #10 		; NUMBER OF ELEMENTS, DECIMAL 10
+
+    <br>
+    
+    
+
+    <br>
+    
+    ITER:
+
+    <br>
+    
+    	MOVX A, @DPTR 		; GET THE LOWER BYTE OF THE DATA
+
+    <br>
+    
+    	MOV 0F0H, A 		; DUPLICATE IT TO REG (B)
+
+    <br>
+    
+    	MOV A, R0 			; GET THE CURRENT SUM, LOWER BYTE.
+
+    <br>
+    
+    	ADD A, B 			; ADD THE LOWER BYTE TO THE SUM, WITHOUT CARRY.
+
+    <br>
+    
+    	MOV R0, A 			; SAVE THE LOWER BYTE OF SUM IN (R0)
+
+    <br>
+    
+    
+
+    <br>
+    
+    	INC DPTR 			; GO TO NEXT LOCATION
+
+    <br>
+    
+    	MOVX A, @DPTR 		; GET THE HIGHER BYTE OF THE DATA
+
+    <br>
+    
+    	MOV 0F0H, A 		; DUPLICATE IT TO REG (B)
+
+    <br>
+    
+    	MOV A, R1 			; GET THE CURRENT SUM, HIGHER BYTE.
+
+    <br>
+    
+    	ADDC A, B 			; ADD THE HIGHER BYTE, ALONG WITH THE CARRY.
+
+    <br>
+    
+    	MOV R1, A 			; SAVE THE HIGHER BYTE OF SUM IN (R1)
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV A, R2 			; GET THE CURRENT SUM, CARRY BYTE.
+
+    <br>
+    
+    	ADDC A, #00H 		; INCREMENT CARRY REGISTER WITH THE CARRY.
+
+    <br>
+    
+    
+
+    <br>
+    
+    	INC DPTR 			; GO TO NEXT LOCATION
+
+    <br>
+    
+    	DJNZ R3, ITER 		; REPEAT TILL END OF ARRAY
+
+    <br>
+    
+    
+
+    <br>
+    
+    STORE:
+
+    <br>
+    
+    	; STORE THE FINAL SUM IN THE DESIRED LOCATION
+
+    <br>
+    
+    	MOV DPTR, #1050H 	; LOWER BYTE OF SUM
+
+    <br>
+    
+    	MOV A, R0
+
+    <br>
+    
+    	MOVX @DPTR, A
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	INC DPTR 			; HIGHER BYTE OF SUM
+
+    <br>
+    
+    	MOV A, R1
+
+    <br>
+    
+    	MOVX @DPTR, A
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	INC DPTR 			; CARRY BYTE OF SUM
+
+    <br>
+    
+    	MOV A, R2
+
+    <br>
+    
+    	MOVX @DPTR, A
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_X2.ASM</h2>
 <code>
+    
     ; Find the number of occurrences of data ‘2Ah’ in a memory array.
-; The last element of the array is ‘3Ah’. The array begins at XX30h.
-; Store the result in memory location XX80h.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; The last element of the array is ‘3Ah’. The array begins at XX30h.
 
-START:
-	MOV DPTR, #1030H 	; THE START LOCATION OF THE ARRAY
-	MOV R0, #2AH 		; THE VALUE TO BE COMPARED FOR EQUALITY
-	CLR C 				; CLEAR THE CARRY
-	MOV R1, #00H 		; COUNT REGISTER; CLR (R1) DOESN&#39;T WORK;
+    <br>
+    
+    ; Store the result in memory location XX80h.
 
-REPEAT:
-	MOVX A, @DPTR 		; GET THE DATA
-	SUBB A, R0 			; PERFORM A SUBTRACTION TO CHECK FOR EQUALITY
-	INC DPTR 			; INCREMENT TO THE NEXT ARRAY POSITION
+    <br>
+    
+    
 
-	; IF THE DIFFERENCE IS NOT ZERO
-	JNZ CHECK
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-	; IF THE DIFFERENCE IS ZERO, UPDATE COUNT AND PROCEED TO CHECK
-	INC R1
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
-CHECK:
-	; CHECK WHETHER TO STOP
-	SUBB A, #10H 		; SUBTRACT 10H TO CHECK FOR STOP CONDITION
+    <br>
+    
+    
 
-	; REPEAT THE PROCESS IF NOT REACHED THE STOP CONDITION
-	JNZ REPEAT
+    <br>
+    
+    START:
 
-STORE:
-	; STOP AND STORE THE FINAL COUNT IN THE DESIRED LOCATION
-	MOV A, R1
-	MOV DPTR, #1080H
-	MOVX @DPTR, A
+    <br>
+    
+    	MOV DPTR, #1030H 	; THE START LOCATION OF THE ARRAY
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    	MOV R0, #2AH 		; THE VALUE TO BE COMPARED FOR EQUALITY
 
+    <br>
+    
+    	CLR C 				; CLEAR THE CARRY
+
+    <br>
+    
+    	MOV R1, #00H 		; COUNT REGISTER; CLR (R1) DOESN&#39;T WORK;
+
+    <br>
+    
+    
+
+    <br>
+    
+    REPEAT:
+
+    <br>
+    
+    	MOVX A, @DPTR 		; GET THE DATA
+
+    <br>
+    
+    	SUBB A, R0 			; PERFORM A SUBTRACTION TO CHECK FOR EQUALITY
+
+    <br>
+    
+    	INC DPTR 			; INCREMENT TO THE NEXT ARRAY POSITION
+
+    <br>
+    
+    
+
+    <br>
+    
+    	; IF THE DIFFERENCE IS NOT ZERO
+
+    <br>
+    
+    	JNZ CHECK
+
+    <br>
+    
+    
+
+    <br>
+    
+    	; IF THE DIFFERENCE IS ZERO, UPDATE COUNT AND PROCEED TO CHECK
+
+    <br>
+    
+    	INC R1
+
+    <br>
+    
+    
+
+    <br>
+    
+    CHECK:
+
+    <br>
+    
+    	; CHECK WHETHER TO STOP
+
+    <br>
+    
+    	SUBB A, #10H 		; SUBTRACT 10H TO CHECK FOR STOP CONDITION
+
+    <br>
+    
+    
+
+    <br>
+    
+    	; REPEAT THE PROCESS IF NOT REACHED THE STOP CONDITION
+
+    <br>
+    
+    	JNZ REPEAT
+
+    <br>
+    
+    
+
+    <br>
+    
+    STORE:
+
+    <br>
+    
+    	; STOP AND STORE THE FINAL COUNT IN THE DESIRED LOCATION
+
+    <br>
+    
+    	MOV A, R1
+
+    <br>
+    
+    	MOV DPTR, #1080H
+
+    <br>
+    
+    	MOVX @DPTR, A
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_X3.ASM</h2>
 <code>
+    
     ; Transfer ten elements of an array starting at location XX40h
-; in external data memory to a location XX45 in the same memory
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; in external data memory to a location XX45 in the same memory
 
-START:
-	MOV DPTR, #1049H 	; GO TO LAST ELEMENT OF THE ARRAY
-	MOV R0, #10 		; NUMBER OF ELEMENTS, DECIMAL 10
-	MOV R1, #05H  		; NUMBER OF ELEMENTS, DECIMAL 5, I.E. (XX49 - XX45 + 1)
+    <br>
+    
+    
 
-REPEAT:
-	MOV A, R1  			; GET DISPLACEMENT
-	MOV R2, A 			; COPY TO (R2)
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-	MOVX A, @DPTR 		; GET THE DATA TO ACCUMULATOR
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
-; INCREMENT DPTR BY (R1)
-INCREMENT:
-	INC DPTR
-	DJNZ R2, INCREMENT
+    <br>
+    
+    
 
-	MOVX @DPTR, A 		; COPY DATA TO DESTINATION
+    <br>
+    
+    START:
 
-	MOV A, R1  			; GET DISPLACEMENT AGAIN SINCE R2 IS DESTROYED
-	MOV R2, A 			; COPY TO (R2)
-	INC R2 				; SO AS TO POINT TO PREVIOUS LOCATION IN ORIGINAL ARRAY
+    <br>
+    
+    	MOV DPTR, #1049H 	; GO TO LAST ELEMENT OF THE ARRAY
 
-; DECREMENT DPTR BY (R1)+1; DEC DPTR IS NOT AVAILABLE
-DECREMENT:
-	CLR C 				; CLEAR CARRY
-	MOV A, DPL 			; GET DPTR LOW
-	SUBB A, #01H 		; DECREMENT DPL
-	MOV DPL, A 			; RESTORE DPL
+    <br>
+    
+    	MOV R0, #10 		; NUMBER OF ELEMENTS, DECIMAL 10
 
-	MOV A, DPH 			; GET DPTR HIGH
-	SUBB A, #00H 		; SUBTRACT CARRY [IF EXISTS] FROM (DPH)
-	MOV DPH, A 			; RESTORE DPH
+    <br>
+    
+    	MOV R1, #05H  		; NUMBER OF ELEMENTS, DECIMAL 5, I.E. (XX49 - XX45 + 1)
 
-	DJNZ R2, DECREMENT 	; REPEAT UNTIL (R2) IS ZERO
+    <br>
+    
+    
 
-	DJNZ R0, REPEAT 	; LOOP UNTIL ARRAY LENGTH IS COVERED
+    <br>
+    
+    REPEAT:
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    	MOV A, R1  			; GET DISPLACEMENT
 
+    <br>
+    
+    	MOV R2, A 			; COPY TO (R2)
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOVX A, @DPTR 		; GET THE DATA TO ACCUMULATOR
+
+    <br>
+    
+    
+
+    <br>
+    
+    ; INCREMENT DPTR BY (R1)
+
+    <br>
+    
+    INCREMENT:
+
+    <br>
+    
+    	INC DPTR
+
+    <br>
+    
+    	DJNZ R2, INCREMENT
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOVX @DPTR, A 		; COPY DATA TO DESTINATION
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV A, R1  			; GET DISPLACEMENT AGAIN SINCE R2 IS DESTROYED
+
+    <br>
+    
+    	MOV R2, A 			; COPY TO (R2)
+
+    <br>
+    
+    	INC R2 				; SO AS TO POINT TO PREVIOUS LOCATION IN ORIGINAL ARRAY
+
+    <br>
+    
+    
+
+    <br>
+    
+    ; DECREMENT DPTR BY (R1)+1; DEC DPTR IS NOT AVAILABLE
+
+    <br>
+    
+    DECREMENT:
+
+    <br>
+    
+    	CLR C 				; CLEAR CARRY
+
+    <br>
+    
+    	MOV A, DPL 			; GET DPTR LOW
+
+    <br>
+    
+    	SUBB A, #01H 		; DECREMENT DPL
+
+    <br>
+    
+    	MOV DPL, A 			; RESTORE DPL
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV A, DPH 			; GET DPTR HIGH
+
+    <br>
+    
+    	SUBB A, #00H 		; SUBTRACT CARRY [IF EXISTS] FROM (DPH)
+
+    <br>
+    
+    	MOV DPH, A 			; RESTORE DPH
+
+    <br>
+    
+    
+
+    <br>
+    
+    	DJNZ R2, DECREMENT 	; REPEAT UNTIL (R2) IS ZERO
+
+    <br>
+    
+    
+
+    <br>
+    
+    	DJNZ R0, REPEAT 	; LOOP UNTIL ARRAY LENGTH IS COVERED
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E3_X4.ASM</h2>
 <code>
+    
     ; Convert a 2-digit hexadecimal number into BCD number.
 
-; STORE RESULT IN R6, R7;
+    <br>
+    
+    
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; STORE RESULT IN R6, R7;
 
-START:
-	MOV R0, #0FAH 		; INPUT 2-DIGIT HEXADECIMAL NUMBER
-	
-	MOV 0F0H, #10 		; DIVISION BY DECIMAL 10
-	MOV A, R0 			; PERORM OPERATIONS ON ACCUMULATOR
-	DIV AB 				; PERFORM DIVISION
+    <br>
+    
+    
 
-	MOV R1, A 			; QUOTIENT IS IN A; SAVE IN (R1)
-	MOV A, B 			; REMAINDER IS IN B
-	MOV R6, A 			; LOWER BYTE; APPEND IN (R6)
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-	MOV 0F0H, #10 		; DIVISION BY DECIMAL 10
-	MOV A, R1 			; DIVIDE QUOTIENT BY 10
-	DIV AB 				; PERFORM DIVISION
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
-	MOV R7, A 			; QUOTIENT IS IN A; SAVE DIRECTLY IN (R7)
-	MOV A, B 			; REMAINDER IS IN B
-	SWAP A 	 			; SWAP THE NIBBLES IN THE ACCUMULATOR
-	ORL A, R6 			; LOWER BYTE UPDATED
-	MOV R6, A 			; STORE LOWER BYTE
+    <br>
+    
+    
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    START:
 
+    <br>
+    
+    	MOV R0, #0FAH 		; INPUT 2-DIGIT HEXADECIMAL NUMBER
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	MOV 0F0H, #10 		; DIVISION BY DECIMAL 10
+
+    <br>
+    
+    	MOV A, R0 			; PERORM OPERATIONS ON ACCUMULATOR
+
+    <br>
+    
+    	DIV AB 				; PERFORM DIVISION
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV R1, A 			; QUOTIENT IS IN A; SAVE IN (R1)
+
+    <br>
+    
+    	MOV A, B 			; REMAINDER IS IN B
+
+    <br>
+    
+    	MOV R6, A 			; LOWER BYTE; APPEND IN (R6)
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV 0F0H, #10 		; DIVISION BY DECIMAL 10
+
+    <br>
+    
+    	MOV A, R1 			; DIVIDE QUOTIENT BY 10
+
+    <br>
+    
+    	DIV AB 				; PERFORM DIVISION
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV R7, A 			; QUOTIENT IS IN A; SAVE DIRECTLY IN (R7)
+
+    <br>
+    
+    	MOV A, B 			; REMAINDER IS IN B
+
+    <br>
+    
+    	SWAP A 	 			; SWAP THE NIBBLES IN THE ACCUMULATOR
+
+    <br>
+    
+    	ORL A, R6 			; LOWER BYTE UPDATED
+
+    <br>
+    
+    	MOV R6, A 			; STORE LOWER BYTE
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>README.md</h2>
 <code>
+    
     # Memory Array Handling and Code Conversion
 
-## Examples
+    <br>
+    
+    
 
-1. Find the sum of ten 2-digit BCD numbers available in memory locations XX40 to XX49. Store the result in R0, R1 and in memory locations XX50h and XX51H.
+    <br>
+    
+    ## Examples
 
-2. Find the largest number of a memory array. Array begins at memory location 40H, the length of the array is in memory location 30H. Store the result in memory location XX60H.
+    <br>
+    
+    
 
-3. Transfer the contents of memory locations 50H to 59H in the same sequence to a memory array which begins at 70H.
+    <br>
+    
+    1. Find the sum of ten 2-digit BCD numbers available in memory locations XX40 to XX49. Store the result in R0, R1 and in memory locations XX50h and XX51H.
 
-4. Arrange elements of memory array in ascending order.
+    <br>
+    
+    
 
-5. Convert an 8-bit hexadecimal number into decimal.
+    <br>
+    
+    2. Find the largest number of a memory array. Array begins at memory location 40H, the length of the array is in memory location 30H. Store the result in memory location XX60H.
 
-6. Convert a 2-digit BCD number available in memory location XX50 into hexadecimal and store the hexadecimal number in next memory location.
+    <br>
+    
+    
 
-7. Convert a single digit data available in memory location XX50h into ASCII code and store the ASCII code in the next location.
+    <br>
+    
+    3. Transfer the contents of memory locations 50H to 59H in the same sequence to a memory array which begins at 70H.
 
-## Exercises
+    <br>
+    
+    
 
-1. Find the sum of ten 16–bit hexadecimal numbers available in memory starting from location XX10h. Store the result in XX50h onwards.
+    <br>
+    
+    4. Arrange elements of memory array in ascending order.
 
-2. Find the number of occurrences of data ‘2Ah’ in a memory array. The last element of the array is ‘3Ah’. The array begins at XX30h. Store the result in memory location XX80h.
+    <br>
+    
+    
 
-3. Transfer ten elements of an array starting at location XX40h in external data memory to a location XX45 in the same memory.
+    <br>
+    
+    5. Convert an 8-bit hexadecimal number into decimal.
 
-4. Convert a 2-digit hexadecimal number into BCD number.
+    <br>
+    
+    
 
-## Practice problems
+    <br>
+    
+    6. Convert a 2-digit BCD number available in memory location XX50 into hexadecimal and store the hexadecimal number in next memory location.
 
-1. Find the sum of odd and even numbers available in a memory array and store the result in memory locations.
+    <br>
+    
+    
 
-2. Convert a 2-digit BCD number into ASCII code.
+    <br>
+    
+    7. Convert a single digit data available in memory location XX50h into ASCII code and store the ASCII code in the next location.
 
-3. Convert binary number into Gray code.
+    <br>
+    
+    
 
-4. Convert Gray code into binary number.
+    <br>
+    
+    ## Exercises
 
-5. Reverse the elements of an array.
+    <br>
+    
+    
 
-6. Read a single digit hexadecimal number from the memory location and generate 7-segment code for the number read and send the code to port1. Assume common-anode seven-segment display.
+    <br>
+    
+    1. Find the sum of ten 16–bit hexadecimal numbers available in memory starting from location XX10h. Store the result in XX50h onwards.
 
+    <br>
+    
+    
+
+    <br>
+    
+    2. Find the number of occurrences of data ‘2Ah’ in a memory array. The last element of the array is ‘3Ah’. The array begins at XX30h. Store the result in memory location XX80h.
+
+    <br>
+    
+    
+
+    <br>
+    
+    3. Transfer ten elements of an array starting at location XX40h in external data memory to a location XX45 in the same memory.
+
+    <br>
+    
+    
+
+    <br>
+    
+    4. Convert a 2-digit hexadecimal number into BCD number.
+
+    <br>
+    
+    
+
+    <br>
+    
+    ## Practice problems
+
+    <br>
+    
+    
+
+    <br>
+    
+    1. Find the sum of odd and even numbers available in a memory array and store the result in memory locations.
+
+    <br>
+    
+    
+
+    <br>
+    
+    2. Convert a 2-digit BCD number into ASCII code.
+
+    <br>
+    
+    
+
+    <br>
+    
+    3. Convert binary number into Gray code.
+
+    <br>
+    
+    
+
+    <br>
+    
+    4. Convert Gray code into binary number.
+
+    <br>
+    
+    
+
+    <br>
+    
+    5. Reverse the elements of an array.
+
+    <br>
+    
+    
+
+    <br>
+    
+    6. Read a single digit hexadecimal number from the memory location and generate 7-segment code for the number read and send the code to port1. Assume common-anode seven-segment display.
+
+    <br>
+    
 </code>
 
 

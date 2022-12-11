@@ -19,60 +19,204 @@
 
 <h2>E5_X1.ASM</h2>
 <code>
+    
     ;  Convert an ASCII code available in external data memory location
-; into HEX equivalent and display in the Data field of the display.
 
-ORG 0000H					; ORIGINATE
-AJMP START					; JUMP TO THE LABEL START
+    <br>
+    
+    ; into HEX equivalent and display in the Data field of the display.
 
-START:
-	MOV DPTR, #5000H 		; DATA LOCATION
-	MOVX A, @DPTR 			; GET THE DATA
+    <br>
+    
+    
 
-	CLR C 					; CLEAR CARRY
-	SUBB A, #30H 			; SUBTRACT (30H) INISTIALLY
-	MOV R1, A 				; SAVE A COPY IN (R1)
+    <br>
+    
+    ORG 0000H					; ORIGINATE
 
-	SUBB A, #0AH           	; CHECK FOR NUMBER OR ALPHA-NUMERIC CHARACTER
+    <br>
+    
+    AJMP START					; JUMP TO THE LABEL START
 
-	MOV A, R1 				; GET THE STORED COPY
-	
-	; IF NO CARRY ==&gt; INPUT NUMBER IS &lt; 3AH ==&gt; [0-9]
-	JC DISP
+    <br>
+    
+    
 
-; IF CARRY ==&gt; INPUT NUMBER IS &gt;= 3AH ==&gt; [A-F]
-ALPH:
-	CLR C 					; CLEAR CARRY AGAIN
-	SUBB A, #07H 			; SUBTRACT AN ADDITIONAL (07H)
+    <br>
+    
+    START:
 
-DISP:
-	MOV R0, #60H 			; LOCATION OF THE DISPLAY FIELD
-	MOV @R0, A 				; UPDATE THE DATA TO THE LOCATION TO BE DISPLAYED
+    <br>
+    
+    	MOV DPTR, #5000H 		; DATA LOCATION
 
-HERE:
-	SJMP HERE				; LOGICAL END
-	END
+    <br>
+    
+    	MOVX A, @DPTR 			; GET THE DATA
 
+    <br>
+    
+    
+
+    <br>
+    
+    	CLR C 					; CLEAR CARRY
+
+    <br>
+    
+    	SUBB A, #30H 			; SUBTRACT (30H) INISTIALLY
+
+    <br>
+    
+    	MOV R1, A 				; SAVE A COPY IN (R1)
+
+    <br>
+    
+    
+
+    <br>
+    
+    	SUBB A, #0AH           	; CHECK FOR NUMBER OR ALPHA-NUMERIC CHARACTER
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV A, R1 				; GET THE STORED COPY
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	; IF NO CARRY ==&gt; INPUT NUMBER IS &lt; 3AH ==&gt; [0-9]
+
+    <br>
+    
+    	JC DISP
+
+    <br>
+    
+    
+
+    <br>
+    
+    ; IF CARRY ==&gt; INPUT NUMBER IS &gt;= 3AH ==&gt; [A-F]
+
+    <br>
+    
+    ALPH:
+
+    <br>
+    
+    	CLR C 					; CLEAR CARRY AGAIN
+
+    <br>
+    
+    	SUBB A, #07H 			; SUBTRACT AN ADDITIONAL (07H)
+
+    <br>
+    
+    
+
+    <br>
+    
+    DISP:
+
+    <br>
+    
+    	MOV R0, #60H 			; LOCATION OF THE DISPLAY FIELD
+
+    <br>
+    
+    	MOV @R0, A 				; UPDATE THE DATA TO THE LOCATION TO BE DISPLAYED
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE				; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>README.md</h2>
 <code>
+    
     # Using the 8051 trainer kit in Keyboard mode
 
-## Examples
+    <br>
+    
+    
 
-The following programs are executed using 8051 Trainer kit ESA31 in keyboard mode.
+    <br>
+    
+    ## Examples
 
-The Registers and Memory locations involved are examined.
+    <br>
+    
+    
 
-## Exercises
+    <br>
+    
+    The following programs are executed using 8051 Trainer kit ESA31 in keyboard mode.
 
-1. Convert an ASCII code available in external data memory location into HEX equivalent and display in the Data field of the display.
+    <br>
+    
+    
 
-2. Add two 16 bit numbers and store the result in the external data memory.
+    <br>
+    
+    The Registers and Memory locations involved are examined.
 
-3. Find the difference between two 2-digit decimal numbers and store the result in RegB.
+    <br>
+    
+    
 
+    <br>
+    
+    ## Exercises
+
+    <br>
+    
+    
+
+    <br>
+    
+    1. Convert an ASCII code available in external data memory location into HEX equivalent and display in the Data field of the display.
+
+    <br>
+    
+    
+
+    <br>
+    
+    2. Add two 16 bit numbers and store the result in the external data memory.
+
+    <br>
+    
+    
+
+    <br>
+    
+    3. Find the difference between two 2-digit decimal numbers and store the result in RegB.
+
+    <br>
+    
 </code>
 
 

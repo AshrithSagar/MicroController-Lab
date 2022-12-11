@@ -19,196 +19,673 @@
 
 <h2>E10_X1_1.ASM</h2>
 <code>
+    
     ; 8-BIT HEX UP COUNTER
 
-; 8000H
-START:
-	MOV DPTR, #0E803H 		; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
-	MOV A, #10000000B 		; 74 80 	; PORT A AS OUTPUT, 
-	MOVX @DPTR, A 			; F0 		; WRITE THE CONTROL WORD
+    <br>
+    
+    
 
-	MOV R0, #00H 			; 78 00 	; INITIALISE COUNTER
+    <br>
+    
+    ; 8000H
 
-HEX_EIGHT_COUNTER:
-	MOV A, R0 				; E8 		; RETRIEVE THE SAVED COUNTER
-	ADD A, #01H 			; 24 01 	; INCREMENT COUNTER
-	MOV R0, A 				; F8 		; STORE THE NEW COUNT
-	
-	MOV DPTR, #0E800H 		; 90 E8 00 	; PORT A
-	MOVX @DPTR, A 			; F0 		; WRITE TO PORT-A
-	LCALL DELAY 			; 12 A0 00 	; AWAIT
-	
-	SJMP HEX_EIGHT_COUNTER 	; 80 _F3 	; REPEAT THE COUNTER
+    <br>
+    
+    START:
 
-; A000H
-DELAY:
-	MOV R3, #04H 			; 7B 04
-	UP1:
-		MOV R4, #0FFH 		; 7C FF
-		UP2:
-			MOV R5, #0FFH 	; 7D FF
-			UP3:
-			DJNZ R5, UP3 	; DD _FE
-		DJNZ R4, UP2 		; DC _FA
-	DJNZ R3, UP1 			; DB _F6
-	RET 					; 22 		; RETURN BACK TO THE MAIN FUNCTION
+    <br>
+    
+    	MOV DPTR, #0E803H 		; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
 
+    <br>
+    
+    	MOV A, #10000000B 		; 74 80 	; PORT A AS OUTPUT, 
+
+    <br>
+    
+    	MOVX @DPTR, A 			; F0 		; WRITE THE CONTROL WORD
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV R0, #00H 			; 78 00 	; INITIALISE COUNTER
+
+    <br>
+    
+    
+
+    <br>
+    
+    HEX_EIGHT_COUNTER:
+
+    <br>
+    
+    	MOV A, R0 				; E8 		; RETRIEVE THE SAVED COUNTER
+
+    <br>
+    
+    	ADD A, #01H 			; 24 01 	; INCREMENT COUNTER
+
+    <br>
+    
+    	MOV R0, A 				; F8 		; STORE THE NEW COUNT
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	MOV DPTR, #0E800H 		; 90 E8 00 	; PORT A
+
+    <br>
+    
+    	MOVX @DPTR, A 			; F0 		; WRITE TO PORT-A
+
+    <br>
+    
+    	LCALL DELAY 			; 12 A0 00 	; AWAIT
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	SJMP HEX_EIGHT_COUNTER 	; 80 _F3 	; REPEAT THE COUNTER
+
+    <br>
+    
+    
+
+    <br>
+    
+    ; A000H
+
+    <br>
+    
+    DELAY:
+
+    <br>
+    
+    	MOV R3, #04H 			; 7B 04
+
+    <br>
+    
+    	UP1:
+
+    <br>
+    
+    		MOV R4, #0FFH 		; 7C FF
+
+    <br>
+    
+    		UP2:
+
+    <br>
+    
+    			MOV R5, #0FFH 	; 7D FF
+
+    <br>
+    
+    			UP3:
+
+    <br>
+    
+    			DJNZ R5, UP3 	; DD _FE
+
+    <br>
+    
+    		DJNZ R4, UP2 		; DC _FA
+
+    <br>
+    
+    	DJNZ R3, UP1 			; DB _F6
+
+    <br>
+    
+    	RET 					; 22 		; RETURN BACK TO THE MAIN FUNCTION
+
+    <br>
+    
 </code>
 
 <h2>E10_X1_2.ASM</h2>
 <code>
+    
     ; DECIMAL DOWN COUNTER
 
-; 8000H
-START:
-	MOV DPTR, #0E803H 			; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
-	MOV A, #10000000B 			; 74 80 	; PORT A AS OUTPUT, 
-	MOVX @DPTR, A 				; F0 		; WRITE THE CONTROL WORD
-		
-	MOV R0, #99 				; 78 63 	; INITIALISE COUNTER
+    <br>
+    
+    
 
-DECIMAL_DOWN_COUNTER:
-	MOV A, R0 					; E8 		; RETRIEVE THE SAVED COUNTER
-	ADD A, #0FFH 				; 24 FF 	; INCREMENT COUNTER
-	DA A 						; D4 		; DECIMALLY ADJUST THE ACCUMULATOR
-	MOV R0, A 					; F8 		; STORE THE NEW COUNT
-	
-	MOV DPTR, #0E800H 			; 90 E8 00 	; PORT A
-	MOVX @DPTR, A 				; F0 		; WRITE TO PORT-A
-	LCALL DELAY 				; 12 A0 00 	; AWAIT
-	
-	SJMP DECIMAL_DOWN_COUNTER 	; 80 _F2 	; REPEAT THE COUNTER
+    <br>
+    
+    ; 8000H
 
-; A000H
-DELAY:
-	MOV R3, #04H 				; 7B 04
-	UP1:
-		MOV R4, #0FFH 			; 7C FF
-		UP2:
-			MOV R5, #0FFH 		; 7D FF
-			UP3:
-			DJNZ R5, UP3 		; DD _FE
-		DJNZ R4, UP2 			; DC _FA
-	DJNZ R3, UP1 				; DB _F6
-	RET 						; 22 		; RETURN BACK TO THE MAIN FUNCTION
+    <br>
+    
+    START:
 
+    <br>
+    
+    	MOV DPTR, #0E803H 			; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
+
+    <br>
+    
+    	MOV A, #10000000B 			; 74 80 	; PORT A AS OUTPUT, 
+
+    <br>
+    
+    	MOVX @DPTR, A 				; F0 		; WRITE THE CONTROL WORD
+
+    <br>
+    
+    		
+
+    <br>
+    
+    	MOV R0, #99 				; 78 63 	; INITIALISE COUNTER
+
+    <br>
+    
+    
+
+    <br>
+    
+    DECIMAL_DOWN_COUNTER:
+
+    <br>
+    
+    	MOV A, R0 					; E8 		; RETRIEVE THE SAVED COUNTER
+
+    <br>
+    
+    	ADD A, #0FFH 				; 24 FF 	; INCREMENT COUNTER
+
+    <br>
+    
+    	DA A 						; D4 		; DECIMALLY ADJUST THE ACCUMULATOR
+
+    <br>
+    
+    	MOV R0, A 					; F8 		; STORE THE NEW COUNT
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	MOV DPTR, #0E800H 			; 90 E8 00 	; PORT A
+
+    <br>
+    
+    	MOVX @DPTR, A 				; F0 		; WRITE TO PORT-A
+
+    <br>
+    
+    	LCALL DELAY 				; 12 A0 00 	; AWAIT
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	SJMP DECIMAL_DOWN_COUNTER 	; 80 _F2 	; REPEAT THE COUNTER
+
+    <br>
+    
+    
+
+    <br>
+    
+    ; A000H
+
+    <br>
+    
+    DELAY:
+
+    <br>
+    
+    	MOV R3, #04H 				; 7B 04
+
+    <br>
+    
+    	UP1:
+
+    <br>
+    
+    		MOV R4, #0FFH 			; 7C FF
+
+    <br>
+    
+    		UP2:
+
+    <br>
+    
+    			MOV R5, #0FFH 		; 7D FF
+
+    <br>
+    
+    			UP3:
+
+    <br>
+    
+    			DJNZ R5, UP3 		; DD _FE
+
+    <br>
+    
+    		DJNZ R4, UP2 			; DC _FA
+
+    <br>
+    
+    	DJNZ R3, UP1 				; DB _F6
+
+    <br>
+    
+    	RET 						; 22 		; RETURN BACK TO THE MAIN FUNCTION
+
+    <br>
+    
 </code>
 
 <h2>E10_X1_3.ASM</h2>
 <code>
+    
     ; 8-BIT JOHNSON COUNTER
 
-; 8000H
-START:
-	MOV DPTR, #0E803H 		; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
-	MOV A, #10000000B 		; 74 80 	; PORT A AS OUTPUT, 
-	MOVX @DPTR, A 			; F0 		; WRITE THE CONTROL WORD
+    <br>
+    
+    
 
-	MOV R0, #00H 			; 78 00 	; INITIALISE COUNTER
-	CLR C 					; C3		; CLEAR THE CARRY
-	
-JOHNSON_COUNTER:
-	MOV A, R0 				; E8 		; RETRIEVE THE SAVED COUNTER
-	CPL C					; B3		; COMPLEMENT THE CARRY
-	RLC A 					; 33 		; ROTATE LEFT ACCUMULATOR WITH CARRY
-	MOV R0, A 				; F8 		; STORE THE NEW COUNT
-	
-	MOV DPTR, #0E800H 		; 90 E8 00 	; PORT A
-	MOVX @DPTR, A 			; F0 		; WRITE TO PORT-A
-	LCALL DELAY 			; 12 A0 00 	; AWAIT
-	
-	SJMP JOHNSON_COUNTER 	; 80 _F3 	; REPEAT THE COUNTER
+    <br>
+    
+    ; 8000H
 
-; A000H
-DELAY:
-	MOV R3, #04H 			; 7B 04
-	UP1:
-		MOV R4, #0FFH 		; 7C FF
-		UP2:
-			MOV R5, #0FFH 	; 7D FF
-			UP3:
-			DJNZ R5, UP3 	; DD _FE
-		DJNZ R4, UP2 		; DC _FA
-	DJNZ R3, UP1 			; DB _F6
-	RET 					; 22 		; RETURN BACK TO THE MAIN FUNCTION
+    <br>
+    
+    START:
 
+    <br>
+    
+    	MOV DPTR, #0E803H 		; 90 E8 03 	; CONFIGURE 8255 CONTROL WORD, JUNCTION-2
+
+    <br>
+    
+    	MOV A, #10000000B 		; 74 80 	; PORT A AS OUTPUT, 
+
+    <br>
+    
+    	MOVX @DPTR, A 			; F0 		; WRITE THE CONTROL WORD
+
+    <br>
+    
+    
+
+    <br>
+    
+    	MOV R0, #00H 			; 78 00 	; INITIALISE COUNTER
+
+    <br>
+    
+    	CLR C 					; C3		; CLEAR THE CARRY
+
+    <br>
+    
+    	
+
+    <br>
+    
+    JOHNSON_COUNTER:
+
+    <br>
+    
+    	MOV A, R0 				; E8 		; RETRIEVE THE SAVED COUNTER
+
+    <br>
+    
+    	CPL C					; B3		; COMPLEMENT THE CARRY
+
+    <br>
+    
+    	RLC A 					; 33 		; ROTATE LEFT ACCUMULATOR WITH CARRY
+
+    <br>
+    
+    	MOV R0, A 				; F8 		; STORE THE NEW COUNT
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	MOV DPTR, #0E800H 		; 90 E8 00 	; PORT A
+
+    <br>
+    
+    	MOVX @DPTR, A 			; F0 		; WRITE TO PORT-A
+
+    <br>
+    
+    	LCALL DELAY 			; 12 A0 00 	; AWAIT
+
+    <br>
+    
+    	
+
+    <br>
+    
+    	SJMP JOHNSON_COUNTER 	; 80 _F3 	; REPEAT THE COUNTER
+
+    <br>
+    
+    
+
+    <br>
+    
+    ; A000H
+
+    <br>
+    
+    DELAY:
+
+    <br>
+    
+    	MOV R3, #04H 			; 7B 04
+
+    <br>
+    
+    	UP1:
+
+    <br>
+    
+    		MOV R4, #0FFH 		; 7C FF
+
+    <br>
+    
+    		UP2:
+
+    <br>
+    
+    			MOV R5, #0FFH 	; 7D FF
+
+    <br>
+    
+    			UP3:
+
+    <br>
+    
+    			DJNZ R5, UP3 	; DD _FE
+
+    <br>
+    
+    		DJNZ R4, UP2 		; DC _FA
+
+    <br>
+    
+    	DJNZ R3, UP1 			; DB _F6
+
+    <br>
+    
+    	RET 					; 22 		; RETURN BACK TO THE MAIN FUNCTION
+
+    <br>
+    
 </code>
 
 <h2>E10_X2.ASM</h2>
 <code>
+    
     ; Input a single digit decimal number from the keyboard. 
-; If the number is 1, then light two LED’s, if the number is 2, 
-; then light four LED’s, if the number is 3, then light six LED’s, 
-; if the number is 4, then light eight LED’s. Neglect all other numbers.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; If the number is 1, then light two LED’s, if the number is 2, 
 
-START:	
-	
+    <br>
+    
+    ; then light four LED’s, if the number is 3, then light six LED’s, 
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    ; if the number is 4, then light eight LED’s. Neglect all other numbers.
 
+    <br>
+    
+    
+
+    <br>
+    
+    ORG 0000H				; ORIGINATE
+
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
+
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E10_X3.ASM</h2>
 <code>
+    
     ; Input two 2-digit HEX numbers from logic controller interface through
-; port B of 8255 and display their product in the address field of the display.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    ; port B of 8255 and display their product in the address field of the display.
 
-START:	
-	
+    <br>
+    
+    
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
+
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E10_X4.ASM</h2>
 <code>
+    
     ; Write an ALP to turn ON alternate LEDs connected to port A for 5 sec.
 
-ORG 0000H				; ORIGINATE
-AJMP START				; JUMP TO THE LABEL START
+    <br>
+    
+    
 
-START:	
-	
+    <br>
+    
+    ORG 0000H				; ORIGINATE
 
-HERE:
-	SJMP HERE			; LOGICAL END
-	END
+    <br>
+    
+    AJMP START				; JUMP TO THE LABEL START
 
+    <br>
+    
+    
+
+    <br>
+    
+    START:	
+
+    <br>
+    
+    	
+
+    <br>
+    
+    
+
+    <br>
+    
+    HERE:
+
+    <br>
+    
+    	SJMP HERE			; LOGICAL END
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>README.md</h2>
 <code>
+    
     # Logic Controller Interface
 
-## Examples
+    <br>
+    
+    
 
-1. Implement Logical AND function using logic controller.
+    <br>
+    
+    ## Examples
 
-## Exercises
+    <br>
+    
+    
 
-1. Make logic controller to function as 
-  1. An 8-bit HEX up counter 
+    <br>
+    
+    1. Implement Logical AND function using logic controller.
 
-  2. Decimal down counter and 
+    <br>
+    
+    
 
-  3. 8-bit Johnson counter.
+    <br>
+    
+    ## Exercises
 
-2. Input a single digit decimal number from the keyboard. If the number is 1, then light two LED’s, if the number is 2, then light four LED’s, if the number is 3, then light six LED’s, if the number is 4, then light eight LED’s. Neglect all other numbers.
+    <br>
+    
+    
 
-3. Input two 2-digit HEX numbers from logic controller interface through Port-B of 8255 and display their product in the address field of the display.
+    <br>
+    
+    1. Make logic controller to function as 
 
-4. Write an ALP to turn ON alternate LEDs connected to Port-A for 5 sec.
+    <br>
+    
+      1. An 8-bit HEX up counter 
 
+    <br>
+    
+    
+
+    <br>
+    
+      2. Decimal down counter and 
+
+    <br>
+    
+    
+
+    <br>
+    
+      3. 8-bit Johnson counter.
+
+    <br>
+    
+    
+
+    <br>
+    
+    2. Input a single digit decimal number from the keyboard. If the number is 1, then light two LED’s, if the number is 2, then light four LED’s, if the number is 3, then light six LED’s, if the number is 4, then light eight LED’s. Neglect all other numbers.
+
+    <br>
+    
+    
+
+    <br>
+    
+    3. Input two 2-digit HEX numbers from logic controller interface through Port-B of 8255 and display their product in the address field of the display.
+
+    <br>
+    
+    
+
+    <br>
+    
+    4. Write an ALP to turn ON alternate LEDs connected to Port-A for 5 sec.
+
+    <br>
+    
 </code>
 
 

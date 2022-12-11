@@ -29,7 +29,7 @@ def experiment(experimentNumber):
     for file in sorted(os.listdir(folder)):
         filePath = os.path.join(folder, file)
         with open(filePath, 'r') as f:
-            folderData[file] = f.read()
+            folderData[file] = f.readlines()
 
     data = {
         "experimentNumber": experimentNumber,

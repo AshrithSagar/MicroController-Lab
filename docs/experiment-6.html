@@ -19,184 +19,655 @@
 
 <h2>E6_P1.ASM</h2>
 <code>
+    
     ; Implement an 8 - bit Octal up counter.
 
-START:
-	MOV A, #00H 		; INITIALISE
-	MOV R2, #08H 		; FOR UPPER NIBBLE (OCTAL BASE)
+    <br>
+    
+    
 
-ITER:
-	MOV R1, #08H  		; FOR LOWER NIBBLE (OCTAL BASE)
-	L_ITER:
-		MOV 60H, A 		; COPY DATA TO DISPLAY PLACEHOLDERS
-		PUSH A 			; SAVE ACCUMULATOR
-		LCALL UPDDT 	; DISPLAY PROGRAM
-		LCALL DELAY 	; AWAIT
-		POP A 			; RETRIEVE ACCUMULATOR
-		ADD A, #01H 	; INCREMENT LOWER NIBBLE
-		DJNZ R1, L_ITER ; FOR LOWER NIBBLE UPDATES
+    <br>
+    
+    START:
 
-	U_ITER:
-		ADD A, #08H 	; INCREMENT UPPER NIBBLE
-		DJNZ R2, ITER 	; FOR UPPER NIBBLE UPDATES
+    <br>
+    
+    	MOV A, #00H 		; INITIALISE
 
-	SJMP START 			; REPEAT IN A LOOP
+    <br>
+    
+    	MOV R2, #08H 		; FOR UPPER NIBBLE (OCTAL BASE)
 
-DELAY:
-	; AWAIT (04H*0FFH*0FFH) MACHINE CYCLES =&gt; ~0.26 SECONDS
-	MOV R3, #04H
-	UP1:
-		MOV R4, #0FFH
-		UP2:
-			MOV R5, #0FFH
-		DJNZ R4, UP2
-	DJNZ R3, UP1
+    <br>
+    
+    
 
-	RET 				; RETURN BACK TO THE MAIN LOOP
-	END
+    <br>
+    
+    ITER:
 
+    <br>
+    
+    	MOV R1, #08H  		; FOR LOWER NIBBLE (OCTAL BASE)
+
+    <br>
+    
+    	L_ITER:
+
+    <br>
+    
+    		MOV 60H, A 		; COPY DATA TO DISPLAY PLACEHOLDERS
+
+    <br>
+    
+    		PUSH A 			; SAVE ACCUMULATOR
+
+    <br>
+    
+    		LCALL UPDDT 	; DISPLAY PROGRAM
+
+    <br>
+    
+    		LCALL DELAY 	; AWAIT
+
+    <br>
+    
+    		POP A 			; RETRIEVE ACCUMULATOR
+
+    <br>
+    
+    		ADD A, #01H 	; INCREMENT LOWER NIBBLE
+
+    <br>
+    
+    		DJNZ R1, L_ITER ; FOR LOWER NIBBLE UPDATES
+
+    <br>
+    
+    
+
+    <br>
+    
+    	U_ITER:
+
+    <br>
+    
+    		ADD A, #08H 	; INCREMENT UPPER NIBBLE
+
+    <br>
+    
+    		DJNZ R2, ITER 	; FOR UPPER NIBBLE UPDATES
+
+    <br>
+    
+    
+
+    <br>
+    
+    	SJMP START 			; REPEAT IN A LOOP
+
+    <br>
+    
+    
+
+    <br>
+    
+    DELAY:
+
+    <br>
+    
+    	; AWAIT (04H*0FFH*0FFH) MACHINE CYCLES =&gt; ~0.26 SECONDS
+
+    <br>
+    
+    	MOV R3, #04H
+
+    <br>
+    
+    	UP1:
+
+    <br>
+    
+    		MOV R4, #0FFH
+
+    <br>
+    
+    		UP2:
+
+    <br>
+    
+    			MOV R5, #0FFH
+
+    <br>
+    
+    		DJNZ R4, UP2
+
+    <br>
+    
+    	DJNZ R3, UP1
+
+    <br>
+    
+    
+
+    <br>
+    
+    	RET 				; RETURN BACK TO THE MAIN LOOP
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E6_P3.ASM</h2>
 <code>
+    
     ; Realize an 8-bit Johnson counter.
 
-; LIMITATIONS: (1111 1111) AND (0000 0000) ARE REPEATED TWICE.
+    <br>
+    
+    
 
-CLR C 					; CLEAR CARRY
-MOV A, #00H 			; INITIALISE
+    <br>
+    
+    ; LIMITATIONS: (1111 1111) AND (0000 0000) ARE REPEATED TWICE.
 
-ITER:
-	MOV 60H, A 			; COPY DATA TO DISPLAY PLACEHOLDERS
-	PUSH A 				; SAVE ACCUMULATOR
-	LCALL UPDDT 		; DISPLAY PROGRAM
-	LCALL DELAY 		; AWAIT
-	POP A 				; RETRIEVE ACCUMULATOR
+    <br>
+    
+    
 
-	CPL C 				; COMPLEMENT CARRY BIT
-	RLC A 				; RIGHT SHIFT ACCUMULATOR
+    <br>
+    
+    CLR C 					; CLEAR CARRY
 
-	SJMP ITER 			; REPEAT IN A LOOP
+    <br>
+    
+    MOV A, #00H 			; INITIALISE
 
-DELAY:
-	; AWAIT (04H*0FFH*0FFH) MACHINE CYCLES =&gt; ~0.26 SECONDS
-	MOV R3, #04H
-	UP1:
-		MOV R4, #0FFH
-		UP2:
-			MOV R5, #0FFH
-		DJNZ R4, UP2
-	DJNZ R3, UP1
+    <br>
+    
+    
 
-	RET 				; RETURN BACK TO THE MAIN LOOP
-	END
+    <br>
+    
+    ITER:
 
+    <br>
+    
+    	MOV 60H, A 			; COPY DATA TO DISPLAY PLACEHOLDERS
+
+    <br>
+    
+    	PUSH A 				; SAVE ACCUMULATOR
+
+    <br>
+    
+    	LCALL UPDDT 		; DISPLAY PROGRAM
+
+    <br>
+    
+    	LCALL DELAY 		; AWAIT
+
+    <br>
+    
+    	POP A 				; RETRIEVE ACCUMULATOR
+
+    <br>
+    
+    
+
+    <br>
+    
+    	CPL C 				; COMPLEMENT CARRY BIT
+
+    <br>
+    
+    	RLC A 				; RIGHT SHIFT ACCUMULATOR
+
+    <br>
+    
+    
+
+    <br>
+    
+    	SJMP ITER 			; REPEAT IN A LOOP
+
+    <br>
+    
+    
+
+    <br>
+    
+    DELAY:
+
+    <br>
+    
+    	; AWAIT (04H*0FFH*0FFH) MACHINE CYCLES =&gt; ~0.26 SECONDS
+
+    <br>
+    
+    	MOV R3, #04H
+
+    <br>
+    
+    	UP1:
+
+    <br>
+    
+    		MOV R4, #0FFH
+
+    <br>
+    
+    		UP2:
+
+    <br>
+    
+    			MOV R5, #0FFH
+
+    <br>
+    
+    		DJNZ R4, UP2
+
+    <br>
+    
+    	DJNZ R3, UP1
+
+    <br>
+    
+    
+
+    <br>
+    
+    	RET 				; RETURN BACK TO THE MAIN LOOP
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E6_X1.ASM</h2>
 <code>
+    
     ; Realize a 2-digit decimal down counter which counts down from 90 to 30 and
-; then repeats. Display each count in the data field of the display for 0.5 sec.
 
-START:
-	MOV A, #90H 		; INITIALISE
+    <br>
+    
+    ; then repeats. Display each count in the data field of the display for 0.5 sec.
 
-ITER:
-	MOV 60H, A 			; COPY DATA TO DISPLAY PLACEHOLDERS
-	; LCALL UPDDT 		; DISPLAY PROGRAM
-	MOV P2, A
-	LCALL DELAY 		; AWAIT 0.5 SECONDS
+    <br>
+    
+    
 
-	ADD A, #99H 		; ADD HUNDRED&#39;S COMPLEMENT FORM
-	DA A 				; DECIMALLY ADJUST ACCUMULATOR
+    <br>
+    
+    START:
 
-	CJNE A, #29H, ITER 	; REPEAT DECREMENT. TILL (30D - 1), AND IN HEX
+    <br>
+    
+    	MOV A, #90H 		; INITIALISE
 
-	SJMP START 			; REPEAT IN A LOOP
+    <br>
+    
+    
 
-DELAY:
-	; AWAIT (08H*0FAH*0FAH) MACHINE CYCLES =&gt; 0.5 SECONDS
-	MOV R3, #08H
-	UP1:
-		MOV R4, #0FAH
-		UP2:
-			MOV R5, #0FAH
-		DJNZ R4, UP2
-	DJNZ R3, UP1
+    <br>
+    
+    ITER:
 
-	RET 				; RETURN BACK TO THE MAIN LOOP
-	END
+    <br>
+    
+    	MOV 60H, A 			; COPY DATA TO DISPLAY PLACEHOLDERS
 
+    <br>
+    
+    	; LCALL UPDDT 		; DISPLAY PROGRAM
+
+    <br>
+    
+    	MOV P2, A
+
+    <br>
+    
+    	LCALL DELAY 		; AWAIT 0.5 SECONDS
+
+    <br>
+    
+    
+
+    <br>
+    
+    	ADD A, #99H 		; ADD HUNDRED&#39;S COMPLEMENT FORM
+
+    <br>
+    
+    	DA A 				; DECIMALLY ADJUST ACCUMULATOR
+
+    <br>
+    
+    
+
+    <br>
+    
+    	CJNE A, #29H, ITER 	; REPEAT DECREMENT. TILL (30D - 1), AND IN HEX
+
+    <br>
+    
+    
+
+    <br>
+    
+    	SJMP START 			; REPEAT IN A LOOP
+
+    <br>
+    
+    
+
+    <br>
+    
+    DELAY:
+
+    <br>
+    
+    	; AWAIT (08H*0FAH*0FAH) MACHINE CYCLES =&gt; 0.5 SECONDS
+
+    <br>
+    
+    	MOV R3, #08H
+
+    <br>
+    
+    	UP1:
+
+    <br>
+    
+    		MOV R4, #0FAH
+
+    <br>
+    
+    		UP2:
+
+    <br>
+    
+    			MOV R5, #0FAH
+
+    <br>
+    
+    		DJNZ R4, UP2
+
+    <br>
+    
+    	DJNZ R3, UP1
+
+    <br>
+    
+    
+
+    <br>
+    
+    	RET 				; RETURN BACK TO THE MAIN LOOP
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>E6_X4.ASM</h2>
 <code>
+    
     ; Implement an 8 bit ring counter.
 
-MOV A, #01H 			; INITIALISE
+    <br>
+    
+    
 
-ITER:
-	MOV 60H, A 			; COPY DATA TO DISPLAY PLACEHOLDERS
-	LCALL UPDDT 		; DISPLAY PROGRAM
-	LCALL DELAY 		; AWAIT
+    <br>
+    
+    MOV A, #01H 			; INITIALISE
 
-	RL A 				; LEFT SHIFT ACCUMULATOR, WITHOUT CARRY
+    <br>
+    
+    
 
-	SJMP ITER 	 		; REPEAT IN A LOOP
+    <br>
+    
+    ITER:
 
-DELAY:
-	; AWAIT (04H*0FFH*0FFH) MACHINE CYCLES =&gt; ~0.26 SECONDS
-	MOV R3, #04H
-	UP1:
-		MOV R4, #0FFH
-		UP2:
-			MOV R5, #0FFH
-		DJNZ R4, UP2
-	DJNZ R3, UP1
+    <br>
+    
+    	MOV 60H, A 			; COPY DATA TO DISPLAY PLACEHOLDERS
 
-	RET 				; RETURN BACK TO THE MAIN LOOP
-	END
+    <br>
+    
+    	LCALL UPDDT 		; DISPLAY PROGRAM
 
+    <br>
+    
+    	LCALL DELAY 		; AWAIT
+
+    <br>
+    
+    
+
+    <br>
+    
+    	RL A 				; LEFT SHIFT ACCUMULATOR, WITHOUT CARRY
+
+    <br>
+    
+    
+
+    <br>
+    
+    	SJMP ITER 	 		; REPEAT IN A LOOP
+
+    <br>
+    
+    
+
+    <br>
+    
+    DELAY:
+
+    <br>
+    
+    	; AWAIT (04H*0FFH*0FFH) MACHINE CYCLES =&gt; ~0.26 SECONDS
+
+    <br>
+    
+    	MOV R3, #04H
+
+    <br>
+    
+    	UP1:
+
+    <br>
+    
+    		MOV R4, #0FFH
+
+    <br>
+    
+    		UP2:
+
+    <br>
+    
+    			MOV R5, #0FFH
+
+    <br>
+    
+    		DJNZ R4, UP2
+
+    <br>
+    
+    	DJNZ R3, UP1
+
+    <br>
+    
+    
+
+    <br>
+    
+    	RET 				; RETURN BACK TO THE MAIN LOOP
+
+    <br>
+    
+    	END
+
+    <br>
+    
 </code>
 
 <h2>README.md</h2>
 <code>
+    
     # Counter Programs
 
-## Examples
+    <br>
+    
+    
 
-1. Implement a two digit decimal (BCD) counter. Display each count for 1 sec in the data field of the display.
+    <br>
+    
+    ## Examples
 
-2. Implement a decimal counter whose initial count is 10 and final count is 60. Display each count in the data field of the display for 1 sec.
+    <br>
+    
+    
 
-3. Realize a 2-digit decimal counter which displays counts divisible by 3.
+    <br>
+    
+    1. Implement a two digit decimal (BCD) counter. Display each count for 1 sec in the data field of the display.
 
-4. Realize a 4-digit decimal counter which counts from 0000 to 9999 and then repeats. Display each count in the address field of the display for 1 sec.
+    <br>
+    
+    
 
-## Exercises
+    <br>
+    
+    2. Implement a decimal counter whose initial count is 10 and final count is 60. Display each count in the data field of the display for 1 sec.
 
-1. Realize a 2-digit decimal down counter which counts down from 90 to 30 and then repeats. Display each count in the data field of the display for 0.5 sec.
+    <br>
+    
+    
 
-2. Implement an 8- bit binary up counter.
+    <br>
+    
+    3. Realize a 2-digit decimal counter which displays counts divisible by 3.
 
-3. Implement a binary down counter which counts down from FFh to 00H and then stops.
+    <br>
+    
+    
 
-4. Implement an 8-bit ring counter.
+    <br>
+    
+    4. Realize a 4-digit decimal counter which counts from 0000 to 9999 and then repeats. Display each count in the address field of the display for 1 sec.
 
-## Practice problems
+    <br>
+    
+    
 
-1. Implement an 8-bit Octal up counter.
+    <br>
+    
+    ## Exercises
 
-2. Implement a real time clock to display Hour: Minute: Seconds.
+    <br>
+    
+    
 
-3. Realize an 8-bit Johnson counter.
+    <br>
+    
+    1. Realize a 2-digit decimal down counter which counts down from 90 to 30 and then repeats. Display each count in the data field of the display for 0.5 sec.
 
-4. Implement a 16-bit hexadecimal up counter and display each count for 1 sec.
+    <br>
+    
+    
 
-5. Implement a 4-digit decimal down counter.
+    <br>
+    
+    2. Implement an 8- bit binary up counter.
 
-6. Realize a 2-digit decimal counter, which displays only even counts.
+    <br>
+    
+    
 
+    <br>
+    
+    3. Implement a binary down counter which counts down from FFh to 00H and then stops.
+
+    <br>
+    
+    
+
+    <br>
+    
+    4. Implement an 8-bit ring counter.
+
+    <br>
+    
+    
+
+    <br>
+    
+    ## Practice problems
+
+    <br>
+    
+    
+
+    <br>
+    
+    1. Implement an 8-bit Octal up counter.
+
+    <br>
+    
+    
+
+    <br>
+    
+    2. Implement a real time clock to display Hour: Minute: Seconds.
+
+    <br>
+    
+    
+
+    <br>
+    
+    3. Realize an 8-bit Johnson counter.
+
+    <br>
+    
+    
+
+    <br>
+    
+    4. Implement a 16-bit hexadecimal up counter and display each count for 1 sec.
+
+    <br>
+    
+    
+
+    <br>
+    
+    5. Implement a 4-digit decimal down counter.
+
+    <br>
+    
+    
+
+    <br>
+    
+    6. Realize a 2-digit decimal counter, which displays only even counts.
+
+    <br>
+    
 </code>
 
 

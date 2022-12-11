@@ -9,7 +9,10 @@
 {% for file in data.folderData.keys() %}
 <h2>{{ file }}</h2>
 <code>
-    {{ data.folderData[file] }}
+    {% for line in data.folderData[file] %}
+    {{ line }}
+    <br>
+    {% endfor %}
 </code>
 {% endfor %}
 

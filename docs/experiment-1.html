@@ -19,135 +19,354 @@
 
 <h2>E1_E1.ASM</h2>
 <code>
+    
     MOV A, #55H		; USES AN IMMEDIATE DATA
-MOV R0, A		; COPY FROM THE ACCUMULATOR
-MOV R1, A 		; COPY FROM THE ACCUMULATOR
-MOV R2, A 		; COPY FROM THE ACCUMULATOR
-MOV R3, #99H 	; USES AND IMMEDIATE DATA AS WELL
-MOV R3, A 		; COPY FROM THE ACCUMULATOR
-END
 
+    <br>
+    
+    MOV R0, A		; COPY FROM THE ACCUMULATOR
+
+    <br>
+    
+    MOV R1, A 		; COPY FROM THE ACCUMULATOR
+
+    <br>
+    
+    MOV R2, A 		; COPY FROM THE ACCUMULATOR
+
+    <br>
+    
+    MOV R3, #99H 	; USES AND IMMEDIATE DATA AS WELL
+
+    <br>
+    
+    MOV R3, A 		; COPY FROM THE ACCUMULATOR
+
+    <br>
+    
+    END
+
+    <br>
+    
 </code>
 
 <h2>E1_E10.ASM</h2>
 <code>
+    
     MOV A, #44H	 	; LOAD DATA (44H) INTO THE ACCUMULATOR
-MOV P1, A 		; TRANSFER DATA FROM ACCUMULATOR TO PORT 1
-MOV P2, A 		; TRANSFER DATA TO PORT 2
 
+    <br>
+    
+    MOV P1, A 		; TRANSFER DATA FROM ACCUMULATOR TO PORT 1
+
+    <br>
+    
+    MOV P2, A 		; TRANSFER DATA TO PORT 2
+
+    <br>
+    
 </code>
 
 <h2>E1_E11.ASM</h2>
 <code>
+    
     MOV R0, #30H 		; SOURCE POINTER
-MOV R1, #50H 		; DESTINATION POINTER
-MOV R3, #10 		; COUNTER
-BACK: MOV A, @R0 	; GET A BYTE FROM SOURCE
-MOV @R1, A 			; COPY IT TO DESTINATION
-INC R0 				; INCREMENT SOURCE POINTER
-INC R1 				; INCREMENT DESTINATION POINTER
-DJNZ R3, BACK		; REPEAT FOR ALL 10 BYTES
 
+    <br>
+    
+    MOV R1, #50H 		; DESTINATION POINTER
+
+    <br>
+    
+    MOV R3, #10 		; COUNTER
+
+    <br>
+    
+    BACK: MOV A, @R0 	; GET A BYTE FROM SOURCE
+
+    <br>
+    
+    MOV @R1, A 			; COPY IT TO DESTINATION
+
+    <br>
+    
+    INC R0 				; INCREMENT SOURCE POINTER
+
+    <br>
+    
+    INC R1 				; INCREMENT DESTINATION POINTER
+
+    <br>
+    
+    DJNZ R3, BACK		; REPEAT FOR ALL 10 BYTES
+
+    <br>
+    
 </code>
 
 <h2>E1_E2.ASM</h2>
 <code>
+    
     MOV R5, #0AH	; USES AN IMMEDIATE DATA
-MOV R7, #28		; USES AN IMMEDIATE DATA. BUT NOT HEXADECIMAL
-MOV A, #00H		; USES AN IMMEDIATE DATA AS WELL
-ADD A, R5		; ADD TO THE ACCUMULATOR
-ADD A, R7		; ADD TO THE ACCUMULATOR
-END
 
+    <br>
+    
+    MOV R7, #28		; USES AN IMMEDIATE DATA. BUT NOT HEXADECIMAL
+
+    <br>
+    
+    MOV A, #00H		; USES AN IMMEDIATE DATA AS WELL
+
+    <br>
+    
+    ADD A, R5		; ADD TO THE ACCUMULATOR
+
+    <br>
+    
+    ADD A, R7		; ADD TO THE ACCUMULATOR
+
+    <br>
+    
+    END
+
+    <br>
+    
 </code>
 
 <h2>E1_E3.ASM</h2>
 <code>
+    
     ORG 5000H
-DATA1:	DB	28			; DEFINE A SINGLE BYTE WITH DECIMAL DATA
-DATA2:	DB	00111010B	; DEFINE A SINGLE BYTE WITH BINARY DATA
-DATA3:	DB	39H			; DEFINE A SINGLE BYTE WITH HEXADECIMAL DATA
 
-ORG 510H
-DATA4:	DB	&#34;2591&#34;		; DEFINE A SERIES OF BYTES AS STRING TO ASCII
+    <br>
+    
+    DATA1:	DB	28			; DEFINE A SINGLE BYTE WITH DECIMAL DATA
 
-ORG 518H
-DATA6:	DB	&#34;MANIPAL INSTITUTE&#34;	; DEFINE A SERIES OF BYTES AS STRING TO ASCII
+    <br>
+    
+    DATA2:	DB	00111010B	; DEFINE A SINGLE BYTE WITH BINARY DATA
 
-END
+    <br>
+    
+    DATA3:	DB	39H			; DEFINE A SINGLE BYTE WITH HEXADECIMAL DATA
 
+    <br>
+    
+    
+
+    <br>
+    
+    ORG 510H
+
+    <br>
+    
+    DATA4:	DB	&#34;2591&#34;		; DEFINE A SERIES OF BYTES AS STRING TO ASCII
+
+    <br>
+    
+    
+
+    <br>
+    
+    ORG 518H
+
+    <br>
+    
+    DATA6:	DB	&#34;MANIPAL INSTITUTE&#34;	; DEFINE A SERIES OF BYTES AS STRING TO ASCII
+
+    <br>
+    
+    
+
+    <br>
+    
+    END
+
+    <br>
+    
 </code>
 
 <h2>E1_E4.ASM</h2>
 <code>
+    
     MOV R0, #99H	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
-MOV R1, #85H	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
-MOV R2, #3FH	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
-MOV R7, #63H	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
-MOV R5, #12H	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
-END
 
+    <br>
+    
+    MOV R1, #85H	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+    <br>
+    
+    MOV R2, #3FH	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+    <br>
+    
+    MOV R7, #63H	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+    <br>
+    
+    MOV R5, #12H	; USES AN IMMEDIATE DATA. JUST MOVE AROUND
+
+    <br>
+    
+    END
+
+    <br>
+    
 </code>
 
 <h2>E1_E5.ASM</h2>
 <code>
+    
     MOV R0, #99H	; JUST MOVE AROUND
-MOV R1, #85H	; JUST MOVE AROUND
-MOV R2, #3FH	; JUST MOVE AROUND
-MOV R7, #63H	; JUST MOVE AROUND
-MOV R5, #12H	; JUST MOVE AROUND
-MOV R6, #25H	; JUST MOVE AROUND
-MOV R1, #12H	; JUST MOVE AROUND
-MOV R4, #0F3H	; JUST MOVE AROUND. PREFIX A 0 WHEN HEXADECIMAL STARTS WITH AN ALPHANUMERIC.
-PUSH 6			; PUSH R6 TO THE NEXT POSITION, WHICH IS POSITION 8. SP IS INCREMENTED
-PUSH 1			; PUSH R1 TO THE NEXT POSITION, WHICH IS POSITION 9. SP IS INCREMENTED
-END
 
+    <br>
+    
+    MOV R1, #85H	; JUST MOVE AROUND
+
+    <br>
+    
+    MOV R2, #3FH	; JUST MOVE AROUND
+
+    <br>
+    
+    MOV R7, #63H	; JUST MOVE AROUND
+
+    <br>
+    
+    MOV R5, #12H	; JUST MOVE AROUND
+
+    <br>
+    
+    MOV R6, #25H	; JUST MOVE AROUND
+
+    <br>
+    
+    MOV R1, #12H	; JUST MOVE AROUND
+
+    <br>
+    
+    MOV R4, #0F3H	; JUST MOVE AROUND. PREFIX A 0 WHEN HEXADECIMAL STARTS WITH AN ALPHANUMERIC.
+
+    <br>
+    
+    PUSH 6			; PUSH R6 TO THE NEXT POSITION, WHICH IS POSITION 8. SP IS INCREMENTED
+
+    <br>
+    
+    PUSH 1			; PUSH R1 TO THE NEXT POSITION, WHICH IS POSITION 9. SP IS INCREMENTED
+
+    <br>
+    
+    END
+
+    <br>
+    
 </code>
 
 <h2>E1_E6.ASM</h2>
 <code>
+    
     MOV A, #47H		; DECIMAL ADDITION
-MOV B, #25H
-ADD A, B
-DA A
 
+    <br>
+    
+    MOV B, #25H
+
+    <br>
+    
+    ADD A, B
+
+    <br>
+    
+    DA A
+
+    <br>
+    
 </code>
 
 <h2>E1_E7.ASM</h2>
 <code>
+    
     CLR C 			; CLEAR CARRY
-MOV A, #3FH 	; DATA (3FH) INTO ACCUMULATOR
-MOV R3, #23H 	; COPY (23H) INTO R3
-SUBB A, R3 		; (A) - (R3) =&gt; (A)
 
+    <br>
+    
+    MOV A, #3FH 	; DATA (3FH) INTO ACCUMULATOR
+
+    <br>
+    
+    MOV R3, #23H 	; COPY (23H) INTO R3
+
+    <br>
+    
+    SUBB A, R3 		; (A) - (R3) =&gt; (A)
+
+    <br>
+    
 </code>
 
 <h2>E1_E8.ASM</h2>
 <code>
+    
     MOV A, #25H 		; DATA (25H) INTO ACCUMULATOR
-MOV 0F0H, #65H 		; DATA (65H) INTO REG.B
-MUL AB 				; A × B = A : B
 
+    <br>
+    
+    MOV 0F0H, #65H 		; DATA (65H) INTO REG.B
+
+    <br>
+    
+    MUL AB 				; A × B = A : B
+
+    <br>
+    
 </code>
 
 <h2>E1_E9.ASM</h2>
 <code>
+    
     MOV A, #95H 		; DATA (95H) INTO ACCUMULATOR
-MOV 0F0H, #10H 		; DATA (10H) INTO REG.B
-;(DIRECT ADDRESSING MODE)
-DIV AB 				; A ÷ B → A : B (QQ:RR)
 
+    <br>
+    
+    MOV 0F0H, #10H 		; DATA (10H) INTO REG.B
+
+    <br>
+    
+    ;(DIRECT ADDRESSING MODE)
+
+    <br>
+    
+    DIV AB 				; A ÷ B → A : B (QQ:RR)
+
+    <br>
+    
 </code>
 
 <h2>README.md</h2>
 <code>
+    
     # Introduction to the 8051 assembler software and Familiarization of the 8051 instruction set
 
-The following programs are executed using 8051 Assembler.
+    <br>
+    
+    
 
-The Registers and Memory locations involved are examined.
+    <br>
+    
+    The following programs are executed using 8051 Assembler.
 
+    <br>
+    
+    
+
+    <br>
+    
+    The Registers and Memory locations involved are examined.
+
+    <br>
+    
 </code>
 
 
