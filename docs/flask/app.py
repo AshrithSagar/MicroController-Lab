@@ -49,9 +49,10 @@ def filePage(experimentNumber, fileName):
 
     data = {
         "experimentNumber": experimentNumber,
-        "fileName": fileName
+        "fileName": fileName,
+        "fileData": fileData
     }
-    return render_template("filePage.html", data=data, fileData=fileData), 200, {'Content-Type': 'text/html; charset=utf-8'}
+    return render_template("filePage.html", data=data), 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
 @freezer.register_generator
