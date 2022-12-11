@@ -7,20 +7,10 @@
 
     <h1>Experiment-{{data.experimentNumber}}</h1>
 
-    <ul>
-        {% for file in data.folderContents %}
-        <li>
-            <a href="{{ url_for('filePage', experimentNumber=data.experimentNumber, fileName=file) }}">
-                {{ file }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-
-    <hr>
-
     {% for fileName in data.fileContents.keys() %}
-    <h2>{{ fileName }}</h2>
+    <a href="{{ url_for('filePage', experimentNumber=data.experimentNumber, fileName=fileName) }}">
+        <h2>{{ fileName }}</h2>
+    </a>
     <pre><code>{{ data.fileContents[fileName] }}</code></pre>
     {% endfor %}
 
