@@ -19,7 +19,14 @@ freezer = Freezer(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    file = os.path.join("../../", 'README.md')
+    with open(file, 'r') as f:
+        indexContents = f.read()
+
+    data = {
+        "indexContents": indexContents
+    }
+    return render_template("index.html", data=data)
 
 
 @app.route("/Experiment-<int:experimentNumber>/")
