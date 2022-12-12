@@ -73,7 +73,7 @@ def filePage():
 
 if __name__ == '__main__':
     freezer.freeze()  # Freeze the app into FREEZER_DESTINATION
-    freezer.serve()  # Serve the app locally from FREEZER_DESTINATION
+    freezer.serve(debug=True)  # Serve the app locally from FREEZER_DESTINATION
 
     # freezer.run()  # Choose for URL checking
     # app.run()  # Choose to run locally from Flask
