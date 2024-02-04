@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
 
     <link rel="stylesheet" href="/MicroController-Lab/static/style.css">
     
@@ -367,16 +368,52 @@ HERE:
 	END
 </code></pre>
     
+    <a href="/MicroController-Lab/Experiment-4/E4_P2_2.ASM/">
+        <h2>E4_P2_2.ASM</h2>
+    </a>
+    <pre><code>; Set the carry flag to 0 if the number in
+; accumulator is even, else reset the carry flag.
+
+ORG 0000H			; ORIGINATE
+AJMP START			; JUMP TO THE LABEL START
+
+START:
+	MOV A, #06H 	; INPUT
+
+	CLR C 			; CLEAR CARRY
+	RRC A 			; ROTATE RIGHT ACCUMULATOR; GET LAST BIT OF ACCUMULATOR IN CARRY BIT
+
+	; IF CARRY IS SET, THEN THE NUMBER IS ODD
+	; IF CARRY IS RESET, THEN THE NUMBER IS EVEN
+
+HERE:
+	SJMP HERE			; LOGICAL END
+	END
+</code></pre>
+    
     <a href="/MicroController-Lab/Experiment-4/E4_P3.ASM/">
         <h2>E4_P3.ASM</h2>
     </a>
     <pre><code>; Implement a 4 digit decimal down counter and display the counts on ports.
+; [CHECK]
 
 ORG 0000H				; ORIGINATE
 AJMP START				; JUMP TO THE LABEL START
 
-START:	
-	
+START:
+	MOV DPTR , #9999H	; STARTING COUNT
+
+LOWER:
+	MOV A, 82H 			; GET DPL TO ACCUMULATOR
+	ADD A, #99H			; DECREMENT DPL
+	DA A 				; DECIMALLY ADJUST ACCUMULATOR
+	MOV 82H, A			; STORE DPL
+	JNZ LOWER			; IF LOWER BYTE NOT ZERO, REPEAT DECREMENT LOWER BYTE
+	MOV A, 83H			; GET DPH TO ACCUMULATOR
+	ADD A, #99H			; DECREMENT DPH
+	DA A 				; DECIMALLY ADJUST ACCUMULATOR
+	MOV 83H, A			; STORE DPH
+	JNZ LOWER			; IF HIGHER BYTE NOT ZERO, REPEAT LOOP
 
 HERE:
 	SJMP HERE			; LOGICAL END
@@ -614,6 +651,9 @@ DELAY:
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
 </body>
 
 </html>
