@@ -11,7 +11,7 @@ Using Intel 8051 Assembly language
 
 ## On macOS
 
-Refer to this [8051 Assembly Workflow in macOS](https://mlg556.github.io/8051%20assembly/2019/02/14/8051-assembly-workflow-in-macos.html) to setup tools for 8051 Assembly.
+Refer to this [8051 Assembly Workflow in macOS](https://mlg556.github.io/posts/8051-assembly-workflow-in-macos/8051-assembly-workflow-in-macos.html) to setup tools for 8051 Assembly.
 
 ### Setup
 
