@@ -1,0 +1,37 @@
+;  Convert an ASCII code available in external data memory location
+; into HEX equivalent and display in the Data field of the display.
+
+ORG 0000H
+AJMP START
+
+START:
+	; GET THE DATA FROM EXTERNAL MEMORY
+	MOV DPTR, #0000H
+	MOVX A, @DPTR
+
+	; SUBTRACT (30H) BY DEFAULT
+	CLR C
+	SUBB A, #30H
+
+	MOV R1, A 				; MAKE A COPY IN (R1)
+
+	; CHECK IF NUMBER IS [0-9] OR [A-F]
+	SUBB A, #0AH
+
+	MOV A, R1 				; RETRIEVE THE STORED COPY
+
+	; IF CARRY ==> NUMBER IS IN [0-9]
+	JC DISPLAY
+
+	; IF NO CARRY ==> NUMBER IS IN [A-F]
+	; SUBTRACT AN ADDITIONAL (07H)
+	CLR C
+	SUBB A, #07H
+
+; UPDATE THE KIT DISPLAY WITH THE DATA
+DISPLAY:
+	MOV R0, #60H
+	MOV @R0, A
+	; LCALL UPDDT
+
+END
