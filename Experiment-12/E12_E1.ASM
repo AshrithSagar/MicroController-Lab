@@ -5,7 +5,7 @@
 ; Port A, B, and C are set as output ports
 
 START:
-	MOV P2, #E8H 			; Initialize 8255 for mode 0
+	MOV P2, #0E8H 			; Initialize 8255 for mode 0
 	MOV R0, #03 			; Port A and B as O/P ports
 	MOV A, #80H
 	MOVX @R0, A
