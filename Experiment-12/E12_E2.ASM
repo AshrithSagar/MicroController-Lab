@@ -1,7 +1,7 @@
 ; Generate a saw tooth waveform.
 
 START:
-	MOV P2, #E8H
+	MOV P2, #0E8H
 	MOV R0, #03H
 	MOV A, #80H
 	MOVX @R0, A
