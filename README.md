@@ -1,4 +1,7 @@
 # MicroController-Lab
+
+![GitHub](https://img.shields.io/github/license/AshrithSagar/MicroController-Lab) ![GitHub repo size](https://img.shields.io/github/repo-size/AshrithSagar/MicroController-Lab) [![CodeFactor](https://www.codefactor.io/repository/github/AshrithSagar/MicroController-Lab/badge)](https://www.codefactor.io/repository/github/AshrithSagar/MicroController-Lab)
+
 Using Intel 8051 Assembly language
 
 ## File naming convention
