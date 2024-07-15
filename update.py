@@ -92,9 +92,66 @@ class Updater:
             with open(file, "w") as file_handle:
                 file_handle.write(f"# Experiment {i}\n\n")
 
+    def _update_experiment(self, number: int):
+        def segregate():
+            experiment: dict[str, str] = {}
+            for file, content in self.content.items():
+                if file.startswith(f"Experiment-{number}/E{number}_"):
+                    file = file.replace(f"Experiment-{number}/E{number}_", "")
+                    experiment[file] = content
+
+            examples: dict[str, str] = {}
+            exercises: dict[str, str] = {}
+            problems: dict[str, str] = {}
+            for file, content in experiment.items():
+                start, index = file[0], file[1:]
+                index = index.replace(".ASM", "")
+                if start == "E":
+                    examples[index] = content
+                elif start == "X":
+                    exercises[index] = content
+                elif start == "P":
+                    problems[index] = content
+            return examples, exercises, problems
+
+        def write(contents: dict[str, str], file_handle, prefix=""):
+            def priority(key):
+                parts = key.split("_")
+                if len(parts) == 1:
+                    parts = key.split("-")
+                primary = int(parts[0])
+                if len(parts) > 1:
+                    secondary = int(parts[1])
+                else:
+                    secondary = 0
+                return (primary, secondary)
+
+            keys = sorted(contents, key=priority)
+            for key in keys:
+                file_handle.write(f"### {prefix}-{key}\n\n")
+                file_handle.write("```assembly\n")
+                file_handle.write(contents[key])
+                file_handle.write("```\n\n")
+
+        examples, exercises, problems = segregate()
+        file = os.path.join(self.save_dir, f"Experiment-{number:02}.md")
+        with open(file, "w") as file_handle:
+            file_handle.write(f"# Experiment-{number}\n\n")
+            if examples:
+                file_handle.write("## Examples\n\n")
+                write(examples, file_handle, prefix="Example")
+            if exercises:
+                file_handle.write("## Exercises\n\n")
+                write(exercises, file_handle, prefix="Exercise")
+            if problems:
+                file_handle.write("## Problems\n\n")
+                write(problems, file_handle, prefix="Problem")
+
     def update(self):
         # self._update_home()
         self._create_experiments()
+        for number in self.experiments:
+            self._update_experiment(number)
 
 
 if __name__ == "__main__":
