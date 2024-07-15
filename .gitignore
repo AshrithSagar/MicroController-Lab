@@ -1,0 +1,17 @@
+**/.DS_Store
+.venv/
+venv/
+
+# General
+Report/
+Text format/
+
+# Keil C51 ASM
+Listings/
+Objects/
+*.uvproj
+*.uvopt
+*.uvgui.*
+
+# macOS 8051 Emulator
+8051\ Emulator
