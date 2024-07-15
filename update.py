@@ -15,7 +15,7 @@ class Updater:
     ):
         self.branch = branch
         self.save_dir = save_dir
-        self.experiments = range(1, 11)
+        self.experiments = [1, 2, 3, 4, 5, 6, 7, 9]
 
         os.makedirs(save_dir, exist_ok=True)
         self.exclude = self.get_exclude(exclude_file)
@@ -83,8 +83,18 @@ class Updater:
         with open(file, "w") as file_handle:
             file_handle.write(self.content["README.md"])
 
+    def _create_experiments(self):
+        """Create experiments in self.save_dir"""
+        for i in self.experiments:
+            file = os.path.join(self.save_dir, f"Experiment-{i:02}.md")
+            if os.path.exists(file):
+                continue
+            with open(file, "w") as file_handle:
+                file_handle.write(f"# Experiment {i}\n\n")
+
     def update(self):
-        self._update_home()
+        # self._update_home()
+        self._create_experiments()
 
 
 if __name__ == "__main__":
