@@ -2,16 +2,16 @@
 .venv/
 venv/
 
-# General
+## General
 Report/
 Text format/
 
-# Keil C51 ASM
+## Keil C51 ASM
 Listings/
 Objects/
 *.uvproj
 *.uvopt
 *.uvgui.*
 
-# macOS 8051 Emulator
+## macOS 8051 Emulator
 8051\ Emulator
