@@ -1,6 +1,8 @@
 # MicroController-Lab
 
-![GitHub](https://img.shields.io/github/license/AshrithSagar/MicroController-Lab) ![GitHub repo size](https://img.shields.io/github/repo-size/AshrithSagar/MicroController-Lab)
+![GitHub](https://img.shields.io/github/license/AshrithSagar/MicroController-Lab)
+![GitHub repo size](https://img.shields.io/github/repo-size/AshrithSagar/MicroController-Lab)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-MicroController%20Lab-tan)](https://github.com/AshrithSagar/MicroController-Lab)
 
 Using Intel 8051 Assembly language
 
@@ -53,4 +55,4 @@ Download C51 demo from [Keil-c51](https://www.keil.com/demo/eval/c51.htm).
 
 ## License
 
-This project falls under the MIT license.
+This project falls under the [MIT license](https://github.com/AshrithSagar/MicroController-Lab/blob/main/LICENSE).
